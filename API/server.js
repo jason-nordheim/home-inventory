@@ -35,7 +35,7 @@ app.post('/users', (req, res) => {
     .catch(err => res.json({ err }))
 })
 
-app.post('/authenticate', (req, res) => {
+app.post('/token', (req, res) => {
   const { username, password } = req.body 
 
   database("users").select("*").where({ username }).first()
@@ -50,14 +50,11 @@ app.post('/authenticate', (req, res) => {
             .then(user => {
             jwt.sign(user, "SECRET", (err, token) => {
               if (err) return response.status(400).json({ err })
-              else {
-                res.status(200).json({ token })
-              }
+              else return res.status(200).json({ token }) 
             })
-          })
+          }).catch(err => res.json({ err }))
       }
-    })
-
+    }).catch(err => res.json({ err }))
 })
 
 app.listen(PORT, () => console.log(`Home Inventory API running on ${PORT}...`))
