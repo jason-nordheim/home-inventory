@@ -104,4 +104,10 @@ app.post('/locations', Authenticate, (req, res) => {
     .catch(err => res.status(500).json({ err }))
 })
 
+app.get('/locations', Authenticate, (req, res) => {
+  database("locations").select("*").where({ user_id: req.user.id })
+  .then( locations => res.status(200).json({ locations }))
+  .catch( err => res.status(500).json({ err }))
+})
+
 app.listen(PORT, () => console.log(`Home Inventory API running on ${PORT}...`))
