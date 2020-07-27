@@ -16,28 +16,24 @@ const HASH_COST = 12;
 const PORT = process.env.PORT || 4000
 
 /* Middleware */
-const Authenticate = (request, response, next) => {
-  const authHeader = request.headers.authorization;
-  console.log(authHeader)
+const Authenticate = (req, res, next) => {
+  const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, SECRET, (error, user) => {
-      if (error) return response.sendStatus(403);
+    jwt.verify(token, SECRET, (err, user) => {
+      if (err) return res.status(403).json({ err });
       else {
-        request.user = user;
+        req.user = user;
         next();
       }
     });
-  } else response.sendStatus(401);
+  } else res.status(401).json({ err: "Uncaught Authorization Error"});
 };
-
-
-
 app.use(bodyParser.json())
 app.use(cors())
 
 
-
+/* Routes */ 
 app.post('/users', (req, res) => {
   const { first, last, username, password, email, bio } = req.body 
   
@@ -51,9 +47,9 @@ app.post('/users', (req, res) => {
         .returning("*")
         .limit(1)
         .then(newUser => { res.json(newUser)})
-        .catch(err => res.json({ err: err.detail }))
+        .catch(err => res.status(400).json({ err: err.detail }))
     })
-    .catch(err => res.json({ err }))
+    .catch(err => res.status(400).json({ err }))
 })
 
 app.get('/users', Authenticate, (req, res) => {
@@ -84,6 +80,28 @@ app.post('/token', (req, res) => {
           }).catch(err => res.json({ err }))
       }
     }).catch(err => res.json({ err }))
+})
+
+
+app.post('/locations', Authenticate, (req, res) => {
+  const { name, street1, street2, city, state, zip, type } = req.body 
+  const newRecord = {
+    user_id: req.user.id,
+    name,
+    street1,
+    street2,
+    city,
+    state,
+    zip,
+    type,
+  };
+
+  database("locations")
+    .insert(newRecord)
+    .returning("*")
+    .andWhere({ user_id: req.user.id })
+    .then(locations => res.status(200).json({ locations }))
+    .catch(err => res.status(500).json({ err }))
 })
 
 app.listen(PORT, () => console.log(`Home Inventory API running on ${PORT}...`))
