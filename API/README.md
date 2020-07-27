@@ -75,6 +75,7 @@
 ### Get Token 
 * Endpoint: `/token` 
 * Action: `CREATE` 
+* Header: NA 
 * HTTP Method: `POST` 
 * Arguments: 
   * `username` - user's public screen name (and login name) 
@@ -104,7 +105,7 @@
 
 * Endpoint: `/locations`
 * Action: `CREATE` 
-* Header: bearer token 
+* Header: bearer token **required** 
 * HTTP Method: `POST` 
 * Arguments: 
   * `name` - user-defined name of location 
@@ -148,5 +149,66 @@
   ```
 
 
+* Endpoint: `/locations`
+* Action: `READ` 
+* Header: bearer token **required** 
+* HTTP Method: `GET` 
+* Arguments: 
+  * NA 
+* HTTP Body: 
+  * NA  
+* HTTP Response: 
+  * Success (HTTP Status Code: 200): 
+  ```json 
+  {
+    "locations": [
+        {
+            "id": 1,
+            "created_at": "2020-07-27T22:15:53.740Z",
+            "updated_at": "2020-07-27T22:15:53.740Z",
+            "user_id": 1,
+            "name": "Home",
+            "street1": "674 Old Townie Way",
+            "street2": null,
+            "city": "Denver",
+            "state": "CO",
+            "zip": "80204",
+            "type": null
+        },
+        {
+            "id": 2,
+            "created_at": "2020-07-27T22:16:10.036Z",
+            "updated_at": "2020-07-27T22:16:10.036Z",
+            "user_id": 1,
+            "name": "Home",
+            "street1": "674 Old Townie Way",
+            "street2": null,
+            "city": "Denver",
+            "state": "CO",
+            "zip": "80204",
+            "type": null
+        },
+        {
+            "id": 3,
+            "created_at": "2020-07-27T22:16:54.853Z",
+            "updated_at": "2020-07-27T22:16:54.853Z",
+            "user_id": 1,
+            "name": "Home",
+            "street1": "674 Old Townie Way",
+            "street2": null,
+            "city": "Denver",
+            "state": "CO",
+            "zip": "80204",
+            "type": "house"
+        }
+    ]
+  } 
+  ```
+  * Bad Request (HTTP Status Code: 400): 
+  ```json
+  {
+    "error": "message explaining what went wrong"
+  }
+  ```
 
 ### Items 
