@@ -1,0 +1,28 @@
+{
+  "name": "home-invetory-api",
+  "version": "1.0.0",
+  "description": "A tracker of personal belongings for organization and insurance purposes",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jason-nordheim/home-inventory.git"
+  },
+  "author": "Jason Nordheim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jason-nordheim/home-inventory/issues"
+  },
+  "homepage": "https://github.com/jason-nordheim/home-inventory#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.2",
+    "pg": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
