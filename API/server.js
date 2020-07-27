@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const knex = require("knex");
+const jwt = require('jsonwebtoken')
+const { response } = require( 'express' )
 const config = require("./knexfile")[process.env.NODE_ENV || "development"];
 const database = knex(config) 
 
@@ -33,5 +35,29 @@ app.post('/users', (req, res) => {
     .catch(err => res.json({ err }))
 })
 
+app.post('/authenticate', (req, res) => {
+  const { username, password } = req.body 
+
+  database("users").select("*").where({ username }).first()
+    .then(user => {
+      if (user == null) return res.status(400).json({ err: "Invalid Username"})
+      else {
+        bcrypt.compare(password, user.password_digest)
+          .then(pwdMatches => {
+            if (!pwdMatches) return res.status(400).json({ err: "Invalid password" })
+            else return user 
+          })
+            .then(user => {
+            jwt.sign(user, "SECRET", (err, token) => {
+              if (err) return response.status(400).json({ err })
+              else {
+                res.status(200).json({ token })
+              }
+            })
+          })
+      }
+    })
+
+})
 
 app.listen(PORT, () => console.log(`Home Inventory API running on ${PORT}...`))
