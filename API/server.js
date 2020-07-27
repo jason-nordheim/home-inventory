@@ -10,12 +10,33 @@ const { response } = require( 'express' )
 const config = require("./knexfile")[process.env.NODE_ENV || "development"];
 const database = knex(config) 
 
+/* Constants */
+const SECRET = "S3CR3T"
 const HASH_COST = 12;
 const PORT = process.env.PORT || 4000
 
 /* Middleware */
+const Authenticate = (request, response, next) => {
+  const authHeader = request.headers.authorization;
+  console.log(authHeader)
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, SECRET, (error, user) => {
+      if (error) return response.sendStatus(403);
+      else {
+        request.user = user;
+        next();
+      }
+    });
+  } else response.sendStatus(401);
+};
+
+
+
 app.use(bodyParser.json())
 app.use(cors())
+
+
 
 app.post('/users', (req, res) => {
   const { first, last, username, password, email, bio } = req.body 
@@ -35,6 +56,14 @@ app.post('/users', (req, res) => {
     .catch(err => res.json({ err }))
 })
 
+app.get('/users', Authenticate, (req, res) => {
+  database("user").select("*").whereNot({id: req.user.id })
+    .then((users, err) => {
+      if (err) return res.status(400).json({ err })
+      else return res.status(200).json({ users })
+    })
+})
+
 app.post('/token', (req, res) => {
   const { username, password } = req.body 
 
@@ -48,7 +77,7 @@ app.post('/token', (req, res) => {
             else return user 
           })
             .then(user => {
-            jwt.sign(user, "SECRET", (err, token) => {
+            jwt.sign(user, SECRET, (err, token) => {
               if (err) return response.status(400).json({ err })
               else return res.status(200).json({ token }) 
             })
