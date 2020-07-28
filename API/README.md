@@ -27,6 +27,7 @@
   ```
 
 
+*** 
 ### Register 
 * Endpoint: `/users`
 * Action: `CREATE` 
@@ -68,10 +69,11 @@
   * Bad Request (HTTP Status Code: 400): 
   ```json
   {
-    "error": "message explaining what went wrong"
+    "err": "message explaining what went wrong"
   }
   ```
 
+*** 
 ### Get Token 
 * Endpoint: `/token` 
 * Action: `CREATE` 
@@ -97,12 +99,14 @@
   * Bad Request (HTTP Status Code: 400): 
   ```json
   {
-    "error": "message explaining what went wrong"
+    "er": "message explaining what went wrong"
   }
   ```
 
+*** 
 ## Locations 
 
+### Create Location 
 * Endpoint: `/locations`
 * Action: `CREATE` 
 * Header: bearer token **required** 
@@ -144,11 +148,11 @@
   * Bad Request (HTTP Status Code: 400): 
   ```json
   {
-    "error": "message explaining what went wrong"
+    "err": "message explaining what went wrong"
   }
   ```
 
-
+### Get Created Locations (for current user) 
 * Endpoint: `/locations`
 * Action: `READ` 
 * Header: bearer token **required** 
@@ -207,8 +211,162 @@
   * Bad Request (HTTP Status Code: 400): 
   ```json
   {
-    "error": "message explaining what went wrong"
+    "err": "message explaining what went wrong"
   }
   ```
 
+### Vendors 
+
+* Endpoint: `/vendors`
+* Header: bearer token 
+* Action: `CREATE` 
+* HTTP Method: `POST` 
+* Arguments: 
+  * `created_by` - the unique identifier of the user who created the record 
+  * `name` - the name of the vendor 
+  * `email` - contact email address for the vendor 
+  * `phone` - contact phone for the vendor 
+  * `street1` - first line of mailing address
+  * `street2` - second line of mailing address 
+  * `city` - the city of the mailing address
+  * `state` - the state of the mailing address 
+  * `zip` - the zip code of the mailing address
+  * `description` - a description of the vendor 
+* HTTP Body: 
+  ```json
+  {
+    "name": "Apple Cherry Creek", 
+    "email": "support@apple.com", 
+    "phone": "303-583-7310", 
+    "street1" : "3000 E 1st Ave", 
+    "street2" : null, 
+    "city" : "Denver", 
+    "state" : "CO", 
+    "zip": "80206", 
+    "description": "Due to covid, the store is closing at 7pm" 
+  }
+  ```
+* HTTP Response: 
+  * Success (HTTP Status Code: 200): 
+  ```json
+  {
+    "id": 1234, 
+    "created_at": "2020-07-27T22:16:54.853Z",
+    "updated_at": "2020-07-27T22:16:54.853Z",
+    "created_by": 1234, 
+    "name": "Apple Cherry Creek", 
+    "email": "support@apple.com", 
+    "phone": "303-583-7310", 
+    "street1" : "3000 E 1st Ave", 
+    "street2" : null, 
+    "city" : "Denver", 
+    "state" : "CO", 
+    "zip": "80206", 
+    "description": "Due to covid, the store is closing at 7pm" 
+  }
+  ```
+  * Bad Request (HTTP Status Code: 400): 
+  ```json
+  {
+    "err": "message explaining what went wrong"
+  }
+  ```
+
+* Endpoint: `/vendors`
+* Header: bearer token 
+* Action: `READ` 
+* HTTP Method: `GET` 
+* Arguments: NA
+* HTTP Body: NA 
+* HTTP Response: 
+  ```json
+  {
+    "vendors": [
+        {
+            "id": 1,
+            "created_at": "2020-07-27T23:14:20.291Z",
+            "updated_at": "2020-07-27T23:14:20.291Z",
+            "created_by": 1,
+            "name": "Apple Cherry Creek",
+            "email": "support@apple.com",
+            "phone": "303-583-7310",
+            "street1": "3000 E 1st Ave",
+            "street2": null,
+            "city": "Denver",
+            "state": "CO",
+            "zip": "80206",
+            "description": "Due to covid, the store is closing at 7pm"
+        }
+    ]
+  }
+  ``` 
+
+*** 
 ### Items 
+
+
+* Endpoint: `/items`
+* Header: bearer token - 
+* Action: `CREATE` 
+* HTTP Method: `POST` 
+* Arguments: 
+  * `location_id` - unique idenitifier for the location of the item 
+  * `user_id` - user owning the item (identified via bearer token) 
+  * `vendor_id` - unique identifier of the vendor the item was purchased from 
+  * `name` - the user-defined name of the item 
+  * `brand` - the brand associated with the item (Nike, Apple, etc.)
+  * `model` - the model name or number associated with the item 
+  * `serial` - the serial number associated with the item 
+  * `est_value` - the estimated value of the item 
+  * `acc_value` - the actual value of the item 
+  * `insured` - (true/false) - is insured? 
+  * `selling` - user-designation, indicates an item is for sale 
+  * `purchase_date` - date item was purchased 
+  * `condition` - the items condition status 
+  * `color` - the items color 
+  * `description` - any additional details about the item 
+* HTTP Body:
+  ```json
+  {
+    "location_id": 1234, 
+    "vendor_id": 1234, 
+    "name": "iPhone XS Max", 
+    "brand": "Apple", 
+    "model": "XS Max (256GB)", 
+    "serial": "C02TNDGIGN506", 
+    "est_value": 750.00, 
+    "insured": false, 
+    "selling": false, 
+    "purchase_date": "2020-07-27T23:14:20.291Z", 
+    "condition": "used (like-new)", 
+    "color": "white", 
+    "description": "Current iPhone" 
+  }
+  ``` 
+* HTTP Response: 
+  ```json
+  {
+    "items": [
+        {
+            "id": 3,
+            "created_at": "2020-07-28T15:39:46.786Z",
+            "updated_at": "2020-07-28T15:39:46.786Z",
+            "location_id": 1,
+            "user_id": 1,
+            "vendor_id": 1,
+            "name": "iPhone XS Max",
+            "brand": "Apple",
+            "model": "XS Max (256GB)",
+            "serial": "C02TNDGIGN506",
+            "est_value": 750,
+            "acc_value": null,
+            "insured": false,
+            "selling": false,
+            "purchase_date": "2020-07-27T06:00:00.000Z",
+            "condition": "used (like-new)",
+            "color": "white",
+            "description": "Current iPhone"
+        }
+    ]
+  }
+  ``` 

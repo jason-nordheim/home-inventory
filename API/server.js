@@ -6,7 +6,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const knex = require("knex");
 const jwt = require('jsonwebtoken')
-const { response } = require( 'express' )
+const { response, json } = require( 'express' )
 const config = require("./knexfile")[process.env.NODE_ENV || "development"];
 const database = knex(config) 
 
@@ -105,9 +105,109 @@ app.post('/locations', Authenticate, (req, res) => {
 })
 
 app.get('/locations', Authenticate, (req, res) => {
-  database("locations").select("*").where({ user_id: req.user.id })
+  database("locations").select("*")
   .then( locations => res.status(200).json({ locations }))
   .catch( err => res.status(500).json({ err }))
 })
+
+app.get('/vendors', Authenticate, (req, res) => {
+  database("vendors").select("*")
+    .then( vendors => res.status(200).json({ vendors }))
+    .catch(err => res.status(500).json({ err }))
+})
+app.post('/vendors', Authenticate, (req, res) => {
+  const { name, email, phone, street1, street2, city, state, zip, description } = req.body 
+  const newRecord = {
+    created_by: req.user.id, 
+    name, 
+    email, 
+    phone, 
+    street1, 
+    street2, 
+    city, 
+    state, 
+    zip, 
+    description
+  }
+
+  database("vendors")
+    .insert(newRecord)
+    .returning("*")
+    .then( vendors => req.status(200).json({ vendors }))
+    .catch( err => res.status(500).json({ err }))
+})
+
+app.get('/items', Authenticate, (req, res) => {
+ const user_id = req.user.id 
+ database("items")
+  .select("*")
+  .where({ user_id })
+  .then(items => res.status(200).json({ items }))
+  .catch(err => res.status(500).json({ err })) 
+}) 
+
+app.post('/items', Authenticate, (req, res) => {
+  const {
+   location_id,
+   vendor_id,
+   name,
+   brand,
+   model,
+   serial,
+   est_value,
+   acc_value,
+   insured,
+   selling,
+   purchase_date,
+   condition,
+   color,
+   description,
+ } = req.body;
+ const user_id = req.user.id;
+
+ if (user_id == null)
+   return res.status(400).json({ err: `"user_id" is a required parameter` });
+ else if (location_id == null)
+   return res
+     .status(400)
+     .json({ err: `"location_id" is a required parameter` });
+ else if (name == null)
+   return res.status(400).json({ err: `"name" is a required parameter` });
+ else if (name.length > 200)
+   return res
+     .status(400)
+     .json({ err: `"name" cannot be greater than 200 characters` });
+
+ const newRecord = {
+   user_id,
+   location_id,
+   vendor_id,
+   name,
+   brand,
+   model,
+   serial,
+   est_value,
+   acc_value,
+   insured,
+   selling,
+   purchase_date,
+   condition,
+   color,
+   description,
+ };
+
+ database("items")
+   .insert(newRecord)
+   .returning("*")
+   .then((items) => {
+     const user_items = items.filter((i) => i.user_id == user_id);
+     res.status(200).json({ items: user_items });
+   })
+   .catch((err) => res.status(500).json({ err }));
+})
+
+
+
+
 
 app.listen(PORT, () => console.log(`Home Inventory API running on ${PORT}...`))
