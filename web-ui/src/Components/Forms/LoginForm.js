@@ -9,7 +9,10 @@ export function LoginForm({ userState, userActions }) {
 
   return (
     <form>
-      <section>
+      <div> 
+        <h1>Login</h1>
+      </div>
+      <div>
         <label htmlFor="username">
           Username
         </label>
@@ -18,8 +21,8 @@ export function LoginForm({ userState, userActions }) {
           placeholder="username"
           onChange={(e) => userActions.setUsername(e.target.value)}
         />
-      </section>
-      <section>
+      </div>
+      <div>
         <label htmlFor="password">
           Password
         </label>
@@ -29,12 +32,12 @@ export function LoginForm({ userState, userActions }) {
           placeholder="password"
           onChange={(e) => userActions.setPassword(e.target.value)}
         />
-      </section>
-      <section>
+      </div>
+      <div>
         <button style={{ width: "25%" }} onClick={handleSubmit}>
           Login
         </button>
-      </section>
+      </div>
     </form>
   );
 }
