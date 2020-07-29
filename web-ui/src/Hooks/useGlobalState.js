@@ -1,5 +1,5 @@
 import useLocalStorage from "./useLocalStorage";
-import { post } from "../helpers/apiHelpers";
+import { post, authPost } from "../helpers/apiHelpers";
 
 const undefinedUser = {
   first: null,
@@ -37,10 +37,11 @@ export const useGlobalState = (baseUrl = "http://localhost:4000") => {
     setStreet1: async (street1) => await setLocation({...location, street1}), 
     setStreet2: async (street2) => await setLocation({...location, street2}), 
     setCity: async (city) => await setLocation({...location, city}), 
+    setZip: async (zip) => await setLocation({...location, zip}), 
     setState: async (state) => await setLocation({...location, state}), 
     setType: async (type) => await setLocation({...location, type}), 
     create: async () => {
-      
+
     }
   }
 
@@ -77,5 +78,5 @@ export const useGlobalState = (baseUrl = "http://localhost:4000") => {
     },
   };
 
-  return [userState, userActions];
+  return [userState, userActions, location, locationActions];
 };
