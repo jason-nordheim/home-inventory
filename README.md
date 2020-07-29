@@ -20,23 +20,32 @@ The back-end of this application is in the `./API/` directory
 ## MVP (Minimal Viable Product) 
 
 1. Can create a user-account 
+    * DB: 
+        * `user` model (name, phone, email, username, password)
     * API 
-        * `POST` request to create account 
+        * `POST` request to create account (authentication: none) 
     * WebUI 
         * Form to fill out `username`, `password` and other user-account information 
-        * `POST` request to create account 
+        * `POST` request to create account (authentication: none) 
         * validation of response 
             * display error/success 
 2. Can securely login to user-account 
+    * DB: 
+        * `user` model (See #1)
     * API
-        * `POST` request with account credentials (`username`, `password`)
+        * `POST` request with account credentials; `username`, `password` (authentication: none) 
         * validation and identification of user 
         * HTTP response with bearer token 
     * WebUI 
         * Form to fill out `username` and `password`
-        * `POST` request to API with account credentials (`username`, `password`)
+        * `POST` request to API with account credentials; `username`, `password` (authentication: none) 
         * validation of HTTP response: 
             * display of error/success
+3. Can successfully enter a `location` (place where an item is located/belongs) 
+    * DB 
+    * API 
+    * WebUI 
+4. Can successfully create a `vendor` ()
 
 
 # FILL IN 
