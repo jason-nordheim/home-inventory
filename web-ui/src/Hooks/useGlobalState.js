@@ -41,7 +41,10 @@ export const useGlobalState = (baseUrl = "http://localhost:4000") => {
     setState: async (state) => await setLocation({...location, state}), 
     setType: async (type) => await setLocation({...location, type}), 
     create: async () => {
-
+      console.log('token', token)
+      const response = await authPost(baseUrl, "/locations", location, token)
+      const data = await response.json() 
+      console.log('data', data)
     }
   }
 
