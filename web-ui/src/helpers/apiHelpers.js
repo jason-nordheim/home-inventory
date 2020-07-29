@@ -1,3 +1,6 @@
+const axios = require("axios").default;
+
+
 export const post = async (apiURL, path, payload) => {
   return await fetch(apiURL + path, {
     method: "POST",
@@ -6,14 +9,19 @@ export const post = async (apiURL, path, payload) => {
   });
 };
 export const authPost = async (apiURL, path, payload, token) => {
-  return await fetch(apiURL + path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authentication: `bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  });
+  // need to test 
+  return await axios.post((apiURL + path), payload, {
+    headers: { Authentication: `bearer ${token}`}
+  })
+
+  // return await fetch(apiURL + path, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authentication: `bearer ${token}`,
+  //   },
+  //   body: JSON.stringify(payload),
+  // });
 };
 export const get = async (apiUrl, path) => {
   return await fetch(apiUrl + path, {
@@ -26,7 +34,7 @@ export const authGet = async (apiUrl, path, token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authentication: `bearer ${token}`,
+      Authentication: ,
     },
   });
 };
