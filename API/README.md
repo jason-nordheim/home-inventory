@@ -127,7 +127,8 @@
     "street2": null, 
     "city": "Denver", 
     "state": "CO", 
-    "zip": "80204"
+    "zip": "80204", 
+    "type": "house"
   }
   ```
 * HTTP Response: 
@@ -140,6 +141,7 @@
     "city": "Denver", 
     "state": "CO", 
     "zip": "80204",
+    "type": "house", 
     "user_id": 1234, 
     "created_at": "2020-07-20T22:46:44.047Z", 
     "updated_at": "2020-07-20T22:46:44.047Z" 
