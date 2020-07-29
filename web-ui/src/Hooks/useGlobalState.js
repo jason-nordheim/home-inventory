@@ -11,8 +11,19 @@ const undefinedUser = {
   password_digest: null,
 };
 
+const undefinedLocation = {
+  name: null, 
+  street1: null, 
+  street2: null, 
+  city: null, 
+  state: null, 
+  zip: null, 
+  type: null, 
+}
+
 export const useGlobalState = (baseUrl = "http://localhost:4000") => {
   const [user, setUser] = useLocalStorage("user", undefinedUser);
+  const [location, setLocation] = useLocalStorage("location", undefinedLocation)
   const [token, setToken] = useLocalStorage("token", null);
 
   const userState = {
@@ -20,6 +31,18 @@ export const useGlobalState = (baseUrl = "http://localhost:4000") => {
     token: token,
     user: user,
   };
+
+  const locationActions = {
+    setName: async (name) => await setLocation({...location, name}), 
+    setStreet1: async (street1) => await setLocation({...location, street1}), 
+    setStreet2: async (street2) => await setLocation({...location, street2}), 
+    setCity: async (city) => await setLocation({...location, city}), 
+    setState: async (state) => await setLocation({...location, state}), 
+    setType: async (type) => await setLocation({...location, type}), 
+    create: async () => {
+      
+    }
+  }
 
   const userActions = {
     setFirst: async (firstName) => await setUser({ ...user, first: firstName }),
