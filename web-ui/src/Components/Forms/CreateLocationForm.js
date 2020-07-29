@@ -12,10 +12,9 @@ export function CreateLocationForm({ userState, userActions, location, locationA
     other: "Other"
   };
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault() 
-    console.log(location)
-    alert(location)
+    await locationActions.create() 
   }
 
   return (
