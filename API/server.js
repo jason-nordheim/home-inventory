@@ -16,6 +16,9 @@ const HASH_COST = 12;
 const PORT = process.env.PORT || 4000
 
 /* Middleware */
+app.use(bodyParser.json())
+app.use(cors())
+
 const Authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
@@ -29,8 +32,6 @@ const Authenticate = (req, res, next) => {
     });
   } else res.status(401).json({ err: "Uncaught Authorization Error"});
 };
-app.use(bodyParser.json())
-app.use(cors())
 
 
 /* Routes */ 
