@@ -85,7 +85,7 @@ export function CreateLocationForm({ userState, userActions, location, locationA
       <div>
         <label htmlFor="type">Type</label>
         <select
-          defaultValue={location.type || location_types[0].value }
+          defaultValue={location.type || location_types[0] }
           onChange={(e) => locationActions.setType(e.target.value)}
           htmlFor="type"
         >
