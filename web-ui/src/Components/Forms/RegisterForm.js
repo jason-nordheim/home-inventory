@@ -12,6 +12,9 @@ export function RegisterForm({ userState, userActions }) {
   return (
     <form>
       <div>
+        <h1>Register</h1>
+      </div>
+      <div>
         <label aria-label="First name">First</label>
         <input
           htmlFor="first"
