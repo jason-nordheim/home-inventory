@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGlobalState } from '../Hooks/useGlobalState'
-import './App.css'
 import { CreateLocationForm } from './Forms/CreateLocationForm'
+import './App.css'
 
 function App() {
   const [userState, userActions, location, locationActions] = useGlobalState();
