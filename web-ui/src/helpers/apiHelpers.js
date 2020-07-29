@@ -34,7 +34,7 @@ export const authGet = async (apiUrl, path, token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authentication: ,
+      Authentication: `bearer ${token}`,
     },
   });
 };
