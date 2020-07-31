@@ -52,3 +52,9 @@ The back-end of this application is in the `./API/` directory
 
 [APPNAME] -- Application Name 
 [COMPANYNAME] -- Name of development organization 
+
+
+
+## Future Features 
+
+* ADD-ON (location) Ability to designate a room for which an item is stored.
