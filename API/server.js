@@ -47,7 +47,7 @@ app.post('/users', (req, res) => {
         .insert({ first, last, username, password_digest: hashedPwd, email, bio })
         .returning("*")
         .limit(1)
-        .then(newUser => { res.json(newUser)})
+        .then(newUser => { console.log('new user created', newUser); res.json(newUser)})
         .catch(err => res.status(400).json({ err: err.detail }))
     })
     .catch(err => res.status(400).json({ err }))
