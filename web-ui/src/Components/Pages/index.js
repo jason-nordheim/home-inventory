@@ -3,6 +3,7 @@ import HomePage from './HomePage'
 import ItemsPage from './ItemsPage' 
 import LocationsPage from './LocationsPage'
 import VendorsPage from './VendorsPage'
+import AccountDetails from '../AccountDetails'
 
 export const pages = [
     {
@@ -13,7 +14,7 @@ export const pages = [
         path: '/', 
         description: 'displays overview of logged-in user, or redirects to login screen if not logged in', 
         component: HomePage, 
-        active: true, 
+        nav: true, 
     }, 
     {
         key: 1, 
@@ -23,7 +24,7 @@ export const pages = [
         exact: false, 
         description: "displays all of the current user items", 
         component: ItemsPage, 
-        active: false, 
+        nav: true,  
     }, 
     {
         key: 2, 
@@ -33,7 +34,7 @@ export const pages = [
         exact: false, 
         component: LocationsPage, 
         description: 'displays all of the locations associated with the current user', 
-        active: false, 
+        nav: true, 
     }, 
     {
         key: 3, 
@@ -43,8 +44,18 @@ export const pages = [
         exact: false, 
         component: VendorsPage, 
         description: 'displays all of the vendors created by the current user', 
-        active: false 
-    } 
+        nav: true
+    }, 
+    {
+        key: 4, 
+        name: 'account', 
+        display: 'Account Information', 
+        path: '/account', 
+        exact: false, 
+        component: AccountDetails, 
+        description: 'displays information regarding the details of the currently logged in user', 
+        nav: false, 
+    }
 ]
 
 export default pages; 
