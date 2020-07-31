@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header /> 
+      <Header userState={userState} userActions={userActions} /> 
       <Switch>
        { pages.map( page => <Route {...page} /> )}
       </Switch>
