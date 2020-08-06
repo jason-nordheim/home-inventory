@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       paddingTop: '3rem', 
       paddingBottom: '4rem', 
+      marginBottom: '1rem', 
       '& div': {
         display: 'flex', 
         placeContent: 'center'
