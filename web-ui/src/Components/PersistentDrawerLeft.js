@@ -19,10 +19,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const PersistentDrawerLeft = (props) => {
+import SitePages from '../data/SitePages'
+
+
+const PersistentDrawerLeft = ({ children }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [ open, setOpen ] = useState(false);
@@ -34,21 +35,6 @@ const PersistentDrawerLeft = (props) => {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-
-	const drawerLinks = [
-		{
-			text : 'Home',
-			url  : '/',
-			nav  : true,
-			icon : <HomeIcon />
-		},
-		{
-			text : 'Account',
-			url  : '/account',
-			nav  : true,
-			icon : <AccountCircleIcon />
-		}
-	];
 
 	return (
 		<div className={classes.root}>
@@ -92,7 +78,7 @@ const PersistentDrawerLeft = (props) => {
 				</div>
 				<Divider />
 				<List>
-					{drawerLinks.map((link) => {
+					{SitePages.map((link) => {
 						return (
 							<ListItem button key={link.text}>
 								<ListItemIcon>{link.icon}</ListItemIcon>
@@ -108,7 +94,7 @@ const PersistentDrawerLeft = (props) => {
 				})}
 			>
 				<div className={classes.drawerHeader} />
-				{props.children}
+				{ children }
 			</main>
 		</div>
 	);
