@@ -21,6 +21,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import SitePages from '../data/SitePages'
+import { Link } from 'react-router-dom';
 
 
 const PersistentDrawerLeft = ({ children }) => {
@@ -80,10 +81,12 @@ const PersistentDrawerLeft = ({ children }) => {
 				<List>
 					{SitePages.map((link) => {
 						return (
-							<ListItem button key={link.text}>
-								<ListItemIcon>{link.icon}</ListItemIcon>
-								<ListItemText primary={link.text} />
-							</ListItem>
+							<Link className={classes.navLink} key={link.text} to={link.url} >
+								<ListItem button>
+									<ListItemIcon>{link.icon}</ListItemIcon>
+									<ListItemText primary={link.text} />
+								</ListItem>
+							</Link>
 						);
 					})}
 				</List>

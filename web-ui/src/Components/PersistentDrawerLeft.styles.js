@@ -59,5 +59,8 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  }, 
+  navLink: {
+    textDecoration: 'none', color: 'inherit' 
   }
 }));
