@@ -16,6 +16,10 @@ const SignInForm = () => {
 	const handlePasswordInput = (e) => {
 		setPassword(e.target.value);
 	};
+
+	const handleSubmit = e => {
+        e.preventDefault() 
+    }
 	return (
 		<Paper>
 			<form className={classes.root}>
@@ -29,6 +33,7 @@ const SignInForm = () => {
 						label="Username"
 						defaultValue={username}
 						onChange={handleUsernameInput}
+						required
 					/>
 					<TextField
 						error={passwordError}
@@ -36,10 +41,11 @@ const SignInForm = () => {
 						label="Password"
 						defaultValue={passwordError}
 						onChange={handlePasswordInput}
+						required
 					/>
 					<span style={{ alignSelf: 'center'}}>
-						<Button variant="contained" color="primary">
-							Primary
+						<Button variant="contained" color="primary" onClick={handleSubmit}>
+							Sign In
 						</Button>
 					</span>
 				</div>
