@@ -17,5 +17,6 @@ class Authenticator {
     }
 }
 
+/** Singleton Pattern  */
 const MyAuthenticator = new Authenticator() 
 export default MyAuthenticator
