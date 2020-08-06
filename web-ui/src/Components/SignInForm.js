@@ -8,18 +8,25 @@ const SignInForm = () => {
 	const [ password, setPassword ] = useState('');
 	const [ passwordError, setPasswordError ] = useState(null);
 	const classes = useStyles();
+	const MIN_CHARS = 3;
 
 	const handleUsernameInput = (e) => {
 		setUsername(e.target.value);
+		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
+			setUsernameError('Username too short');
+		}
 	};
 
 	const handlePasswordInput = (e) => {
 		setPassword(e.target.value);
+		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
+			setPasswordError('Password too short');
+		}
 	};
 
-	const handleSubmit = e => {
-        e.preventDefault() 
-    }
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
 	return (
 		<Paper>
 			<form className={classes.root}>
@@ -43,8 +50,18 @@ const SignInForm = () => {
 						onChange={handlePasswordInput}
 						required
 					/>
-					<span style={{ alignSelf: 'center'}}>
-						<Button variant="contained" color="primary" onClick={handleSubmit}>
+					<span style={{ alignSelf: 'center' }}>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleSubmit}
+							disabled={
+								passwordError !== null ||
+								usernameError !== null ||
+								password.length < MIN_CHARS ||
+								username.length < MIN_CHARS
+							}
+						>
 							Sign In
 						</Button>
 					</span>
