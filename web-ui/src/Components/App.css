@@ -1,6 +1,0 @@
-/* Gloabl Styles */ 
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
-
-body, p, input, label, button, select, textarea, option {
-  font-family: 'Lato', sans-serif;
-}
