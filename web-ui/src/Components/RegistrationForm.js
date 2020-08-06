@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './SignInForm.styles';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
 	const [ usernameError, setUsernameError ] = useState(null);
 	const [ password, setPassword ] = useState('');
@@ -60,6 +60,7 @@ const RegistrationForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		
 	};
 
 	return (
