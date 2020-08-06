@@ -5,9 +5,9 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.float         :est_value
       t.float         :acc_value
       t.date          :purchase_date, 
-      t.boolean       :selling, :default => false 
+      t.boolean       :selling, default: false 
       t.text          :description
-      t.string        :category, :default => 'Uncategorized'
+      t.string        :category, default: 'Uncategorized'
       t.string        :serial
       t.belongs_to    :users 
       t.belongs_to    :vendors 
