@@ -1,10 +1,10 @@
 import React from 'react' 
 import PersistentDrawerLeft from './PersistentDrawerLeft'
 
-const Layout = (props) => {
+const Layout = ({children}) => {
     return (
         <PersistentDrawerLeft> 
-            { props.children }
+            { children }
         </PersistentDrawerLeft> 
     )
 }
