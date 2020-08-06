@@ -1,9 +1,10 @@
 import React from 'react' 
 import Layout from '../Components/Layout'
+import SignInForm from '../Components/SignInForm'
 
 const AccountPage = () => (
-    <Layout>
-        <h1>Account</h1>
+    <Layout title="Account">
+        <SignInForm /> 
     </Layout>
 )
 
