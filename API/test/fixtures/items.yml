@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  est_value: 1.5
+  acc_value: 1.5
+  purchase_date: 2020-08-05
+  selling: false
+  description: MyText
+  category: MyString
+  references: 
+  references: 
+
+two:
+  name: MyString
+  est_value: 1.5
+  acc_value: 1.5
+  purchase_date: 2020-08-05
+  selling: false
+  description: MyText
+  category: MyString
+  references: 
+  references: 
