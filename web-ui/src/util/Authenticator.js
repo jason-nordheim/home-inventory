@@ -8,12 +8,30 @@ class Authenticator {
     }
 
     async register({ username, password, email, phone }) {
-       const res =  await axios.post(this.baseUrl + "/users", {username, password , email, phone })
-       return res
+        try {
+            const res =  await axios.post(this.baseUrl + "/users", {username, password , email, phone })
+            console.log(res)
+            return res
+        } catch (error) {
+            console.error("Unable to Register")
+            return error
+        }
     }
 
     async login({username, password}){
+        try {
+            const res = await axios.post(this.baseUrl + "/login", { username, password })
+            console.log(res)
+            return res 
+        } catch (error) {
+            console.error("Unable to login")
+            return error
+        }
+    }
 
+    logout() {
+        this.isLoggedIn = false; 
+        this.user = null; 
     }
 }
 
