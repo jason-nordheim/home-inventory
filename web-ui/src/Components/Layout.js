@@ -4,7 +4,7 @@ import PersistentDrawerLeft from './PersistentDrawerLeft'
 const Layout = ({children, title}) => {
     return (
         <PersistentDrawerLeft> 
-            <h1 style={{display: 'flex', placeContent: 'center'}}>{title}</h1>
+            { title &&  <h1 style={{display: 'flex', placeContent: 'center'}}>{title}</h1> }
             { children }
         </PersistentDrawerLeft> 
     )
