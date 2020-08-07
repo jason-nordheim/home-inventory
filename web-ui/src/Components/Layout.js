@@ -1,6 +1,6 @@
 import React from 'react' 
 import PersistentDrawerLeft from './PersistentDrawerLeft'
-import StickyFooter from './StickyFooter'
+// import StickyFooter from './StickyFooter'
 
 const Layout = ({children, title}) => {
     return (
@@ -9,7 +9,7 @@ const Layout = ({children, title}) => {
                 { title &&  <h1 style={{display: 'flex', placeContent: 'center'}}>{title}</h1> }
                 { children }
             </PersistentDrawerLeft> 
-            <StickyFooter /> 
+            {/* <StickyFooter />  */}
         </> 
     )
 }
