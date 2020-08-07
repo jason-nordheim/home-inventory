@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
-import useStyles from './SignInForm.styles';
 
 const RegistrationForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
@@ -13,7 +12,6 @@ const RegistrationForm = ({ Authenticator }) => {
 	const [ emailError, setEmailError ] = useState(null);
 	const [ phone, setPhone ] = useState('');
 	const [ phoneError, setPhoneError ] = useState(null);
-	const classes = useStyles();
 	const MIN_CHARS = 3;
 	const SPACING = 2;
 
