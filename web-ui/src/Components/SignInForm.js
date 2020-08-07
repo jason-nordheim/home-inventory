@@ -7,11 +7,16 @@ const SignInForm = ({ Authenticator }) => {
 	const [ password, setPassword ] = useState('');
 	const [ passwordError, setPasswordError ] = useState(null);
 	const MIN_CHARS = 3;
+	const hasWhiteSpaceRegEx = new RegExp(/\s/)
 
 	const handleUsernameInput = (e) => {
 		setUsername(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setUsernameError('Username too short');
+		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+			setUsernameError('Username cannot have spaces')
+		} else {
+			setUsernameError(null)
 		}
 	};
 
@@ -19,6 +24,10 @@ const SignInForm = ({ Authenticator }) => {
 		setPassword(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setPasswordError('Password too short');
+		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+			setPasswordError('Password cannot have spaces')
+		} else {
+			setPasswordError(null)
 		}
 	};
 
@@ -39,10 +48,10 @@ const SignInForm = ({ Authenticator }) => {
 							<Grid item xs={10} sm={5} md={4} lg={3}>
 								<TextField
 									fullWidth
-									error={usernameError}
+									error={usernameError !== null }
 									id="username"
 									label="Username"
-									defaultValue={username}
+									helperText={usernameError !== null ? usernameError : ''}
 									onChange={handleUsernameInput}
 									required
 								/>
@@ -50,10 +59,11 @@ const SignInForm = ({ Authenticator }) => {
 							<Grid item xs={10} sm={5} md={4} lg={3}>
 								<TextField
 									fullWidth
-									error={passwordError}
+									error={passwordError !== null}
 									id="password"
 									label="Password"
-									defaultValue={passwordError}
+									type="password"
+									helperText={passwordError !== null ? passwordError : ''}
 									onChange={handlePasswordInput}
 									required
 								/>
