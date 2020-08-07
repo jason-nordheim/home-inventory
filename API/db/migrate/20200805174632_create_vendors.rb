@@ -1,6 +1,6 @@
 class CreateVendors < ActiveRecord::Migration[6.0]
   def change
-    create_table    :vendors do |t|
+    create_table    :vendor do |t|
       t.string      :name
       t.string      :street1
       t.string      :street2
