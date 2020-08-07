@@ -24,6 +24,8 @@ const SignInForm = ({ Authenticator }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const result = Authenticator.login({ username, password })
+		console.log(result)
 	};
 	return (
 		<Paper style={{ margin: '1rem 1rem', padding: '2rem 1rem' }}>
