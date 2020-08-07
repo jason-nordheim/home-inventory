@@ -3,8 +3,7 @@ import Layout from '../Components/Layout'
 import withAuthentication from '../Components/withAuthentication'
 import { Typography } from '@material-ui/core'
 
-const HomePage = props => {
-    const { Authenticator } = props 
+const HomePage = ({Authenticator}) => {
     return (
         <Layout title="Home">
             <About /> 
