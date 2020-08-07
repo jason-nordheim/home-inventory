@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 
 const RegistrationForm = ({ Authenticator }) => {
@@ -12,9 +12,21 @@ const RegistrationForm = ({ Authenticator }) => {
 	const [ emailError, setEmailError ] = useState(null);
 	const [ phone, setPhone ] = useState('');
 	const [ phoneError, setPhoneError ] = useState(null);
+	const [ errorMessage, setErrorMessage] = useState(null)
 	const hasWhiteSpaceRegEx = new RegExp(/\s/);
+	const hasAtSymbolRegEx = new RegExp(/@/)
 	const MIN_CHARS = 3;
 	const SPACING = 2;
+
+
+	// remove the error message after 2 seconds 
+	useEffect(() => {
+		if (errorMessage !== null) {
+			setTimeout(() => {
+				setErrorMessage(null)
+			}, 2000)
+		}
+	}, [errorMessage])
 
 	const handleUsernameInput = (e) => {
 		setUsername(e.target.value);
@@ -34,7 +46,7 @@ const RegistrationForm = ({ Authenticator }) => {
 		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
 			setPasswordError('Password cannot have spaces');
 		} else {
-			setPasswordError(null);
+			setPasswordError(null); // clear error 
 		}
 	};
 
@@ -42,10 +54,10 @@ const RegistrationForm = ({ Authenticator }) => {
 		setName(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setNameError('Name too short');
-		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+		} else if (!hasWhiteSpaceRegEx.test(e.target.value)) {
 			setNameError('Name must include first and last name');
 		} else {
-			setNameError(null);
+			setNameError(null); // clear error 
 		}
 	};
 
@@ -53,7 +65,10 @@ const RegistrationForm = ({ Authenticator }) => {
 		setEmail(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setEmailError('Invalid Email Address');
+		} else if (!hasAtSymbolRegEx.test(e.target.value)) { 
+			setEmailError('Invalid email address (format: `username@domain.com`')
 		} else {
+			setEmailError(null) // clear error 
 		}
 	};
 
@@ -61,18 +76,21 @@ const RegistrationForm = ({ Authenticator }) => {
 		setPhone(e.target.value);
 		if (e.target.value.length < 10) {
 			setPhoneError('Invalid Phone Number');
+		} else {
+			setPhoneError(null) // clear error 
 		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const response = Authenticator.register({ username, password, email, phone });
-		console.log(response);
+		Authenticator.register({ username, password, email, phone })
+			.then(res => console.log('result', res))
+			.catch(error =>  setErrorMessage(error.message))
 	};
 
 	return (
 		<Grid container justify="center" spacing={SPACING}>
-			<Paper style={{ margin: '1rem', padding: '1rem' }}>
+			<Paper style={{ margin: '1rem', padding: '1rem', flex: 1}}>
 				<form>
 					<Grid item xs={12} style={{ textAlign: 'center' }}>
 						<Typography variant="h5">Register</Typography>
@@ -172,5 +190,6 @@ const RegistrationForm = ({ Authenticator }) => {
 		</Grid>
 	);
 };
+
 
 export default RegistrationForm;
