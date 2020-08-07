@@ -12,6 +12,7 @@ const RegistrationForm = ({ Authenticator }) => {
 	const [ emailError, setEmailError ] = useState(null);
 	const [ phone, setPhone ] = useState('');
 	const [ phoneError, setPhoneError ] = useState(null);
+	const hasWhiteSpaceRegEx = new RegExp(/\s/);
 	const MIN_CHARS = 3;
 	const SPACING = 2;
 
@@ -19,6 +20,8 @@ const RegistrationForm = ({ Authenticator }) => {
 		setUsername(e.target.value);
 		if (e.target.value.length < 3 && e.target.value.length !== 0) {
 			setUsernameError('Username too short');
+		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+			setUsernameError('Username cannot have spaces');
 		} else {
 			setUsernameError(null);
 		}
@@ -28,6 +31,8 @@ const RegistrationForm = ({ Authenticator }) => {
 		setPassword(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setPasswordError('Password too short');
+		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+			setPasswordError('Password cannot have spaces');
 		} else {
 			setPasswordError(null);
 		}
@@ -37,6 +42,8 @@ const RegistrationForm = ({ Authenticator }) => {
 		setName(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setNameError('Name too short');
+		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
+			setNameError('Name must include first and last name');
 		} else {
 			setNameError(null);
 		}
@@ -59,6 +66,8 @@ const RegistrationForm = ({ Authenticator }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const response = Authenticator.register({ username, password, email, phone });
+		console.log(response);
 	};
 
 	return (
@@ -111,33 +120,34 @@ const RegistrationForm = ({ Authenticator }) => {
 								/>
 							</Grid>
 						</Grid>
-						<Grid container spacing={SPACING} spacing={2} justify="center" >
-								<Grid item xs={10} sm={5} md={4} lg={3}>
-									<TextField
-										fullWidth
-										error={usernameError !== null}
-										id="username"
-										label="Username"
-										defaultValue={username}
-										helperText={usernameError == null ? '' : usernameError}
-										onChange={handleUsernameInput}
-										required
-									/>
-								</Grid>
-								<Grid item xs={10} sm={5} md={4} lg={3}>
-									<TextField
-										fullWidth
-										error={passwordError !== null}
-										id="password"
-										label="Password"
-										defaultValue={password}
-										helperText={passwordError == null ? '' : passwordError}
-										onChange={handlePasswordInput}
-										required
-									/>
-								</Grid>
+						<Grid container spacing={SPACING} justify="center">
+							<Grid item xs={10} sm={5} md={4} lg={3}>
+								<TextField
+									fullWidth
+									error={usernameError !== null}
+									id="username"
+									label="Username"
+									defaultValue={username}
+									helperText={usernameError == null ? '' : usernameError}
+									onChange={handleUsernameInput}
+									required
+								/>
+							</Grid>
+							<Grid item xs={10} sm={5} md={4} lg={3}>
+								<TextField
+									fullWidth
+									error={passwordError !== null}
+									id="password"
+									label="Password"
+									type="password"
+									defaultValue={password}
+									helperText={passwordError == null ? '' : passwordError}
+									onChange={handlePasswordInput}
+									required
+								/>
+							</Grid>
 							<Grid item xs={12}>
-								<Grid container justify="center" >
+								<Grid container justify="center">
 									<Button
 										variant="contained"
 										color="primary"
@@ -149,7 +159,8 @@ const RegistrationForm = ({ Authenticator }) => {
 											phoneError !== null ||
 											password.length < MIN_CHARS ||
 											username.length < MIN_CHARS
-											}>
+										}
+									>
 										Register
 									</Button>
 								</Grid>
