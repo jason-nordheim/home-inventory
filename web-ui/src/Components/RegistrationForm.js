@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import useStyles from './SignInForm.styles';
 
 const RegistrationForm = ({ Authenticator }) => {
@@ -15,6 +15,7 @@ const RegistrationForm = ({ Authenticator }) => {
 	const [ phoneError, setPhoneError ] = useState(null);
 	const classes = useStyles();
 	const MIN_CHARS = 3;
+	const SPACING = 2;
 
 	const handleUsernameInput = (e) => {
 		setUsername(e.target.value);
@@ -60,86 +61,106 @@ const RegistrationForm = ({ Authenticator }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		
 	};
 
 	return (
-		<Paper>
-			<form className={classes.root}>
-				<div>
-					<Typography variant="h5">Register</Typography>
-				</div>
-				<div>
-					<TextField
-						error={nameError !== null}
-						id="name"
-						label="Name"
-						defaultValue={name}
-						helperText={nameError == null ? '' : nameError}
-						onChange={handleNameInput}
-						required
-					/>
-					<TextField
-						error={emailError !== null}
-						id="email"
-						label="Email"
-						defaultValue={email}
-						helperText={emailError == null ? '' : emailError}
-						onChange={handleEmailInput}
-						required
-					/>
-					<TextField
-						error={phoneError !== null}
-						id="phone"
-						label="Phone"
-						defaultValue={phone}
-						helperText={phoneError == null ? '' : phoneError}
-						onChange={handlePhoneInput}
-						required
-					/>
-				</div>
-				<div>
-					<TextField
-						error={usernameError !== null}
-						id="username"
-						label="Username"
-						defaultValue={username}
-						helperText={usernameError == null ? '' : usernameError}
-						onChange={handleUsernameInput}
-						required
-					/>
-					<TextField
-						error={passwordError !== null}
-						id="password"
-						label="Password"
-						defaultValue={password}
-						helperText={passwordError == null ? '' : passwordError}
-						onChange={handlePasswordInput}
-						required
-					/>
-				</div>
-				<div>
-					<span style={{ alignSelf: 'center' }}>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={handleSubmit}
-							disabled={
-								passwordError !== null ||
-								usernameError !== null ||
-								emailError !== null ||
-								phoneError !== null ||
-								password.length < MIN_CHARS ||
-								username.length < MIN_CHARS
-							}
-						>
-							Register
-						</Button>
-					</span>
-				</div>
-				<div />
-			</form>
-		</Paper>
+		<Grid container justify="center" spacing={SPACING}>
+			<Paper style={{ margin: '1rem', padding: '1rem' }}>
+				<form>
+					<Grid item xs={12} style={{ textAlign: 'center' }}>
+						<Typography variant="h5">Register</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Grid container spacing={SPACING} justify="center">
+							<Grid item xs={10} sm={5} md={4} lg={3}>
+								<TextField
+									fullWidth
+									error={nameError !== null}
+									id="name"
+									label="Name"
+									defaultValue={name}
+									helperText={nameError == null ? '' : nameError}
+									onChange={handleNameInput}
+									required
+								/>
+							</Grid>
+						</Grid>
+						<Grid container spacing={SPACING} justify="center">
+							<Grid item xs={10} sm={5} md={4} lg={3}>
+								<TextField
+									fullWidth
+									error={emailError !== null}
+									id="email"
+									label="Email"
+									defaultValue={email}
+									helperText={emailError == null ? '' : emailError}
+									onChange={handleEmailInput}
+									required
+								/>
+							</Grid>
+						</Grid>
+						<Grid container spacing={SPACING} justify="center">
+							<Grid item xs={10} sm={5} md={4} lg={3}>
+								<TextField
+									fullWidth
+									error={phoneError !== null}
+									id="phone"
+									label="Phone"
+									defaultValue={phone}
+									helperText={phoneError == null ? '' : phoneError}
+									onChange={handlePhoneInput}
+									required
+								/>
+							</Grid>
+						</Grid>
+						<Grid container spacing={SPACING} spacing={2} justify="center" >
+								<Grid item xs={10} sm={5} md={4} lg={3}>
+									<TextField
+										fullWidth
+										error={usernameError !== null}
+										id="username"
+										label="Username"
+										defaultValue={username}
+										helperText={usernameError == null ? '' : usernameError}
+										onChange={handleUsernameInput}
+										required
+									/>
+								</Grid>
+								<Grid item xs={10} sm={5} md={4} lg={3}>
+									<TextField
+										fullWidth
+										error={passwordError !== null}
+										id="password"
+										label="Password"
+										defaultValue={password}
+										helperText={passwordError == null ? '' : passwordError}
+										onChange={handlePasswordInput}
+										required
+									/>
+								</Grid>
+							<Grid item xs={12}>
+								<Grid container justify="center" >
+									<Button
+										variant="contained"
+										color="primary"
+										onClick={handleSubmit}
+										disabled={
+											passwordError !== null ||
+											usernameError !== null ||
+											emailError !== null ||
+											phoneError !== null ||
+											password.length < MIN_CHARS ||
+											username.length < MIN_CHARS
+											}>
+										Register
+									</Button>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+				</form>
+			</Paper>
+		</Grid>
 	);
 };
 
