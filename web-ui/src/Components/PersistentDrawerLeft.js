@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { ApplicationName } from '../data/StaticContent'
+import { ApplicationName } from '../data/StaticContent';
 import { useDrawerStyless } from '../style/useDrawerStyles';
 import { useTheme } from '@material-ui/core/styles';
 import {
 	Drawer,
 	AppBar,
+	Avatar, 
+	Container,
 	Toolbar,
 	List,
 	Typography,
@@ -20,9 +22,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import SitePages from '../data/SitePages'
+import SitePages from '../data/SitePages';
 import { Link } from 'react-router-dom';
-
 
 const PersistentDrawerLeft = ({ children }) => {
 	const classes = useDrawerStyless();
@@ -47,6 +48,7 @@ const PersistentDrawerLeft = ({ children }) => {
 				})}
 			>
 				<Toolbar className={classes.toolbar}>
+					<span>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
@@ -56,11 +58,13 @@ const PersistentDrawerLeft = ({ children }) => {
 					>
 						<MenuIcon />
 					</IconButton>
-          <span style={{ width: '100%', textAlign: 'center'}}>
-					<Typography variant="h6" noWrap>
-						{ ApplicationName }
-					</Typography>
-          </span>
+					</span>
+					<Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+						<Typography variant="h4" noWrap>
+							{ApplicationName}
+						</Typography>
+						<Avatar style={{ marginLeft: '10px'}} alt="logo" variant="circle" src="../img/apple-touch-icon.png"  /> 
+					</Container>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -81,7 +85,7 @@ const PersistentDrawerLeft = ({ children }) => {
 				<List>
 					{SitePages.map((link) => {
 						return (
-							<Link className={classes.navLink} key={link.text} to={link.url} >
+							<Link className={classes.navLink} key={link.text} to={link.url}>
 								<ListItem button>
 									<ListItemIcon>{link.icon}</ListItemIcon>
 									<ListItemText primary={link.text} />
@@ -97,7 +101,7 @@ const PersistentDrawerLeft = ({ children }) => {
 				})}
 			>
 				<div className={classes.drawerHeader} />
-				{ children }
+				{children}
 			</main>
 		</div>
 	);
