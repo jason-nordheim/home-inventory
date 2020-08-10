@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from '../Components/Layout';
 import SignInForm from '../Components/SignInForm';
 import RegistrationForm from '../Components/RegistrationForm';
-import withAuthentication from '../Components/withAuthentication';
+import { Grid, Typography  } from '@material-ui/core';
 
-const AccountPage = (props) => {
-	const { Authenticator } = props;
-	return (
-		<Layout title="Account">
-			<SignInForm Authenticator={Authenticator}/>
-			<RegistrationForm Authenticator={Authenticator}/>
-		</Layout>
-	);
+const AccountPage = ({ isLoggedIn }) => {
+	const [register, setRegister] = useState(false) 
+
+	if (isLoggedIn) {
+		return (
+			<Layout title="Account">
+				<Typography>Welcome</Typography>
+			</Layout>
+		)
+	} else {
+		return (
+			<Layout title="Account">
+				<Grid container direction="row" justify="center" alignItems="stretch">
+					<Grid item>
+						<SignInForm display={!register}  toggleDisplay={e => setRegister(!register)}/>
+					</Grid>
+					<Grid item>	
+						<RegistrationForm display={!!register} toggleDisplay={e => setRegister(!register)}/>
+					</Grid>
+				</Grid>
+			</Layout>
+		);
+	}
 };
 
-export default withAuthentication(AccountPage);
+export default AccountPage;
