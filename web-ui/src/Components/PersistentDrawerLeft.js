@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { ApplicationName } from '../data/StaticContent'
-import { useStyles } from './PersistentDrawerLeft.styles';
+import { useDrawerStyless } from '../style/useDrawerStyles';
 import { useTheme } from '@material-ui/core/styles';
 import {
 	Drawer,
@@ -11,7 +11,6 @@ import {
 	Typography,
 	Divider,
 	IconButton,
-	CssBaseline,
 	ListItem,
 	ListItemIcon,
 	ListItemText
@@ -26,7 +25,7 @@ import { Link } from 'react-router-dom';
 
 
 const PersistentDrawerLeft = ({ children }) => {
-	const classes = useStyles();
+	const classes = useDrawerStyless();
 	const theme = useTheme();
 	const [ open, setOpen ] = useState(false);
 
@@ -40,14 +39,14 @@ const PersistentDrawerLeft = ({ children }) => {
 
 	return (
 		<div className={classes.root}>
-			<CssBaseline />
 			<AppBar
 				position="fixed"
+				variant="elevation"
 				className={clsx(classes.appBar, {
 					[classes.appBarShift]: open
 				})}
 			>
-				<Toolbar>
+				<Toolbar className={classes.toolbar}>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
