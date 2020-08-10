@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
+import { useFormStyles } from './Form.Styles';
 
 const RegistrationForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
@@ -12,21 +13,23 @@ const RegistrationForm = ({ Authenticator }) => {
 	const [ emailError, setEmailError ] = useState(null);
 	const [ phone, setPhone ] = useState('');
 	const [ phoneError, setPhoneError ] = useState(null);
-	const [ errorMessage, setErrorMessage] = useState(null)
+	const [ errorMessage, setErrorMessage ] = useState(null);
 	const hasWhiteSpaceRegEx = new RegExp(/\s/);
-	const hasAtSymbolRegEx = new RegExp(/@/)
+	const hasAtSymbolRegEx = new RegExp(/@/);
 	const MIN_CHARS = 3;
 	const SPACING = 2;
 
-
-	// remove the error message after 2 seconds 
-	useEffect(() => {
-		if (errorMessage !== null) {
-			setTimeout(() => {
-				setErrorMessage(null)
-			}, 2000)
-		}
-	}, [errorMessage])
+	// remove the error message after 2 seconds
+	useEffect(
+		() => {
+			if (errorMessage !== null) {
+				setTimeout(() => {
+					setErrorMessage(null);
+				}, 2000);
+			}
+		},
+		[ errorMessage ]
+	);
 
 	const handleUsernameInput = (e) => {
 		setUsername(e.target.value);
@@ -46,7 +49,7 @@ const RegistrationForm = ({ Authenticator }) => {
 		} else if (hasWhiteSpaceRegEx.test(e.target.value)) {
 			setPasswordError('Password cannot have spaces');
 		} else {
-			setPasswordError(null); // clear error 
+			setPasswordError(null); // clear error
 		}
 	};
 
@@ -57,7 +60,7 @@ const RegistrationForm = ({ Authenticator }) => {
 		} else if (!hasWhiteSpaceRegEx.test(e.target.value)) {
 			setNameError('Name must include first and last name');
 		} else {
-			setNameError(null); // clear error 
+			setNameError(null); // clear error
 		}
 	};
 
@@ -65,10 +68,10 @@ const RegistrationForm = ({ Authenticator }) => {
 		setEmail(e.target.value);
 		if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
 			setEmailError('Invalid Email Address');
-		} else if (!hasAtSymbolRegEx.test(e.target.value)) { 
-			setEmailError('Invalid email address (format: `username@domain.com`')
+		} else if (!hasAtSymbolRegEx.test(e.target.value)) {
+			setEmailError('Invalid email address (format: `username@domain.com`');
 		} else {
-			setEmailError(null) // clear error 
+			setEmailError(null); // clear error
 		}
 	};
 
@@ -77,112 +80,110 @@ const RegistrationForm = ({ Authenticator }) => {
 		if (e.target.value.length < 10) {
 			setPhoneError('Invalid Phone Number');
 		} else {
-			setPhoneError(null) // clear error 
+			setPhoneError(null); // clear error
 		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		Authenticator.register({ username, password, email, phone })
-			.then(res => console.log('result', res))
-			.catch(error =>  setErrorMessage(error.message))
+			.then((res) => console.log('result', res))
+			.catch((error) => setErrorMessage(error.message));
 	};
 
+	const classes = useFormStyles();
+
 	return (
-		<Grid container justify="center" spacing={SPACING}>
-			<Paper style={{ margin: '1rem', padding: '1rem', flex: 1}}>
+		<Grid container justify="center" className={classes.root}>
+			<Paper className={classes.paper}>
 				<form>
-					<Grid item xs={12} style={{ textAlign: 'center' }}>
+					<Grid item>
 						<Typography variant="h5">Register</Typography>
 					</Grid>
-					<Grid item xs={12}>
-						<Grid container spacing={SPACING} justify="center">
-							<Grid item xs={10} sm={5} md={4} lg={3}>
-								<TextField
-									fullWidth
-									error={nameError !== null}
-									id="name"
-									label="Name"
-									defaultValue={name}
-									helperText={nameError == null ? '' : nameError}
-									onChange={handleNameInput}
-									required
-								/>
-							</Grid>
+					<Grid item>
+						<Grid item>
+							<TextField
+								className={classes.textField}
+								fullWidth
+								error={nameError !== null}
+								id="name"
+								label="Name"
+								defaultValue={name}
+								helperText={nameError == null ? '' : nameError}
+								onChange={handleNameInput}
+								required
+							/>
 						</Grid>
-						<Grid container spacing={SPACING} justify="center">
-							<Grid item xs={10} sm={5} md={4} lg={3}>
-								<TextField
-									fullWidth
-									error={emailError !== null}
-									id="email"
-									label="Email"
-									defaultValue={email}
-									helperText={emailError == null ? '' : emailError}
-									onChange={handleEmailInput}
-									required
-								/>
-							</Grid>
+						<Grid item>
+							<TextField
+								className={classes.textField}
+								fullWidth
+								error={emailError !== null}
+								id="email"
+								label="Email"
+								defaultValue={email}
+								helperText={emailError == null ? '' : emailError}
+								onChange={handleEmailInput}
+								required
+							/>
 						</Grid>
-						<Grid container spacing={SPACING} justify="center">
-							<Grid item xs={10} sm={5} md={4} lg={3}>
-								<TextField
-									fullWidth
-									error={phoneError !== null}
-									id="phone"
-									label="Phone"
-									defaultValue={phone}
-									helperText={phoneError == null ? '' : phoneError}
-									onChange={handlePhoneInput}
-									required
-								/>
-							</Grid>
+						<Grid item>
+							<TextField
+								className={classes.textField}
+								fullWidth
+								error={phoneError !== null}
+								id="phone"
+								label="Phone"
+								defaultValue={phone}
+								helperText={phoneError == null ? '' : phoneError}
+								onChange={handlePhoneInput}
+								required
+							/>
 						</Grid>
-						<Grid container spacing={SPACING} justify="center">
-							<Grid item xs={10} sm={5} md={4} lg={3}>
-								<TextField
-									fullWidth
-									error={usernameError !== null}
-									id="username"
-									label="Username"
-									defaultValue={username}
-									helperText={usernameError == null ? '' : usernameError}
-									onChange={handleUsernameInput}
-									required
-								/>
-							</Grid>
-							<Grid item xs={10} sm={5} md={4} lg={3}>
-								<TextField
-									fullWidth
-									error={passwordError !== null}
-									id="password"
-									label="Password"
-									type="password"
-									defaultValue={password}
-									helperText={passwordError == null ? '' : passwordError}
-									onChange={handlePasswordInput}
-									required
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<Grid container justify="center">
-									<Button
-										variant="contained"
-										color="primary"
-										onClick={handleSubmit}
-										disabled={
-											passwordError !== null ||
-											usernameError !== null ||
-											emailError !== null ||
-											phoneError !== null ||
-											password.length < MIN_CHARS ||
-											username.length < MIN_CHARS
-										}
-									>
-										Register
-									</Button>
-								</Grid>
-							</Grid>
+						<Grid item>
+							<TextField
+								className={classes.textField}
+								fullWidth
+								error={usernameError !== null}
+								id="username"
+								label="Username"
+								defaultValue={username}
+								helperText={usernameError == null ? '' : usernameError}
+								onChange={handleUsernameInput}
+								required
+							/>
+						</Grid>
+						<Grid item>
+							<TextField
+								className={classes.textField}
+								fullWidth
+								error={passwordError !== null}
+								id="password"
+								label="Password"
+								type="password"
+								defaultValue={password}
+								helperText={passwordError == null ? '' : passwordError}
+								onChange={handlePasswordInput}
+								required
+							/>
+						</Grid>
+						<Grid item>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleSubmit}
+								disabled={
+									passwordError !== null ||
+									usernameError !== null ||
+									emailError !== null ||
+									phoneError !== null ||
+									password.length < MIN_CHARS ||
+									username.length < MIN_CHARS
+								}
+								style={{ marginTop: '1rem' }}
+							>
+								Register
+							</Button>
 						</Grid>
 					</Grid>
 				</form>
@@ -190,6 +191,5 @@ const RegistrationForm = ({ Authenticator }) => {
 		</Grid>
 	);
 };
-
 
 export default RegistrationForm;
