@@ -1,6 +1,6 @@
 {
-  "short_name": "MyHome",
-  "name": "MyHome",
+  "short_name": "Sorted",
+  "name": "Sorted",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
