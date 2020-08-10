@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SitePages from './data/SitePages';
+import useAuthentication from './hooks/useAuthentication'
 
 const App = () => {
+	const [ state, dispatch ] = useAuthentication()
 	return (
 		<BrowserRouter>
 			<Switch>
