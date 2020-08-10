@@ -13,9 +13,7 @@ const About = () => {
                             <Typography variant="h6">{section.title}</Typography>
 						</AccordionSummary>
 						<AccordionDetails>
-							{ section.body.map(para => {
-                                return <Typography key={para.length} paragraph>{para} </Typography>
-                            })}
+							{ section.body.map(para =>  <Typography key={para.length} paragraph>{para} </Typography> )}
 						</AccordionDetails>
 					</Accordion>
 				);
