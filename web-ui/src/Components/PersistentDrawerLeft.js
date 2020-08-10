@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { ApplicationName } from '../data/StaticContent'
 import { useStyles } from './PersistentDrawerLeft.styles';
 import { useTheme } from '@material-ui/core/styles';
 import {
@@ -58,7 +59,7 @@ const PersistentDrawerLeft = ({ children }) => {
 					</IconButton>
           <span style={{ width: '100%', textAlign: 'center'}}>
 					<Typography variant="h6" noWrap>
-						MyHome
+						{ ApplicationName }
 					</Typography>
           </span>
 				</Toolbar>
