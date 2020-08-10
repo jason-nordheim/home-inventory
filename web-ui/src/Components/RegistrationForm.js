@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import { useFormStyles } from '../style/useFormStyles';
+import showErrorMessage from './ShowErrorMessage';
 
-const RegistrationForm = ({ Authenticator }) => {
+const RegistrationForm = ({ Authenticator, display, toggleDisplay }) => {
 	const [ username, setUsername ] = useState('');
 	const [ usernameError, setUsernameError ] = useState(null);
 	const [ password, setPassword ] = useState('');
@@ -83,21 +84,23 @@ const RegistrationForm = ({ Authenticator }) => {
 		}
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		Authenticator.register({ username, password, email, phone })
-			.then((res) => console.log('result', res))
-			.catch((error) => setErrorMessage(error.message));
+		const result = await Authenticator.register(username, password, email, phone)
 	};
 
 	const classes = useFormStyles();
+
+	if (display === false ) {
+		return null;
+	}
 
 	return (
 		<Grid container justify="center" className={classes.root}>
 			<Paper className={classes.paper}>
 				<form>
 					<Grid item>
-						<Typography variant="h5">Register</Typography>
+						<Typography variant="h5">New User</Typography>
 					</Grid>
 					<Grid item>
 						<Grid item>
@@ -183,6 +186,13 @@ const RegistrationForm = ({ Authenticator }) => {
 							>
 								Register
 							</Button>
+						</Grid>
+						<br /> 
+						{errorMessage !== null && showErrorMessage(errorMessage)}
+						<Grid item>
+							<Typography paragraph>
+								Already have an account? <u onClick={toggleDisplay}>Click here</u> to login
+							</Typography>
 						</Grid>
 					</Grid>
 				</form>
