@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import { useFormStyles } from '../style/useFormStyles'
 import showErrorMessage from './ShowErrorMessage';
 
-const SignInForm = ({ Authenticator }) => {
+const SignInForm = ({ login , display, toggleDisplay }) => {
 	const [ username, setUsername ] = useState('');
 	const [ usernameError, setUsernameError ] = useState(null);
 	const [ password, setPassword ] = useState('');
@@ -48,12 +48,14 @@ const SignInForm = ({ Authenticator }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		Authenticator.login({ username, password })
-			.then((res) => console.log('result', res))
-			.catch((error) => setErrorMessage(error.message));
+		const result = await login(username, password)
 	};
 
 	const classes = useFormStyles()
+
+	if (display === false ) {
+		return null;
+	}
 
 	return (
 		<Grid
@@ -108,6 +110,12 @@ const SignInForm = ({ Authenticator }) => {
 						>
 							Sign In
 						</Button>
+					</Grid>
+					<br /> 
+					<Grid item>
+						<Typography paragraph>
+							Don't have an account? <u onClick={toggleDisplay}>Click here</u> to register
+						</Typography>
 					</Grid>
 					{errorMessage !== null && showErrorMessage(errorMessage)}
 				</form>
