@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
-import { useFormStyles } from './useFormStyles'
+import { useFormStyles } from '../style/useFormStyles'
 import showErrorMessage from './ShowErrorMessage';
-import { Link } from 'react-router-dom';
 
 const SignInForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
@@ -12,7 +11,6 @@ const SignInForm = ({ Authenticator }) => {
 	const [ errorMessage, setErrorMessage ] = useState(null);
 	const MIN_CHARS = 3;
 	const hasWhiteSpaceRegEx = new RegExp(/\s/);
-	const SPACING = 2;
 
 	// remove the error message after 2 seconds
 	useEffect(

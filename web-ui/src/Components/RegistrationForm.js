@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
-import { useFormStyles } from './useFormStyles';
+import { useFormStyles } from '../style/useFormStyles';
 
 const RegistrationForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
