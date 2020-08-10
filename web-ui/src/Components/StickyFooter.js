@@ -10,7 +10,7 @@ const StickyFooter = () => {
     <div className={classes.root}>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Typography variant="body1">MyHome Inventory System.</Typography>
+          <Typography variant="body1">Sorted Inventory System.</Typography>
           <Copyright />
         </Container>
       </footer>
