@@ -26,8 +26,8 @@ import SitePages from '../data/SitePages';
 import { Link } from 'react-router-dom';
 
 const PersistentDrawerLeft = ({ children }) => {
-	const classes = useDrawerStyless();
 	const theme = useTheme();
+	const classes = useDrawerStyless(theme);
 	const [ open, setOpen ] = useState(false);
 
 	const handleDrawerOpen = () => {
