@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core'
 
 export const useFormStyles = makeStyles((theme) => ({
     root: {
-        minWidth: '25vw', 
+        minWidth: '325px', 
 	    maxWidth: '50vw',
 		textAlign: 'center' 
     },
@@ -13,6 +13,7 @@ export const useFormStyles = makeStyles((theme) => ({
     },
     textField: {
         maxWidth: '30rem', 
+        margin: theme.spacing(1)
     }
 }))
 

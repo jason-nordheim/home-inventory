@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
-import { useFormStyles } from './Form.Styles';
+import { useFormStyles } from './useFormStyles';
 
 const RegistrationForm = ({ Authenticator }) => {
 	const [ username, setUsername ] = useState('');
@@ -17,7 +17,6 @@ const RegistrationForm = ({ Authenticator }) => {
 	const hasWhiteSpaceRegEx = new RegExp(/\s/);
 	const hasAtSymbolRegEx = new RegExp(/@/);
 	const MIN_CHARS = 3;
-	const SPACING = 2;
 
 	// remove the error message after 2 seconds
 	useEffect(

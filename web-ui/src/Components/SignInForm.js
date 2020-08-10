@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
-import { useFormStyles } from './Form.Styles'
+import { useFormStyles } from './useFormStyles'
 import showErrorMessage from './ShowErrorMessage';
 import { Link } from 'react-router-dom';
 
