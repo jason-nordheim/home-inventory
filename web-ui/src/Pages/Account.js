@@ -1,49 +1,47 @@
-import React, {useState} from 'react';
-import Layout from '../Components/Layout';
-import SignInForm from '../Components/SignInForm';
-import RegistrationForm from '../Components/RegistrationForm';
-import { Grid, Typography  } from '@material-ui/core';
-import { AuthorizationContext } from '../AuthorizationContext';
-import { ApplicationName}  from '../data/StaticContent'
-
+import React, { useState, useContext } from "react";
+import Layout from "../Components/Layout";
+import SignInForm from "../Components/SignInForm";
+import RegistrationForm from "../Components/RegistrationForm";
+import { Grid, Typography } from "@material-ui/core";
+import { AuthorizationContext } from "../App";
+import { ApplicationName } from "../data/StaticContent";
 
 const AccountPage = ({ isLoggedIn }) => {
-	const [register, setRegister] = useState(false) 
+  const [register, setRegister] = useState(false);
+  const AuthContext = useContext(AuthorizationContext);
 
-	if (isLoggedIn) {
-		return (
-			<Layout title="Account">
-				<Typography>Welcome</Typography>
-			</Layout>
-		)
-	} else {
-		return (
-			<Layout title="Account">
-				<AuthorizationContext.Consumer>
-					{ authorizationContext => {
-						if (!authorizationContext.state.isLoggedIn) {
-							return (
-								<Grid container direction="row" justify="center" alignItems="stretch">
-									<Grid item>
-										<SignInForm  display={!register}  toggleDisplay={e => setRegister(!register)}/>
-									</Grid>
-									<Grid item>	
-										<RegistrationForm display={!!register} toggleDisplay={e => setRegister(!register)}/>
-									</Grid>
-								</Grid>
-							)
-						} else {
-							return (
-								<Typography paragraph>
-									Welcome to { ApplicationName }
-								</Typography>
-							)
-						}
-					}}
-				</AuthorizationContext.Consumer>
-			</Layout>
-		);
-	}
+  if (isLoggedIn) {
+    return (
+      <Layout title="Account">
+        <Typography>Welcome</Typography>
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout title="Account">
+        {!AuthContext.state.isLoggedIn && (
+          <Grid container direction="row" justify="center" alignItems="stretch">
+            <Grid item>
+              <SignInForm
+                display={!register}
+                toggleDisplay={(e) => setRegister(!register)}
+              />
+            </Grid>
+            <Grid item>
+              <RegistrationForm
+                display={!!register}
+                toggleDisplay={(e) => setRegister(!register)}
+              />
+            </Grid>
+          </Grid>
+        )}
+
+        {AuthContext.state.isLoggedIn && (
+          <Typography paragraph>Welcome to {ApplicationName}</Typography>
+        )}
+      </Layout>
+    );
+  }
 };
 
 export default AccountPage;

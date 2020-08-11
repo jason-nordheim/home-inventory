@@ -1,30 +1,21 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import Layout from '../Components/Layout';
 import About from '../Components/About';
-import { AuthorizationContext } from '../AuthorizationContext';
+import { AuthorizationContext } from '../App';
 import { Typography } from '@material-ui/core';
 
-/**
- * Home Page Component 
- * IMPORTANT: should be wrapped with `withAuthentication` HOC  
- * @param {Authenticator} Authenticator 
- */
+
 const HomePage = () => {
+	const authContext = useContext(AuthorizationContext)
 	return (
 		<Layout title="Home">
-			<AuthorizationContext.Consumer>
-				{(authContext) => {
-					if (!authContext.state.isLoggedIn) {
-						return <About />;
-					} else {
-						return (
+
+					{!authContext.state.isLoggedIn &&  <About /> } ;
+					{authContext.state.isLoggedIn &&(
 						<Typography paragraph>
 							Placeholder for end-user information
 						</Typography>
-						)
-					}
-				}}
-			</AuthorizationContext.Consumer>
+						) }
 		</Layout>
 	);
 };
