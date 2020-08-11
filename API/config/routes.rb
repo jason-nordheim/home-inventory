@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :vendors
   resources :users
 
+  get "my_info", to: "users#my_info"
+
   # Create custom route for authentication 
   # - Controller: Authentication 
   # - Method: `login`
