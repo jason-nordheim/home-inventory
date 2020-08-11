@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 export const defaultState = {
   isLoading: false,
@@ -8,32 +8,31 @@ export const defaultState = {
   error: null,
 };
 
-const authenticationReducer = async (state, action) => {
+const authenticationReducer = (state, action) => {
   switch (action.type) {
-		case 'reset': 
-			return action.payload
-    case 'login':
-
+    case "reset":
+      return action.payload;
+    case "login":
       return {
         ...state,
         error: null,
         isLoading: true,
       };
-    case 'success':
+    case "success":
       return {
         ...state,
         isLoading: false,
-				isLoggedIn: true,
-				token: action.payload
-			};
-		case 'error': 
-			return {
-				...state, 
-				isLoading: false, 
-				isLoggedIn: false, 
-				error: action.payload
-			}
-    case 'logout':
+        isLoggedIn: true,
+        token: action.payload,
+      };
+    case "error":
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        error: action.payload,
+      };
+    case "logout":
       return {
         ...state,
         token: null,
@@ -41,33 +40,30 @@ const authenticationReducer = async (state, action) => {
         isLoading: false,
         isLoggedIn: false,
       };
-    case 'register':
+    case "register":
       return {
         ...state,
       };
     default:
-      return state 
+      return state;
   }
 };
 
 const useAuthentication = (initialState = defaultState) => {
-	const [state, dispatch] = useReducer(authenticationReducer, initialState);
+  const [state, dispatch] = useReducer(authenticationReducer, initialState);
 
-	// pull state from local storage on load 
-	// useEffect(() => {
-  //   if (state === defaultState) {
-  //     console.log('reseting')
-  //     const rawData = localStorage.getItem('data')
-  //     dispatch({ type: 'reset', payload: JSON.parse(rawData)})
-  //   }
-	// }, [])
+  useEffect(() => {
+    const rawData = localStorage.getItem("sorted");
+    const payload = JSON.parse(rawData);
+    console.log("restoring", payload);
+    dispatch({ type: "reset", payload });
+  }, []);
 
-	// save state to local storage, whenever it changes 
-	useEffect(() => {
-    const saveState = async () => console.log('authStateChanged', await state)
-    saveState()
-	}, [state])
-	
+  useEffect(() => {
+    const saveState = async () =>
+      localStorage.setItem("sorted", JSON.stringify(await state));
+    saveState();
+  }, [state]);
 
   return [state, dispatch];
 };
