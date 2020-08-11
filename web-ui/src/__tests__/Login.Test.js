@@ -1,6 +1,6 @@
 import { login } from '../util/Authentication'
 
-const username = 'jnordheim'
+const username = 'sbear'
 const password = 'password' 
 
 test('Login is a function', () => {
