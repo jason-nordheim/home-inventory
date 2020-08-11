@@ -1,11 +1,13 @@
 import { createContext } from 'react'
-import { ACTIONS } from './hooks/useAuthentication'
+import { ACTIONS, defaultState } from './hooks/useAuthentication'
 
-const AuthorizationContext = createContext();
+const AuthorizationContext = createContext(defaultState);
 
 const Actions = {
     Register: (name, username, password, email, phone) => {
-        return { type: ACTIONS.Register, payload: JSON.stringify({name, username, password, email, phone})}
+        const payload = JSON.stringify({name, username, password, email, phone})
+        const registerAction = JSON.stringify({ type: "register", payload })
+        return registerAction
     }
 }
 

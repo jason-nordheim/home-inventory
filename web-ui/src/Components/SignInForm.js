@@ -58,7 +58,7 @@ const SignInForm = ({ login, display, toggleDisplay }) => {
 
 				const handleSubmit = async (e) => {
 					e.preventDefault();
-					authorizationContext.dispatch({ username, password})
+					authorizationContext.dispatch({type: 'login', payload: { username, password}})
 				};
 
 
