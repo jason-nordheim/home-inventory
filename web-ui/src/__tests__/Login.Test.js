@@ -1,4 +1,4 @@
-import { login } from '../util/Login'
+import { login } from '../util/Authentication'
 
 const username = 'jnordheim'
 const password = 'password' 
