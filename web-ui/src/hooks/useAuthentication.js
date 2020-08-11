@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react' 
+import { useReducer } from 'react' 
 import Axios from 'axios'
 
 
@@ -9,7 +9,7 @@ const defaultState = {
     error: null, 
 }
 
-const ACTIONS = {
+export const ACTIONS = {
     Logout: "logout", 
     Login: "login", 
     Register: "Register"
@@ -32,6 +32,7 @@ const authenticationReducer = (state, action) => {
                         error: err.message
                     }
                 })
+            break; 
         case ACTIONS.logout: 
             return {
                 ...state,
@@ -53,6 +54,7 @@ const authenticationReducer = (state, action) => {
                         error: err.message
                     }
                 })
+            break; 
         default:
             return {
                 ...state, 
