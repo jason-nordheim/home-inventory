@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SitePages from './data/SitePages';
-import useAuthentication from './hooks/useAuthentication'
+import useAuthentication, { defaultState } from './hooks/useAuthentication'
 
 
-export const AuthorizationContext = React.createContext()
+export const AuthorizationContext = React.createContext(defaultState)
 
 const App = () => {
-	const [ state, dispatch ] = useAuthentication()
+	const [ state, dispatch ] = useAuthentication(defaultState)
 	return (
 		<AuthorizationContext.Provider value={{state, dispatch}} >
 			<BrowserRouter>
