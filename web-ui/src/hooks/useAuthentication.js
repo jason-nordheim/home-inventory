@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import { useEffect } from 'react'
-import { register, login } from '../util/Authentication'
 
 export const defaultState = {
   isLoading: false,
@@ -55,14 +54,18 @@ const useAuthentication = (initialState = defaultState) => {
 	const [state, dispatch] = useReducer(authenticationReducer, initialState);
 
 	// pull state from local storage on load 
-	useEffect(() => {
-		const rawData = localStorage.getItem('data')
-		dispatch({ type: 'reset', payload: JSON.parse(rawData)})
-	}, [])
+	// useEffect(() => {
+  //   if (state === defaultState) {
+  //     console.log('reseting')
+  //     const rawData = localStorage.getItem('data')
+  //     dispatch({ type: 'reset', payload: JSON.parse(rawData)})
+  //   }
+	// }, [])
 
 	// save state to local storage, whenever it changes 
 	useEffect(() => {
-		localStorage.setItem('data', JSON.stringify(state))
+    const saveState = async () => console.log('authStateChanged', await state)
+    saveState()
 	}, [state])
 	
 
