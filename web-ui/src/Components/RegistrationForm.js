@@ -3,6 +3,7 @@ import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
 import { useFormStyles } from "../style/useFormStyles";
 import showErrorMessage from "./ShowErrorMessage";
 import { AuthorizationContext } from '../App'
+import { register } from '../util/Authentication'
 
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
@@ -20,18 +21,22 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
   const hasWhiteSpaceRegEx = new RegExp(/\s/);
   const hasAtSymbolRegEx = new RegExp(/@/);
 	const MIN_CHARS = 3;
-	const AuthContext = useContext(AuthorizationContext)
 
-  // remove the error message after 2 seconds
+  // remove the error message after 5 seconds
   useEffect(() => {
     if (errorMessage !== null) {
       setTimeout(() => {
         setErrorMessage(null);
-      }, 2000);
+      }, 5000);
     }
   }, [errorMessage]);
 
   const classes = useFormStyles();
+
+  /**
+   * Handles the `onChange` event for the username field 
+   * @param {event} e 
+   */
   const handleUsernameInput = (e) => {
     setUsername(e.target.value);
     if (e.target.value.length < 3 && e.target.value.length !== 0) {
@@ -43,6 +48,11 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
     }
   };
 
+  /**
+   * handles the `onChange` event from the password input 
+   * @param {event} e 
+   * @returns null 
+   */
   const handlePasswordInput = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
@@ -54,6 +64,11 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
     }
   };
 
+  /**
+   * Handles the `onChange` event for the name input field 
+   * @param {event} e 
+   * @returns null 
+   */
   const handleNameInput = (e) => {
     setName(e.target.value);
     if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
@@ -65,6 +80,11 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
     }
   };
 
+  /**
+   * Handles the `onChange` event of the email field input 
+   * @param {event} e 
+   * @returns null  
+   */
   const handleEmailInput = (e) => {
     setEmail(e.target.value);
     if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
@@ -76,6 +96,10 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
     }
   };
 
+  /**
+   * Handles the `onChange` of the phone input 
+   * @param {event} e 
+   */
   const handlePhoneInput = (e) => {
     setPhone(e.target.value);
     if (e.target.value.length < 10) {
@@ -87,8 +111,21 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
 		e.preventDefault();
-		alert('this is not currently working')
-		// todo 
+    await register(name, username, email, phone, password)
+      .then(actionResult => {
+        if(!actionResult.success) {
+          //failure 
+          const keys = Object.keys(actionResult.data)
+          const errMsg = keys.reduce((acc, curr)=> {
+            return acc += curr + " " + actionResult.data[curr] + "\n"
+          },"")
+          setErrorMessage(errMsg)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+		
   };
   if (display === false) {
     return null;
