@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
     
     if auth_header
       token = auth_header.split(' ')[1]
-      byebug 
       if token 
         decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base) 
         if decoded_token
