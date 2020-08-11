@@ -3,8 +3,9 @@ import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
 import { useFormStyles } from "../style/useFormStyles";
 import showErrorMessage from "./ShowErrorMessage";
 import { AuthorizationContext } from "../App";
+import { login } from '../util/Authentication'
 
-const SignInForm = ({ login, display, toggleDisplay }) => {
+const SignInForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState(null);
   const [password, setPassword] = useState("");
@@ -49,10 +50,23 @@ const SignInForm = ({ login, display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    authorizationContext.dispatch({
-      type: "login",
-      payload: { username, password },
-    });
+    authorizationContext.dispatch({ type: "login"});
+		
+		try {
+			const actionResult = await login(username, password)
+			if (!actionResult.success) {
+				// user got something wrong 
+				setErrorMessage(actionResult.data.error);
+			} else {
+				const token = actionResult.data.token;
+				console.log('token', token)
+				await authorizationContext.dispatch({ type: 'success', payload: token})
+			}
+			console.log('result', actionResult)
+		} catch (err) {
+			console.error(err)
+		}
+
   };
 
   if (display === false) {
