@@ -1,8 +1,8 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SitePages from './data/SitePages';
 import useAuthentication from './hooks/useAuthentication'
-import AuthorizationContext from './AuthContext'
+import { AuthorizationContext } from './AuthorizationContext'
 
 const App = () => {
 	const [ state, dispatch ] = useAuthentication()
