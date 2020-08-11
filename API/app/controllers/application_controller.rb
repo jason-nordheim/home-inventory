@@ -10,6 +10,7 @@ class ApplicationController < ActionController::API
         if decoded_token
           payload = decoded_token[0]
           @user_id = payload["user_id"]
+          @user = User.find(@user_id)
         else 
           render json: { error: "Unable to decode token" }, status: :unauthorized
         end 
