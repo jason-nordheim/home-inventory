@@ -5,12 +5,13 @@ import RegistrationForm from "../Components/RegistrationForm";
 import { Grid, Typography } from "@material-ui/core";
 import { AuthorizationContext } from "../App";
 import { ApplicationName } from "../data/StaticContent";
+import { useEffect } from 'react'
 
 const AccountPage = ({ isLoggedIn }) => {
   const [register, setRegister] = useState(false);
   const AuthContext = useContext(AuthorizationContext);
 
-  if (isLoggedIn) {
+  if (AuthContext.state.token !== null) {
     return (
       <Layout title="Account">
         <Typography>Welcome</Typography>
@@ -19,7 +20,7 @@ const AccountPage = ({ isLoggedIn }) => {
   } else {
     return (
       <Layout title="Account">
-        {!AuthContext.state.isLoggedIn && (
+        {AuthContext.state.token == null && (
           <Grid container direction="row" justify="center" alignItems="stretch">
             <Grid item>
               <SignInForm
