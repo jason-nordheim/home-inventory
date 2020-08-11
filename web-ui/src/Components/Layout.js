@@ -1,6 +1,6 @@
 import React from 'react';
 import PersistentDrawerLeft from './PersistentDrawerLeft';
-import { ThemeProvider, Typography, SvgIcon } from '@material-ui/core';
+import { ThemeProvider, Typography } from '@material-ui/core';
 import theme from '../style/useTheme';
 // import StickyFooter from './StickyFooter'
 
