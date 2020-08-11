@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../Components/Layout';
 import About from '../Components/About';
-import AuthorizationContext from '../AuthContext';
+import { AuthorizationContext } from '../AuthorizationContext';
 import { Typography } from '@material-ui/core';
 
 /**
