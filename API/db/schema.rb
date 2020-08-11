@@ -15,26 +15,29 @@ ActiveRecord::Schema.define(version: 2020_08_05_211651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "items", force: :cascade do |t|
+  create_table "item", force: :cascade do |t|
     t.string "name"
     t.float "est_value"
     t.float "acc_value"
-    t.date "purchase_date", default: "2020-08-05"
+    t.date "purchase_date"
     t.boolean "selling", default: false
+    t.string "make"
+    t.string "model"
+    t.string "serial"
+    t.string "author"
     t.text "description"
     t.string "category", default: "Uncategorized"
-    t.string "serial"
     t.bigint "users_id"
     t.bigint "vendors_id"
     t.bigint "locations_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["locations_id"], name: "index_items_on_locations_id"
-    t.index ["users_id"], name: "index_items_on_users_id"
-    t.index ["vendors_id"], name: "index_items_on_vendors_id"
+    t.index ["locations_id"], name: "index_item_on_locations_id"
+    t.index ["users_id"], name: "index_item_on_users_id"
+    t.index ["vendors_id"], name: "index_item_on_vendors_id"
   end
 
-  create_table "locations", force: :cascade do |t|
+  create_table "location", force: :cascade do |t|
     t.string "name"
     t.string "street1"
     t.string "street2"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_211651) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_locations_on_user_id"
+    t.index ["user_id"], name: "index_location_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
