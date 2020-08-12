@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { useEffect } from "react";
+import { getUserInfo } from '../util/Authentication'
 
 export const defaultState = {
   isLoading: false,
@@ -10,6 +11,11 @@ export const defaultState = {
 
 const authenticationReducer = (state, action) => {
   switch (action.type) {
+    case "user": 
+      return {
+        ...state, 
+        user: action.payload 
+      }
     case "reset":
       return action.payload;
     case "login":
@@ -30,6 +36,7 @@ const authenticationReducer = (state, action) => {
         ...state,
         isLoading: false,
         isLoggedIn: false,
+        token: null,
         error: action.payload,
       };
     case "logout":
@@ -37,6 +44,7 @@ const authenticationReducer = (state, action) => {
         ...state,
         token: null,
         error: null,
+        user: null, 
         isLoading: false,
         isLoggedIn: false,
       };
@@ -49,6 +57,12 @@ const authenticationReducer = (state, action) => {
   }
 };
 
+const saveState = (state) => {
+  localStorage.setItem("sorted", JSON.stringify(state));
+};
+
+
+
 const useAuthentication = (initialState = defaultState) => {
   const [state, dispatch] = useReducer(authenticationReducer, initialState);
 
@@ -60,12 +74,20 @@ const useAuthentication = (initialState = defaultState) => {
   }, []);
 
   useEffect(() => {
-    const saveState = async () =>
-      localStorage.setItem("sorted", JSON.stringify(await state));
-    saveState();
+    if (state.token && state.user == null) {
+      getUserInfo(state.token)
+        .then(user => { 
+          user.password_digest = null 
+          console.log(user)
+          dispatch({ type: 'user', payload: user})
+        })
+    }
+    saveState(state)
   }, [state]);
 
-  return [state, dispatch];
+
+
+  return { state, dispatch };
 };
 
 export default useAuthentication;
