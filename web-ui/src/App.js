@@ -7,9 +7,9 @@ import useAuthentication, { defaultState } from './hooks/useAuthentication'
 export const AuthorizationContext = React.createContext(defaultState)
 
 const App = () => {
-	const [ state, dispatch ] = useAuthentication(defaultState)
+	const AuthContext = useAuthentication(defaultState)
 	return (
-		<AuthorizationContext.Provider value={{state, dispatch}} >
+		<AuthorizationContext.Provider value={AuthContext} >
 			<BrowserRouter>
 				<Switch>
 						{SitePages.map((link) => {
