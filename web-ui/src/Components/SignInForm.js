@@ -4,6 +4,16 @@ import { useFormStyles } from "../style/useFormStyles";
 import showErrorMessage from "./ShowErrorMessage";
 import { AuthorizationContext } from "../App";
 import { login } from "../util/Authentication";
+import UsernameTextField from "./Forms/UsernameTextField";
+import PasswordTextField from "./Forms/PasswordTextField";
+import {
+  nameInputChanged,
+  emailInputChanged,
+  phoneInputChanged,
+  userNameInputChanged,
+  passwordInputChanged,
+} from "../util/FormValidations";
+
 
 const SignInForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");
@@ -14,7 +24,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
   const MIN_CHARS = 3;
   const hasWhiteSpaceRegEx = new RegExp(/\s/);
   const classes = useFormStyles();
-  const authorizationContext = useContext(AuthorizationContext);
+  const AuthContext = useContext(AuthorizationContext);
 
   // remove the error message after 2 seconds
   useEffect(() => {
@@ -25,31 +35,11 @@ const SignInForm = ({ display, toggleDisplay }) => {
     }
   }, [errorMessage]);
 
-  const handleUsernameInput = (e) => {
-    setUsername(e.target.value);
-    if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
-      setUsernameError("Username too short");
-    } else if (hasWhiteSpaceRegEx.test(e.target.value)) {
-      setUsernameError("Username cannot have spaces");
-    } else {
-      setUsernameError(null);
-    }
-  };
 
-  const handlePasswordInput = (e) => {
-    setPassword(e.target.value);
-    if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
-      setPasswordError("Password too short");
-    } else if (hasWhiteSpaceRegEx.test(e.target.value)) {
-      setPasswordError("Password cannot have spaces");
-    } else {
-      setPasswordError(null);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    authorizationContext.dispatch({ type: "login" });
+    AuthContext.dispatch({ type: "login" });
 
     try {
       const actionResult = await login(username, password);
@@ -60,7 +50,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
       } else {
         // user credentials check out
         const token = actionResult.data.token;
-        await authorizationContext.dispatch({
+        AuthContext.dispatch({
           type: "success",
           payload: token,
         });
@@ -83,28 +73,17 @@ const SignInForm = ({ display, toggleDisplay }) => {
             <Typography variant="h5">Sign In</Typography>
           </Grid>
           <Grid item>
-            <TextField
-              fullWidth
-              className={classes.textField}
-              error={usernameError !== null}
-              id="username"
-              label="Username"
-              helperText={usernameError !== null ? usernameError : ""}
-              onChange={handleUsernameInput}
-              required
+            <UsernameTextField
+              username={username}
+              usernameError={usernameError}
+              onChange={e => userNameInputChanged(e, setUsername, setUsernameError)}
             />
           </Grid>
           <Grid item>
-            <TextField
-              fullWidth
-              className={classes.textField}
-              error={passwordError !== null}
-              id="password"
-              label="Password"
-              type="password"
-              helperText={passwordError !== null ? passwordError : ""}
-              onChange={handlePasswordInput}
-              required
+            <PasswordTextField
+              password={password}
+              passwordError={passwordError}
+              onChange={e => passwordInputChanged(e, setPassword, setPasswordError)}
             />
           </Grid>
           <Grid item>

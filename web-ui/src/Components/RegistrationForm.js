@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
+import { Button, Typography, Paper, Grid } from "@material-ui/core";
 import { useFormStyles } from "../style/useFormStyles";
 import showErrorMessage from "./ShowErrorMessage";
-import { AuthorizationContext } from '../App'
-import { register } from '../util/Authentication'
-
+import { AuthorizationContext } from "../App";
+import { register } from "../util/Authentication";
+import NameTextField from "./Forms/NameTextField";
+import EmailTextField from "./Forms/EmailTextField";
+import PhoneTextField from "./Forms/PhoneTextField";
+import UsernameTextField from "./Forms/UsernameTextField";
+import PasswordTextField from "./Forms/PasswordTextField";
+import { nameInputChanged, emailInputChanged, phoneInputChanged, userNameInputChanged, passwordInputChanged } from '../util/FormValidations'
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");
@@ -18,9 +23,6 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-  const hasWhiteSpaceRegEx = new RegExp(/\s/);
-  const hasAtSymbolRegEx = new RegExp(/@/);
-	const MIN_CHARS = 3;
 
   // remove the error message after 5 seconds
   useEffect(() => {
@@ -33,99 +35,23 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   const classes = useFormStyles();
 
-  /**
-   * Handles the `onChange` event for the username field 
-   * @param {event} e 
-   */
-  const handleUsernameInput = (e) => {
-    setUsername(e.target.value);
-    if (e.target.value.length < 3 && e.target.value.length !== 0) {
-      setUsernameError("Username too short");
-    } else if (hasWhiteSpaceRegEx.test(e.target.value)) {
-      setUsernameError("Username cannot have spaces");
-    } else {
-      setUsernameError(null);
-    }
-  };
-
-  /**
-   * handles the `onChange` event from the password input 
-   * @param {event} e 
-   * @returns null 
-   */
-  const handlePasswordInput = (e) => {
-    setPassword(e.target.value);
-    if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
-      setPasswordError("Password too short");
-    } else if (hasWhiteSpaceRegEx.test(e.target.value)) {
-      setPasswordError("Password cannot have spaces");
-    } else {
-      setPasswordError(null); // clear error
-    }
-  };
-
-  /**
-   * Handles the `onChange` event for the name input field 
-   * @param {event} e 
-   * @returns null 
-   */
-  const handleNameInput = (e) => {
-    setName(e.target.value);
-    if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
-      setNameError("Name too short");
-    } else if (!hasWhiteSpaceRegEx.test(e.target.value)) {
-      setNameError("Name must include first and last name");
-    } else {
-      setNameError(null); // clear error
-    }
-  };
-
-  /**
-   * Handles the `onChange` event of the email field input 
-   * @param {event} e 
-   * @returns null  
-   */
-  const handleEmailInput = (e) => {
-    setEmail(e.target.value);
-    if (e.target.value.length < MIN_CHARS && e.target.value.length !== 0) {
-      setEmailError("Invalid Email Address");
-    } else if (!hasAtSymbolRegEx.test(e.target.value)) {
-      setEmailError("Invalid email address (format: `username@domain.com`");
-    } else {
-      setEmailError(null); // clear error
-    }
-  };
-
-  /**
-   * Handles the `onChange` of the phone input 
-   * @param {event} e 
-   */
-  const handlePhoneInput = (e) => {
-    setPhone(e.target.value);
-    if (e.target.value.length < 10) {
-      setPhoneError("Invalid Phone Number");
-    } else {
-      setPhoneError(null); // clear error
-    }
-  };
 
   const handleSubmit = async (e) => {
-		e.preventDefault();
+    e.preventDefault();
     await register(name, username, email, phone, password)
-      .then(actionResult => {
-        if(!actionResult.success) {
-          //failure 
-          const keys = Object.keys(actionResult.data)
-          const errMsg = keys.reduce((acc, curr)=> {
-            return acc += curr + " " + actionResult.data[curr] + "\n"
-          },"")
-          setErrorMessage(errMsg)
+      .then((actionResult) => {
+        if (!actionResult.success) {
+          //failure
+          const keys = Object.keys(actionResult.data);
+          const errMsg = keys.reduce((acc, curr) => {
+            return (acc += curr + " " + actionResult.data[curr] + "\n");
+          }, "");
+          setErrorMessage(errMsg);
         }
       })
-      .catch(err => {
-        console.log(err)
-      })
-		
+      .catch((err) => {
+        console.log(err);
+      });
   };
   if (display === false) {
     return null;
@@ -140,69 +66,39 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
           </Grid>
           <Grid item>
             <Grid item>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                error={nameError !== null}
-                id="name"
-                label="Name"
-                defaultValue={name}
-                helperText={nameError == null ? "" : nameError}
-                onChange={handleNameInput}
-                required
+              <NameTextField
+                name={name}
+                setName={setName}
+                nameError={nameError}
+                onChange={e => nameInputChanged(e, setName, setNameError)}
               />
             </Grid>
             <Grid item>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                error={emailError !== null}
-                id="email"
-                label="Email"
-                defaultValue={email}
-                helperText={emailError == null ? "" : emailError}
-                onChange={handleEmailInput}
-                required
+              <EmailTextField
+                email={email}
+                emailError={emailError}
+                onChange={e => emailInputChanged(e, setEmail, setEmailError)}
               />
             </Grid>
             <Grid item>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                error={phoneError !== null}
-                id="phone"
-                label="Phone"
-                defaultValue={phone}
-                helperText={phoneError == null ? "" : phoneError}
-                onChange={handlePhoneInput}
-                required
+              <PhoneTextField
+                phone={phone}
+                phoneError={phoneError}
+                onChange={e => phoneInputChanged(e, setPhone, setPhoneError)}
               />
             </Grid>
             <Grid item>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                error={usernameError !== null}
-                id="username"
-                label="Username"
-                defaultValue={username}
-                helperText={usernameError == null ? "" : usernameError}
-                onChange={handleUsernameInput}
-                required
+              <UsernameTextField
+                username={username}
+                usernameError={usernameError}
+                onChange={e => userNameInputChanged(e, setUsername, setUsernameError)}
               />
             </Grid>
             <Grid item>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                error={passwordError !== null}
-                id="password"
-                label="Password"
-                type="password"
-                defaultValue={password}
-                helperText={passwordError == null ? "" : passwordError}
-                onChange={handlePasswordInput}
-                required
+              <PasswordTextField
+                password={password}
+                passwordError={passwordError}
+                onChange={e => passwordInputChanged(e, setPassword, setPasswordError)}
               />
             </Grid>
             <Grid item>
@@ -214,9 +110,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
                   passwordError !== null ||
                   usernameError !== null ||
                   emailError !== null ||
-                  phoneError !== null ||
-                  password.length < MIN_CHARS ||
-                  username.length < MIN_CHARS
+                  phoneError !== null 
                 }
                 style={{ marginTop: "1rem" }}
               >
