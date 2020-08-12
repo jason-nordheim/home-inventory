@@ -13,7 +13,7 @@ const PasswordTextField = ({ password, setPassword, passwordError, onChange }) =
       type="password"
       label="Password"
       defaultValue={password}
-      helperText={passwordError == null}
+      helperText={passwordError == null ? passwordError : null}
       onChange={onChange}
       required
     />

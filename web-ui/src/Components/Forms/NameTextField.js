@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
 import useFormStyles from "../../style/useFormStyles";
 
-const NameTextField = ({ name, setName, nameError, onChange }) => {
+const NameTextField = ({ name, setName, nameError, onChange, disabled=false, variant="outlined" }) => {
   const classes = useFormStyles();
   return (
     <TextField
+      variant={variant}
       className={classes.textField}
       fullWidth
       error={nameError !== null}
@@ -15,6 +16,7 @@ const NameTextField = ({ name, setName, nameError, onChange }) => {
       helperText={nameError == null ? "" : nameError}
       onChange={onChange}
       required
+      disabled={disabled}
     />
   );
 };
