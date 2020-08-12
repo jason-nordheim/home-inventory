@@ -22,6 +22,7 @@ const AuthenticatedAccountPage = ({ user }) => {
   const [emailError, setEmailError] = useState(null);
   const [phone, setPhone] = useState(user.phone);
   const [phoneError, setPhoneError] = useState(null);
+  const [bio, setBio] = useState('')
   const classes = useFormStyles();
 
   const onNameChanged = (e) => {
@@ -39,78 +40,101 @@ const AuthenticatedAccountPage = ({ user }) => {
 
   return (
     <Grid container justify="center">
-      <Grid item xs={11} md={8}>
+      <Grid item xs={12} md={8}>
         <Paper style={{ padding: "1rem" }}>
           <Grid item>
             <Typography variant="h4">Welcome {user.name}</Typography>
           </Grid>
           <hr />
+          <Grid item xs={12}>
           <form style={{ padding: "1rem" }}>
-            <Grid id="leftPane" item md={4} xs={11}>
-              <Grid container justify="center">
-                <Grid item>
-                  <UsernameTextField
-                    className={classes.textField}
-                    username={username}
-                    usernameError={usernameError}
-                    onChange={onUsernameChanged}
-                    disabled={!editMode}
-                  />
+              <Grid container justify="space-around" >
+                {/* start left pane */}
+                <Grid id="leftPane" item md={4} xs={12}>
+                  <Grid container justify="center">
+                    <Grid item>
+                      <UsernameTextField
+                        className={classes.textField}
+                        username={username}
+                        usernameError={usernameError}
+                        onChange={onUsernameChanged}
+                        required={false}
+                        disabled={!editMode}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <NameTextField
+                        className={classes.textField}
+                        name={name}
+                        setName={setName}
+                        nameError={nameError}
+                        onChange={onNameChanged}
+                        required={false}
+                        disabled={!editMode}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <EmailTextField
+                        className={classes.textField}
+                        email={email}
+                        emailError={emailError}
+                        onChange={onEmailChanged}
+                        required={false}
+                        disabled={!editMode}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <PhoneTextField
+                        className={classes.textField}
+                        phone={phone}
+                        phoneError={phoneError}
+                        onChange={onPhoneChanged}
+                        required={false}
+                        disabled={!editMode}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <NameTextField
-                    className={classes.textField}
-                    name={name}
-                    setName={setName}
-                    nameError={nameError}
-                    onChange={onNameChanged}
-                    disabled={!editMode}
-                  />
+                {/* end of left pane, start RIGHT pane */}
+                <Grid id="rightPane" item md={4} xs={12}>
+                  <Grid container justify="center">
+                    <Grid item>
+                      <TextField
+                        variant="outlined"
+                        defaultValue={bio}
+                        onChange={e => setBio(e.target.value)}
+                        multiline
+                        name="bio"
+                        label="Bio"
+                        rows={10}
+                        disabled={!editMode}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <EmailTextField
-                    className={classes.textField}
-                    email={email}
-                    emailError={emailError}
-                    onChange={onEmailChanged}
-                    disabled={!editMode}
-                  />
-                </Grid>
-                <Grid item>
-                  <PhoneTextField
-                    className={classes.textField}
-                    phone={phone}
-                    phoneError={phoneError}
-                    onChange={onPhoneChanged}
-                    disabled={!editMode}
-                  />
+                 {/* end of RIGHT pane */}
+                <br />
+                <Grid item xs={12}>
+                  <Grid container justify="center">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (editMode) {
+                          alert("Unable to edit at this time");
+                          //updateUser(user.id, name, username, phone, email)
+                        }
+                        setEditMode(!editMode);
+                      }}
+                    >
+                      {editMode ? "Save" : "Edit"}
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid id="rightPane" item md={4} xs={11}>
-              <Grid item>
-                <TextField variant="outlined"  multiline/>
-              </Grid>
-            </Grid>
-            <br />
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  if (editMode) {
-                    //updateUser(user.id, name, username, phone, email)
-                  }
-
-                  setEditMode(!editMode);
-                }}
-              >
-                {editMode ? "Save" : "Edit"}
-              </Button>
-            </Grid>
-          </form>
+            </form>
+          </Grid>
         </Paper>
       </Grid>
     </Grid>
