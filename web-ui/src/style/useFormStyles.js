@@ -13,6 +13,7 @@ export const useFormStyles = makeStyles((theme) => ({
     },
     textField: {
         maxWidth: '30rem', 
+        padding: '2px', 
         margin: theme.spacing(1)
     }
 }))
