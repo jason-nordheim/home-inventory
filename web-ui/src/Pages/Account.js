@@ -9,7 +9,7 @@ const AccountPage = () => {
   const user = AuthContext.state.user;
   return (
     <Layout title="Account">
-      { user === undefined ? (
+      { user === undefined || user === null ? (
         <UnAuthenticatedAccountPage />
       ) : (
         <AuthenticatedAccountPage user={user} />
