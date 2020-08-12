@@ -1,8 +1,8 @@
 const baseUrl = "http://localhost:3000";
 
 /**
- * Class to encapsulate the return value of a 
- * an API call 
+ * Class to encapsulate the return value of a
+ * an API call
  */
 class ActionResult {
   constructor(success = true, data) {
@@ -11,12 +11,11 @@ class ActionResult {
   }
 }
 
-
 /**
- * Attemts to login against the API, and returns an action result 
- * indicating the success or failure of the transaction 
- * @param {string} username 
- * @param {string} password 
+ * Attemts to login against the API, and returns an action result
+ * indicating the success or failure of the transaction
+ * @param {string} username
+ * @param {string} password
  */
 export const login = async (username, password) => {
   try {
@@ -39,16 +38,15 @@ export const login = async (username, password) => {
   }
 };
 
-
 /**
- * Attempts to register a new user with the API, 
- * and returns an ActionResult containing both the data 
- * and the success/failure of the request 
- * @param {string} name 
- * @param {string} username 
- * @param {string} email 
- * @param {string} phone 
- * @param {string} password 
+ * Attempts to register a new user with the API,
+ * and returns an ActionResult containing both the data
+ * and the success/failure of the request
+ * @param {string} name
+ * @param {string} username
+ * @param {string} email
+ * @param {string} phone
+ * @param {string} password
  */
 export const register = async (name, username, email, phone, password) => {
   try {
@@ -69,4 +67,16 @@ export const register = async (name, username, email, phone, password) => {
   } catch (err) {
     return new ActionResult(false, err);
   }
+};
+
+export const getUserInfo = async (token) => {
+  const response = await fetch(`${baseUrl}/my_info`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  const data = await response.json();
+  return data;
 };
