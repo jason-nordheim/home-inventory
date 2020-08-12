@@ -67,11 +67,12 @@ const SignInForm = ({ display, toggleDisplay }) => {
 
   return (
     <Grid container justify="center" className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={4}>
         <form>
           <Grid item>
             <Typography variant="h5">Sign In</Typography>
           </Grid>
+          <hr /> 
           <Grid item>
             <UsernameTextField
               username={username}
