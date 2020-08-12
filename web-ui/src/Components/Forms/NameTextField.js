@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
 import useFormStyles from "../../style/useFormStyles";
 
-const NameTextField = ({ name, setName, nameError, onChange, disabled=false, variant="outlined" }) => {
+const NameTextField = ({ name, setName, nameError, onChange, required=true, disabled=false, variant="outlined" }) => {
   const classes = useFormStyles();
   return (
     <TextField
@@ -15,7 +15,7 @@ const NameTextField = ({ name, setName, nameError, onChange, disabled=false, var
       defaultValue={name}
       helperText={nameError == null ? "" : nameError}
       onChange={onChange}
-      required
+      required={required}
       disabled={disabled}
     />
   );

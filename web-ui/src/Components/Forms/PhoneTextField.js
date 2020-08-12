@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import useFormStyles from "../../style/useFormStyles";
 
-const PhoneTextField = ({ phone, onChange, phoneError, disabled=false, variant="outlined"}) => {
+const PhoneTextField = ({ phone, onChange, phoneError, required=true, disabled=false, variant="outlined"}) => {
   const classes = useFormStyles();
   return (
     <TextField
@@ -15,7 +15,7 @@ const PhoneTextField = ({ phone, onChange, phoneError, disabled=false, variant="
       defaultValue={phone}
       helperText={phoneError == null ? phoneError : null}
       onChange={onChange}
-      required
+      required={required}
       disabled={disabled}
     />
   );
