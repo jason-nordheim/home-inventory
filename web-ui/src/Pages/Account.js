@@ -6,12 +6,13 @@ import { AuthorizationContext } from "../App";
 
 const AccountPage = () => {
   const AuthContext = useContext(AuthorizationContext);
+  const user = AuthContext.state.user;
   return (
     <Layout title="Account">
-      { AuthContext.state.user === null ? (
-        <AuthenticatedAccountPage user={AuthContext.state.user} />
-      ) : (
+      { user === undefined ? (
         <UnAuthenticatedAccountPage />
+      ) : (
+        <AuthenticatedAccountPage user={user} />
       )}
     </Layout>
   );
