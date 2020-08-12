@@ -59,11 +59,12 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   return (
     <Grid container justify="center" className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={4}>
         <form>
           <Grid item>
-            <Typography variant="h5">New User</Typography>
+            <Typography variant="h5">Create New Account</Typography>
           </Grid>
+          <hr /> 
           <Grid item>
             <Grid item>
               <NameTextField
