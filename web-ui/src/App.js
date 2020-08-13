@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SitePages from './data/SitePages';
 import useAuthentication, { defaultState } from './hooks/useAuthentication'
-import { AnimatedSwitch } from "react-router-transition";
 import './style/app.css'
 
 export const AuthorizationContext = React.createContext(defaultState)
