@@ -179,13 +179,81 @@ table {
   display: flex;
   flex-direction: column;
   background-color: #F8F8FF;
-  height: 100vh;
-  overflow: hidden;
+  height: 90vh;
+  overflow: scroll;
+  padding-bottom: var(--app-bar-height);
 }
-
 .persistentDrawerLeft__divider {
   width: var(--drawer-width); 
 }
 .about__container {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about__accordion {
+  display: flex;
+  justify-self: center;
+  max-width: 70%;
+  flex-direction: column;
+  margin: 1rem;
+}
+.about__accodionDetails {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  margin: 0 3rem;
+}
+.about__accordionSummary {
+  text-align: center;
+}
+.MuiAccordionSummary-content {
+  justify-content: center;
+}
+.accordianRight__container {
+  display: flex;
+  max-width: 35%;
+}
+.accordianRight__container img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+.authenticatedAccountPage_container {
+  display: flex;
+  justify-content: center;
+}
+.authenticatedAccountPage__paper {
+  margin: 1rem;
+  padding: 1rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.accountDetailsAccordian {
+  display: flex;
+  flex-direction: column;
+}
+.accountDetailsAccordian__detailsContainer {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+.accountDetailsAccordian__leftPane {
+  flex: 1; 
+  padding: 1rem;
+  margin: 1rem;
+}
+.accountDetailsAccordian__rightPane {
+  flex: 1; 
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+}
+.accountDetailsAccordian__buttonContainer {
+  display: flex; 
+  justify-content: center;
+}
+.accountDetailsAccordian__textfield {
+  margin: 1rem;
+  min-width: 280px;
 }
