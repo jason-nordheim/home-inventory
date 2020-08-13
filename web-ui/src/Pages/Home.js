@@ -1,17 +1,18 @@
 import React, { useContext} from 'react';
 import Layout from '../Components/Layout';
-import About from '../Components/About';
 import { AuthorizationContext } from '../App';
-import LoggedInHomePage from '../Components/LoggedInHomePage'
+import HomeAuthenticated from '../Components/Home/Home.Authenticated'
+import HomeUnAuthenticated from '../Components/Home/Home.UnAuthenticated'
+
 
 const HomePage = () => {
 	const authContext = useContext(AuthorizationContext)
 	return (
-		<Layout title="Home">
-					{authContext.state.token === null &&  <About /> } 
-					{authContext.state.token !== null &&  <LoggedInHomePage />  }
-		</Layout>
-	);
+    <Layout title="Home">
+      {authContext.state.token === null && <HomeUnAuthenticated />}
+      {authContext.state.token !== null && <HomeAuthenticated />}
+    </Layout>
+  );
 };
 
 
