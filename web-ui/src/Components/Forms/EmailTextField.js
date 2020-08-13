@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { Grid, TextField } from "@material-ui/core";
-import useFormStyles from "../../style/useFormStyles";
+import React from "react";
+import { TextField } from "@material-ui/core";
 
 const EmailTextField = ({ email, onChange, emailError, required=false, disabled=false, variant="outlined" }) => {
-  const classes = useFormStyles();
-
   return (
       <TextField
         variant={variant}
-        className={classes.textField}
         fullWidth
         error={emailError !== null}
         id="email"

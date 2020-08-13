@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
-import { useFormStyles } from "../style/useFormStyles";
-import showErrorMessage from "./ShowErrorMessage";
+import {  Button, Typography, Paper } from "@material-ui/core";
 import { AuthorizationContext } from "../App";
 import { login } from "../util/Authentication";
 import UsernameTextField from "./Forms/UsernameTextField";
 import PasswordTextField from "./Forms/PasswordTextField";
 import {
-  nameInputChanged,
-  emailInputChanged,
-  phoneInputChanged,
   userNameInputChanged,
   passwordInputChanged,
 } from "../util/FormValidations";
+import showErrorMessage from "./ShowErrorMessage";
 
 
 const SignInForm = ({ display, toggleDisplay }) => {
@@ -23,7 +19,6 @@ const SignInForm = ({ display, toggleDisplay }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const MIN_CHARS = 3;
   const hasWhiteSpaceRegEx = new RegExp(/\s/);
-  const classes = useFormStyles();
   const AuthContext = useContext(AuthorizationContext);
 
   // remove the error message after 2 seconds
@@ -66,28 +61,27 @@ const SignInForm = ({ display, toggleDisplay }) => {
   }
 
   return (
-    <Grid container justify="center" className={classes.root}>
-      <Paper className={classes.paper} elevation={4}>
+      <Paper elevation={4}>
         <form>
-          <Grid item>
+          <div>
             <Typography variant="h5">Sign In</Typography>
-          </Grid>
+          </div>
           <hr /> 
-          <Grid item>
+          <div>
             <UsernameTextField
               username={username}
               usernameError={usernameError}
               onChange={e => userNameInputChanged(e, setUsername, setUsernameError)}
             />
-          </Grid>
-          <Grid item>
+          </div>
+          <div>
             <PasswordTextField
               password={password}
               passwordError={passwordError}
               onChange={e => passwordInputChanged(e, setPassword, setPasswordError)}
             />
-          </Grid>
-          <Grid item>
+          </div>
+          <div>
             <Button
               variant="contained"
               color="primary"
@@ -104,18 +98,18 @@ const SignInForm = ({ display, toggleDisplay }) => {
             >
               Sign In
             </Button>
-          </Grid>
+          </div>
           <br />
-          <Grid item>
+          <div>
             <Typography paragraph>
               Don't have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
               to register
             </Typography>
-          </Grid>
+          </div>
+
           {errorMessage !== null && showErrorMessage(errorMessage)}
         </form>
       </Paper>
-    </Grid>
   );
 };
 

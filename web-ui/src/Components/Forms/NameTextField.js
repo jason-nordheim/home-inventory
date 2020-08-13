@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField } from "@material-ui/core";
-import useFormStyles from "../../style/useFormStyles";
 
 const NameTextField = ({ name, setName, nameError, onChange, required=true, disabled=false, variant="outlined" }) => {
-  const classes = useFormStyles();
   return (
     <TextField
       variant={variant}
-      className={classes.textField}
       fullWidth
       error={nameError !== null}
       id="name"

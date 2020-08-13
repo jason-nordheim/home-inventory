@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Typography, Paper, Grid } from "@material-ui/core";
-import { useFormStyles } from "../style/useFormStyles";
 import showErrorMessage from "./ShowErrorMessage";
 import { AuthorizationContext } from "../App";
 import { register } from "../util/Authentication";
@@ -9,7 +8,13 @@ import EmailTextField from "./Forms/EmailTextField";
 import PhoneTextField from "./Forms/PhoneTextField";
 import UsernameTextField from "./Forms/UsernameTextField";
 import PasswordTextField from "./Forms/PasswordTextField";
-import { nameInputChanged, emailInputChanged, phoneInputChanged, userNameInputChanged, passwordInputChanged } from '../util/FormValidations'
+import {
+  nameInputChanged,
+  emailInputChanged,
+  phoneInputChanged,
+  userNameInputChanged,
+  passwordInputChanged,
+} from "../util/FormValidations";
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");
@@ -32,8 +37,6 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
       }, 5000);
     }
   }, [errorMessage]);
-
-  const classes = useFormStyles();
 
 
   const handleSubmit = async (e) => {
@@ -58,78 +61,70 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
   }
 
   return (
-    <Grid container justify="center" className={classes.root}>
-      <Paper className={classes.paper} elevation={4}>
-        <form>
-          <Grid item>
-            <Typography variant="h5">Create New Account</Typography>
-          </Grid>
-          <hr /> 
-          <Grid item>
-            <Grid item>
-              <NameTextField
-                name={name}
-                setName={setName}
-                nameError={nameError}
-                onChange={e => nameInputChanged(e, setName, setNameError)}
-              />
-            </Grid>
-            <Grid item>
-              <EmailTextField
-                email={email}
-                emailError={emailError}
-                onChange={e => emailInputChanged(e, setEmail, setEmailError)}
-              />
-            </Grid>
-            <Grid item>
-              <PhoneTextField
-                phone={phone}
-                phoneError={phoneError}
-                onChange={e => phoneInputChanged(e, setPhone, setPhoneError)}
-              />
-            </Grid>
-            <Grid item>
-              <UsernameTextField
-                username={username}
-                usernameError={usernameError}
-                onChange={e => userNameInputChanged(e, setUsername, setUsernameError)}
-              />
-            </Grid>
-            <Grid item>
-              <PasswordTextField
-                password={password}
-                passwordError={passwordError}
-                onChange={e => passwordInputChanged(e, setPassword, setPasswordError)}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disabled={
-                  passwordError !== null ||
-                  usernameError !== null ||
-                  emailError !== null ||
-                  phoneError !== null 
-                }
-                style={{ marginTop: "1rem" }}
-              >
-                Register
-              </Button>
-            </Grid>
-            <br />
-            {errorMessage !== null && showErrorMessage(errorMessage)}
-            <Grid item>
-              <Typography paragraph>
-                Already have an account?{" "}
-                <u onClick={toggleDisplay}>Click here</u> to login
-              </Typography>
-            </Grid>
-          </Grid>
-        </form>
-      </Paper>
-    </Grid>
+    <Paper elevation={4}>
+      <form>
+        <div>
+          <Typography variant="h5">Create New Account</Typography>
+        </div>
+        <hr />
+        <div>
+          <div>
+            <NameTextField
+              name={name}
+              setName={setName}
+              nameError={nameError}
+              onChange={(e) => nameInputChanged(e, setName, setNameError)}
+            />
+            <EmailTextField
+              email={email}
+              emailError={emailError}
+              onChange={(e) => emailInputChanged(e, setEmail, setEmailError)}
+            />
+            <PhoneTextField
+              phone={phone}
+              phoneError={phoneError}
+              onChange={(e) => phoneInputChanged(e, setPhone, setPhoneError)}
+            />
+            <UsernameTextField
+              username={username}
+              usernameError={usernameError}
+              onChange={(e) =>
+                userNameInputChanged(e, setUsername, setUsernameError)
+              }
+            />
+            <PasswordTextField
+              password={password}
+              passwordError={passwordError}
+              onChange={(e) =>
+                passwordInputChanged(e, setPassword, setPasswordError)
+              }
+            />
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={
+              passwordError !== null ||
+              usernameError !== null ||
+              emailError !== null ||
+              phoneError !== null
+            }
+            style={{ marginTop: "1rem" }}
+          >
+            Register
+          </Button>
+          <br />
+          {errorMessage !== null && showErrorMessage(errorMessage)}
+          <div>
+            <Typography paragraph>
+              Already have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
+              to login
+            </Typography>
+          </div>
+        </div>
+      </form>
+    </Paper>
   );
 };
 
