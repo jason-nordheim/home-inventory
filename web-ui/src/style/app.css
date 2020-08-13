@@ -93,11 +93,14 @@ table {
   flex: 1; 
   display: flex;
   flex-direction: column;
+  background-color: #F8F8FF;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .persistentDrawerLeft__divider {
   width: var(--drawer-width); 
 }
-
-.title__container {
+.about__container {
+  padding: 1rem;
 }
