@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import SitePages from './data/SitePages';
 import useAuthentication, { defaultState } from './hooks/useAuthentication'
 import { AnimatedSwitch } from "react-router-transition";
