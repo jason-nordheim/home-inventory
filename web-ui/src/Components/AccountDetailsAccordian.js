@@ -46,76 +46,94 @@ const AccountDetailsAccordian = ({ user }) => {
     userNameInputChanged(e, setUsername, setUsernameError);
   };
   return (
-    <Accordion>
+    <Accordion className="accountDetailsAccordian">
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="h5">Account Details</Typography>
       </AccordionSummary>
       <AccordionDetails>
-          <form style={{ padding: "1rem" }}>
-                <Paper className="accountDetailsAccordian__leftPane" variant="outlined" style={{ margin: "1rem" }}>
-                      <UsernameTextField
-                        username={username}
-                        usernameError={usernameError}
-                        onChange={onUsernameChanged}
-                        required={false}
-                        disabled={!editMode}
-                      />
-                      <NameTextField
-                        name={name}
-                        setName={setName}
-                        nameError={nameError}
-                        onChange={onNameChanged}
-                        required={false}
-                        disabled={!editMode}
-                      />
-                      <EmailTextField
-                        email={email}
-                        emailError={emailError}
-                        onChange={onEmailChanged}
-                        required={false}
-                        disabled={!editMode}
-                      />
-                      <PhoneTextField
-                        phone={phone}
-                        phoneError={phoneError}
-                        onChange={onPhoneChanged}
-                        required={false}
-                        disabled={!editMode}
-                      />
-                </Paper>
-              {/* end of left pane, start RIGHT pane */}
-              <Paper className="accountDetailsAccordian__RightPane" variant="outlined" style={{ margin: "1rem" }}>
-                      <TextField
-                        variant="outlined"
-                        fullWidth
-                        defaultValue={bio}
-                        onChange={(e) => setBio(e.target.value)}
-                        multiline
-                        name="bio"
-                        label="Bio"
-                        rows={10}
-                        disabled={!editMode}
-                      />
-                </Paper>
-              {/* end of RIGHT pane */}
-              <br />
-              <div >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (editMode) {
-                        alert("Unable to edit at this time");
-                        //updateUser(user.id, name, username, phone, email)
-                      }
-                      setEditMode(!editMode);
-                    }}
-                  >
-                    {editMode ? "Save" : "Edit"}
-                  </Button>
+        <form>
+            <Paper className="accountDetailsAccordian__detailsContainer" elevation={4}>
+              <div
+                className="accountDetailsAccordian__leftPane"
+                variant="outlined"
+              >
+                <div className="accountDetailsAccordian__textfield">
+                  <UsernameTextField
+                    username={username}
+                    usernameError={usernameError}
+                    onChange={onUsernameChanged}
+                    required={false}
+                    disabled={!editMode}
+                  />
                 </div>
-          </form>
+                <div className="accountDetailsAccordian__textfield">
+                  <NameTextField
+                    name={name}
+                    setName={setName}
+                    nameError={nameError}
+                    onChange={onNameChanged}
+                    required={false}
+                    disabled={!editMode}
+                  />
+                </div>
+                <div className="accountDetailsAccordian__textfield">
+                  <EmailTextField
+                    email={email}
+                    emailError={emailError}
+                    onChange={onEmailChanged}
+                    required={false}
+                    disabled={!editMode}
+                  />
+                </div>
+                <div className="accountDetailsAccordian__textfield">
+                  <PhoneTextField
+                    phone={phone}
+                    phoneError={phoneError}
+                    onChange={onPhoneChanged}
+                    required={false}
+                    disabled={!editMode}
+                  />
+                </div>
+              </div>
+              {/* end of left pane, start RIGHT pane */}
+              <div
+                className="accountDetailsAccordian__rightPane"
+                variant="outlined"
+              >
+                <div className="accountDetailsAccordian__textfield">
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    defaultValue={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    multiline
+                    name="bio"
+                    label="Bio"
+                    rows={10}
+                    disabled={!editMode}
+                  />
+                </div>
+              </div>
+              {/* end of RIGHT pane */}
+            </Paper>
+          <br />
+          <div className="accountDetailsAccordian__buttonContainer">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={(e) => {
+                e.preventDefault();
+                if (editMode) {
+                  alert("Unable to edit at this time");
+                  //updateUser(user.id, name, username, phone, email)
+                }
+                setEditMode(!editMode);
+              }}
+            >
+              {editMode ? "Save" : "Edit"}
+            </Button>
+          </div>
+        </form>
       </AccordionDetails>
     </Accordion>
   );

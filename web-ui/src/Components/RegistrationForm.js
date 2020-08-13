@@ -120,11 +120,11 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
                 usernameError !== null ||
                 emailError !== null ||
                 phoneError !== null ) || (
-                  name !== "" || 
-                  password !== "" ||
-                  username !== "" || 
-                  email !== "" || 
-                  phone !== "" 
+                  name === "" || 
+                  password === "" ||
+                  username === "" || 
+                  email === "" || 
+                  phone === "" 
                 )
               }
             >

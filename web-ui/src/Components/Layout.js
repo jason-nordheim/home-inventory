@@ -7,6 +7,7 @@ import theme from '../style/useTheme';
 const Layout = ({ children, title }) => {
 	return (
 		<ThemeProvider theme={theme}>
+		{ /* always start at the top of the page */window.scrollTo(0, 0)}
 			<PersistentDrawerLeft>
 				{title && <Title title={title} />}
 				{children}
