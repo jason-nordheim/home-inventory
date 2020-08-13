@@ -5,7 +5,7 @@ import { StaticContent } from '../data/StaticContent';
 
 const About = () => {
 	return (
-		<Container>
+		<div className="about__container">
 			{StaticContent.PageContent.About.map((section) => {
 				return (
 					<Accordion key={section.title} defaultExpanded>
@@ -18,7 +18,7 @@ const About = () => {
 					</Accordion>
 				);
 			})}
-		</Container>
+		</div>
 	);
 };
 
