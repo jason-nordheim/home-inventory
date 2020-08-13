@@ -1,9 +1,9 @@
 import React from 'react';
 import { Accordion, Typography, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { StaticContent, ApplicationName } from '../data/StaticContent';
+import { StaticContent } from '../../data/StaticContent';
 
-const About = () => {
+const HomeUnAuthenticated = () => {
 	return (
 		<div className="about__container">
 			{StaticContent.PageContent.About.map((section) => {
@@ -43,4 +43,4 @@ const AccordianRight = ({ children }) => {
 	)
 }
 
-export default About;
+export default HomeUnAuthenticated;
