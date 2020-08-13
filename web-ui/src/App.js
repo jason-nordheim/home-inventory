@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SitePages from './data/SitePages';
 import useAuthentication, { defaultState } from './hooks/useAuthentication'
 import { AnimatedSwitch } from "react-router-transition";
@@ -12,10 +12,10 @@ const App = () => {
 	return (
     <AuthorizationContext.Provider value={AuthContext}>
       <BrowserRouter>
-        <AnimatedSwitch
-          atEnter={{ opacity: 0 }}
-          atLeave={{ opacity: 0 }}
-          atActive={{ opacity: 1, transition: 'linear', transitionDuration: '0.2s'}}
+        <Switch
+          // atEnter={{ opacity: 0 }}
+          // atLeave={{ opacity: 0 }}
+          // atActive={{ opacity: 1, transition: 'linear', transitionDuration: '0.2s'}}
         >
           {SitePages.map((link) => {
             return (
@@ -28,7 +28,7 @@ const App = () => {
               </Route>
             );
           })}
-        </AnimatedSwitch>
+        </Switch>
       </BrowserRouter>
     </AuthorizationContext.Provider>
   );
