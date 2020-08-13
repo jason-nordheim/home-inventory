@@ -280,6 +280,7 @@ table {
 }
 .quadrantBody__container {
   height: 200px;
+  padding: 5px;
   overflow: scroll;
 }
 .quadrant__title {
