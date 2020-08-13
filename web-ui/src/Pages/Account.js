@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Layout from "../Components/Layout";
-import AuthenticatedAccountPage from "../Components/AccountPage.Authenticated";
-import UnAuthenticatedAccountPage from "../Components/AccountPage.UnAuthenticated";
+import AuthenticatedAccountPage from "../Components/Account/AccountPage.Authenticated";
+import UnAuthenticatedAccountPage from "../Components/Account/AccountPage.UnAuthenticated";
 import { AuthorizationContext } from "../App";
 
 const AccountPage = () => {

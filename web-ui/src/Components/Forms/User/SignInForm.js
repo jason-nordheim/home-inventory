@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import {  Button, Typography, Paper } from "@material-ui/core";
-import { AuthorizationContext } from "../App";
-import { login } from "../util/Authentication";
-import UsernameTextField from "./Forms/UsernameTextField";
-import PasswordTextField from "./Forms/PasswordTextField";
+import { AuthorizationContext } from "../../../App";
+import { login } from "../../../util/Authentication";
+import UsernameTextField from "./Fields/UsernameTextField";
+import PasswordTextField from "./Fields/PasswordTextField";
 import {
   userNameInputChanged,
   passwordInputChanged,
-} from "../util/FormValidations";
-import showErrorMessage from "./ShowErrorMessage";
+} from "../../../util/FormValidations"
+import showErrorMessage from "../User/Fields/ShowErrorMessage";
 
 
 const SignInForm = ({ display, toggleDisplay }) => {

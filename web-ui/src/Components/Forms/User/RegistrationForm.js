@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
-import showErrorMessage from "./ShowErrorMessage";
-import { register } from "../util/Authentication";
-import NameTextField from "./Forms/NameTextField";
-import EmailTextField from "./Forms/EmailTextField";
-import PhoneTextField from "./Forms/PhoneTextField";
-import UsernameTextField from "./Forms/UsernameTextField";
-import PasswordTextField from "./Forms/PasswordTextField";
+import showErrorMessage from "./Fields/ShowErrorMessage";
+import { register } from "../../../util/Authentication";
+import NameTextField from "./Fields/NameTextField"
+import EmailTextField from "./Fields/EmailTextField";
+import PhoneTextField from "./Fields/PhoneTextField";
+import UsernameTextField from "./Fields/UsernameTextField";
+import PasswordTextField from "./Fields/PasswordTextField";
 import {
   nameInputChanged,
   emailInputChanged,
   phoneInputChanged,
   userNameInputChanged,
   passwordInputChanged,
-} from "../util/FormValidations";
+} from "../../../util/FormValidations";
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");

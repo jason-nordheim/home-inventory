@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SignInForm from "./SignInForm";
-import RegistrationForm from "./RegistrationForm";
+import SignInForm from "../Forms/User/SignInForm"
+import RegistrationForm from "../Forms/User/RegistrationForm";
 
 const UnAuthenticatedAccountPage = () => {
   const [register, setRegister] = useState(false);

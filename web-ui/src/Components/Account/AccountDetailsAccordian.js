@@ -8,10 +8,10 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
-import NameTextField from "./Forms/NameTextField";
-import EmailTextField from "./Forms/EmailTextField";
-import PhoneTextField from "./Forms/PhoneTextField";
-import UsernameTextField from "./Forms/UsernameTextField";
+import NameTextField from "../Forms/User/Fields/NameTextField";
+import EmailTextField from "../Forms/User/Fields/EmailTextField";
+import PhoneTextField from "../Forms/User/Fields/PhoneTextField";
+import UsernameTextField from "../Forms/User/Fields/UsernameTextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import {
@@ -19,7 +19,7 @@ import {
   emailInputChanged,
   phoneInputChanged,
   userNameInputChanged,
-} from "../util/FormValidations";
+} from "../../util/FormValidations";
 
 const AccountDetailsAccordian = ({ user }) => {
   const [editMode, setEditMode] = useState(false);
