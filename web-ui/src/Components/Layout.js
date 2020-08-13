@@ -18,8 +18,8 @@ const Layout = ({ children, title }) => {
 
 const Title = ({ title, props }) => {
 	return (
-		<span>
-			<Typography variant="h3" style={{ display: 'flex', placeContent: 'center', marginBottom: '2rem' }}>
+		<span className="title__container">
+			<Typography variant="h3" style={{ display: 'flex', placeContent: 'center', marginBottom: '1rem' }}>
 				{title}
 			</Typography>
 			<hr /> 
