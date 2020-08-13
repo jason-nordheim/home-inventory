@@ -9,8 +9,9 @@ import {
   Button, 
 } from "@material-ui/core";
 import { AuthorizationContext } from "../../App";
-import { Quadrant } from './Quadrant'
-import QuadrantSummary from './QuadrantSummary'
+import QuadrantSummary from './Quadrant/QuadrantSummary'
+import { useState } from 'react'
+import LocationQuadrant from './Quadrant/LocationQuadrant'
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {},
@@ -35,11 +36,12 @@ import QuadrantSummary from './QuadrantSummary'
 
 const HomeAuthenticated = () => {
   const AuthContext = useContext(AuthorizationContext);
+  const [locationFrontIsVisible, setLocationFrontIsVisible] = useState(true);
 
   return (
     <div className="homeAuthenticated__container">
       <div className="homeAuthenticated__quadrantContainer">
-        <Quadrant title="Location"></Quadrant>
+       <LocationQuadrant /> 
       </div>
       <div className="homeAuthenticated__quadrantContainer">
         <Paper elevation={4}>
@@ -53,16 +55,14 @@ const HomeAuthenticated = () => {
       <div className="homeAuthenticated__quadrantContainer">
         <Paper elevation={4}>
           <Typography variant="h5">Items</Typography>
-          <hr />  
+          <hr />
           <div></div>
           <hr />
           <Button variant="contained">New</Button>
         </Paper>
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <QuadrantSummary>
-          
-        </QuadrantSummary>
+        <QuadrantSummary></QuadrantSummary>
       </div>
     </div>
   );
