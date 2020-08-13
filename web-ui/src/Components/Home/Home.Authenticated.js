@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { AuthorizationContext } from "../../App";
 import { Quadrant } from './Quadrant'
+import QuadrantSummary from './QuadrantSummary'
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {},
@@ -36,13 +37,11 @@ const HomeAuthenticated = () => {
   const AuthContext = useContext(AuthorizationContext);
 
   return (
-    <div>
-      <div>
-        <Quadrant title="Location">
-
-        </Quadrant> 
+    <div className="homeAuthenticated__container">
+      <div className="homeAuthenticated__quadrantContainer">
+        <Quadrant title="Location"></Quadrant>
       </div>
-      <div>
+      <div className="homeAuthenticated__quadrantContainer">
         <Paper elevation={4}>
           <Typography variant="h5">Vendors</Typography>
           <hr />
@@ -51,60 +50,19 @@ const HomeAuthenticated = () => {
           <Button variant="contained">New</Button>
         </Paper>
       </div>
-      <div>
+      <div className="homeAuthenticated__quadrantContainer">
         <Paper elevation={4}>
           <Typography variant="h5">Items</Typography>
-          <hr />
+          <hr />  
           <div></div>
           <hr />
           <Button variant="contained">New</Button>
         </Paper>
       </div>
-      <div>
-        <Paper elevation={4}>
-          <Typography variant="h5">Summary</Typography>
-          <hr />
-          <Grid container>
-            <List>
-              <div>
-                <div>
-                  <ListItem>
-                    <div>
-                      <ListItemText>Items</ListItemText>
-                    </div>
-                    <div>
-                      <ListItemText>0</ListItemText>
-                    </div>
-                  </ListItem>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <ListItem>
-                    <div>
-                      <ListItemText>Vendors</ListItemText>
-                    </div>
-                    <div>
-                      <ListItemText>0</ListItemText>
-                    </div>
-                  </ListItem>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <ListItem>
-                    <div>
-                      <ListItemText>Locations</ListItemText>
-                    </div>
-                    <div>
-                      <ListItemText>0</ListItemText>
-                    </div>
-                  </ListItem>
-                </div>
-              </div>
-            </List>
-          </Grid>
-        </Paper>
+      <div className="homeAuthenticated__quadrantContainer">
+        <QuadrantSummary>
+          
+        </QuadrantSummary>
       </div>
     </div>
   );
