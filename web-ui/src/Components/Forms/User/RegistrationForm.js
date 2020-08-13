@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
-import showErrorMessage from "./Fields/ShowErrorMessage";
+import ErrorMessage from "./Fields/ErrorMessage";
 import { register } from "../../../util/Authentication";
 import NameTextField from "./Fields/NameTextField"
 import EmailTextField from "./Fields/EmailTextField";
@@ -131,7 +131,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
             </Button>
           </div>
           <br />
-          {errorMessage !== null && showErrorMessage(errorMessage)}
+          {errorMessage !== null && ErrorMessage(errorMessage)}
           <div className="registrationForm__goToLogin">
             <Typography paragraph>
               Already have an account? <u onClick={toggleDisplay}>Click here</u>{" "}

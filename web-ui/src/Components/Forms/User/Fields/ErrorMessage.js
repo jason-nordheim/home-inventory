@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 
-export default function showError(errorMessage) {
+const ErrorMessage = (errorMessage) => {
 	return (
 		<Grid item xs={12} style={{ textAlign: 'center', marginTop: '1rem' }}>
 			<Typography paragraph style={{ color: 'red' }}>
@@ -10,3 +10,5 @@ export default function showError(errorMessage) {
 		</Grid>
 	);
 }
+
+export default ErrorMessage
