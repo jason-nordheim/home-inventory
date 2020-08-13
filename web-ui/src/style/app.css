@@ -50,11 +50,91 @@ table {
 /* Custom Styling */ 
 :root { 
   --drawer-width: 240px; 
+  --app-bar-height: 71px; 
 }
 
-.signInForm__paper {
-  padding: 1rem; 
+.unAuthenticatedAccountPage__container {
+  margin: 1rem; 
 }
+.registrationForm__container {
+  display: flex;
+  flex: 1; 
+  justify-content: center;
+}
+.signInForm__container {
+  display: flex;
+  justify-content: center;
+}
+.signInForm__paper {
+  display: flex;
+  padding: 1rem 2rem;
+}
+.signInForm__form  {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem 2rem;
+}
+.singInForm__header {
+  display: flex; 
+  justify-content: center;
+}
+.signInForm__fieldContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signInForm__usernameTextField, .signInForm__passwordTextField {
+  flex: 1;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.signInForm__button {
+  display: flex;
+  justify-content: center;
+}
+.signInForm__goToRegister {
+  display: flex; 
+  justify-content: center;
+}
+
+/** Registration Form  **/ 
+.registrationForm__container {
+  display: flex;
+  justify-content: center;
+}
+.registrationForm__paper {
+  padding: 1rem 2rem;
+}
+.registrationForm__fieldContainer {
+  display: flex;
+  flex-direction: column;
+}
+.registrationForm__form {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem 2rem;
+} 
+.registrationForm__header {
+  display: flex; 
+  justify-content: center;
+  margin-top: 1rem;
+} 
+.registrationForm__nameField, .registrationForm__emailField, .registrationForm__phoneField, .registrationForm__usernameField, .registrationForm__passwordField {
+  margin-bottom: 1rem;
+}
+.registrationForm__button {
+  display: flex; 
+  justify-content: center;
+}
+.registrationForm__goToLogin {
+  display: flex; 
+  justify-content: center;
+}
+
+
 
 .persistentDrawerLeft__root {
   display: flex;
@@ -67,6 +147,8 @@ table {
 .persistentDrawerLeft__appNameContainer {
   display: flex;
   flex: 1; 
+  height: var(--app-bar-height);
+  align-items: center;
   justify-content: center;
 }
 .persistentDrawerLeft__avatar {
@@ -74,11 +156,14 @@ table {
 }
 .persistentDrawerLeft__drawerHeader{
   position: fixed;
+  height: var(--app-bar-height);
+  display: flex;
+  align-items: center;
   width: var(--drawer-width); 
 }
 .persistentDrawerLeft__linkList {
   border-top: 1px solid gray;
-  top: 45px;
+  top: var(--app-bar-height);
 }
 
 .persistentDrawerLeft__link {
@@ -88,7 +173,7 @@ table {
   width: var(--drawer-width);
 }
 .persistentDrawerLeft__main {
-  margin-top: 4rem;
+  margin-top: calc(var(--app-bar-height) + 15px);
   padding-top: 1rem;
   flex: 1; 
   display: flex;

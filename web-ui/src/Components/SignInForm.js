@@ -61,55 +61,61 @@ const SignInForm = ({ display, toggleDisplay }) => {
   }
 
   return (
+    <div className="signInForm__container">
       <Paper className="signInForm__paper" elevation={4}>
-        <form>
-          <div>
+        <form className="signInForm__form">
+          <div className="singInForm__header">
             <Typography variant="h5">Sign In</Typography>
           </div>
-          <hr /> 
-          <div>
-            <UsernameTextField
-              username={username}
-              usernameError={usernameError}
-              onChange={e => userNameInputChanged(e, setUsername, setUsernameError)}
-            />
-          </div>
-          <div>
-            <PasswordTextField
-              password={password}
-              passwordError={passwordError}
-              onChange={e => passwordInputChanged(e, setPassword, setPasswordError)}
-            />
-          </div>
-          <div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              disabled={
-                passwordError !== null ||
-                usernameError !== null ||
-                password.length < MIN_CHARS ||
-                username.length < MIN_CHARS
-              }
-              style={{
-                marginTop: "1rem",
-              }}
-            >
-              Sign In
-            </Button>
+          <hr />
+          <div className="signInForm__fieldContainer">
+            <div className="signInForm__usernameTextField">
+              <UsernameTextField
+                username={username}
+                usernameError={usernameError}
+                onChange={(e) =>
+                  userNameInputChanged(e, setUsername, setUsernameError)
+                }
+              />
+            </div>
+            <div className="signInForm__passwordTextField">
+              <PasswordTextField
+                password={password}
+                passwordError={passwordError}
+                onChange={(e) =>
+                  passwordInputChanged(e, setPassword, setPasswordError)
+                }
+              />
+            </div>
+            <div className="signInForm__button">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+                disabled={
+                  passwordError !== null ||
+                  usernameError !== null ||
+                  password.length < MIN_CHARS ||
+                  username.length < MIN_CHARS
+                }
+              >
+                Sign In
+              </Button>
+            </div>
+            <div>
+              {errorMessage !== null && showErrorMessage(errorMessage)}
+            </div>
           </div>
           <br />
-          <div>
+          <div className="signInForm__goToRegister">
             <Typography paragraph>
-              Don't have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
-              to register
+              Don't have an account? <u onClick={toggleDisplay}>Click here</u> to
+              register
             </Typography>
           </div>
-
-          {errorMessage !== null && showErrorMessage(errorMessage)}
         </form>
       </Paper>
+    </div>
   );
 };
 

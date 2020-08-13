@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Accordion, Typography, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { Accordion, Typography, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { StaticContent } from '../data/StaticContent';
 
