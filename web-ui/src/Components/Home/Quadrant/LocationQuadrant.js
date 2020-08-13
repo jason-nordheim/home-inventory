@@ -1,8 +1,6 @@
-import React, { useState } from 'react' 
+import React from 'react' 
 import { Typography } from '@material-ui/core'
 import Quadrant from './Quadrant'
-import QuadrantBack from './QuadrantBack'
-import QuadrantFront from './QuadrantFront'
 
 const LocationQuadrant = () => {
   return (

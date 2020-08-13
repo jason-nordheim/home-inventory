@@ -1,7 +1,7 @@
 import React from 'react' 
 
 const QuadrantFront = ({ children, visible }) => (
-  <div className={visible ? `quadrantFront hide` : `quadrantFront `}>
+  <div className={!visible ? `quadrantFront hide` : `quadrantFront `}>
     {children}
   </div>
 );

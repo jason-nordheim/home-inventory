@@ -1,53 +1,56 @@
 import React from "react";
-import {
-  Paper,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-} from "@material-ui/core";
+import { List, ListItem, ListItemText } from "@material-ui/core";
+import Quadrant from "./Quadrant";
 
-const QuadrantSummary = () => {
+const SummaryQuadrant = () => {
   return (
-    <Paper elevation={4}>
-      <Typography variant="h5">Summary</Typography>
-      <hr />
-      <div>
-        <List>
-          <div>
-            <ListItem>
-              <div>
-                <ListItemText>Items</ListItemText>
-              </div>
-              <div>
-                <ListItemText>0</ListItemText>
-              </div>
-            </ListItem>
-          </div>
-          <div>
-            <ListItem>
-              <div>
-                <ListItemText>Vendors</ListItemText>
-              </div>
-              <div>
-                <ListItemText>0</ListItemText>
-              </div>
-            </ListItem>
-          </div>
-          <div>
-              <ListItem>
-                <div>
-                  <ListItemText>Locations</ListItemText>
-                </div>
-                <div>
-                  <ListItemText>0</ListItemText>
-                </div>
-              </ListItem>
-          </div>
-        </List>
-      </div>
-    </Paper>
+    <Quadrant
+      title="Summary"
+      front={<SummaryFront /> }
+      back={null}
+      hasNew={false}
+    />
+  ); 
+};
+
+const SummaryFront = () => {
+  return (
+    <div>
+   
+      <List>
+        <div>
+          <ListItem>
+            <div>
+              <ListItemText>Items</ListItemText>
+            </div>
+            <div>
+              <ListItemText>0</ListItemText>
+            </div>
+          </ListItem>
+        </div>
+        <div>
+          <ListItem>
+            <div>
+              <ListItemText>Vendors</ListItemText>
+            </div>
+            <div>
+              <ListItemText>0</ListItemText>
+            </div>
+          </ListItem>
+        </div>
+        <div>
+          <ListItem>
+            <div>
+              <ListItemText>Locations</ListItemText>
+            </div>
+            <div>
+              <ListItemText>0</ListItemText>
+            </div>
+          </ListItem>
+        </div>
+      </List>
+    </div>
   );
 };
 
-export default QuadrantSummary;
+export default SummaryQuadrant;

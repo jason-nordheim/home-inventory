@@ -51,10 +51,11 @@ table {
 :root { 
   --drawer-width: 240px; 
   --app-bar-height: 71px; 
+  --default-page-margin: 1rem; 
 }
 
 .unAuthenticatedAccountPage__container {
-  margin: 1rem; 
+  margin: var(--default-page-margin); 
 }
 .registrationForm__container {
   display: flex;
@@ -197,7 +198,7 @@ table {
   justify-self: center;
   max-width: 70%;
   flex-direction: column;
-  margin: 1rem;
+  margin: var(--default-page-margin);
 }
 .about__accodionDetails {
   display: flex;
@@ -224,7 +225,7 @@ table {
   justify-content: center;
 }
 .authenticatedAccountPage__paper {
-  margin: 1rem;
+  margin: var(--default-page-margin);
   padding: 1rem; 
   display: flex;
   flex-direction: column;
@@ -242,7 +243,7 @@ table {
 .accountDetailsAccordian__leftPane {
   flex: 1; 
   padding: 1rem;
-  margin: 1rem;
+  margin: var(--default-page-margin);
 }
 .accountDetailsAccordian__rightPane {
   flex: 1; 
@@ -256,4 +257,42 @@ table {
 .accountDetailsAccordian__textfield {
   margin: 1rem;
   min-width: 280px;
+}
+.homeAuthenticated__container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  margin: var(--default-page-margin);
+}
+
+.homeAuthenticated__quadrantContainer {
+  display: flex;
+  flex: 1;
+  margin: 1rem;
+}
+.quadrant__paper {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  min-width: 300px;
+  padding: 1rem;
+}
+.quadrantBody__container {
+  height: 200px;
+  overflow: scroll;
+}
+.quadrant__title {
+  display: flex; 
+  justify-content: center;
+  border-bottom: 1px solid gray;
+}
+.quadrantFooter {
+  border-top: 1px solid gray;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+.hide {
+  display: none;
 }

@@ -12,6 +12,8 @@ import { AuthorizationContext } from "../../App";
 import QuadrantSummary from './Quadrant/QuadrantSummary'
 import { useState } from 'react'
 import LocationQuadrant from './Quadrant/LocationQuadrant'
+import VendorsQuadrant from './Quadrant/VendorsQuadrant'
+import ItemsQuadrant from './Quadrant/ItemsQuadrant'
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {},
@@ -44,25 +46,13 @@ const HomeAuthenticated = () => {
        <LocationQuadrant /> 
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <Paper elevation={4}>
-          <Typography variant="h5">Vendors</Typography>
-          <hr />
-          <div></div>
-          <hr />
-          <Button variant="contained">New</Button>
-        </Paper>
+        <VendorsQuadrant /> 
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <Paper elevation={4}>
-          <Typography variant="h5">Items</Typography>
-          <hr />
-          <div></div>
-          <hr />
-          <Button variant="contained">New</Button>
-        </Paper>
+        <ItemsQuadrant /> 
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <QuadrantSummary></QuadrantSummary>
+        <QuadrantSummary /> 
       </div>
     </div>
   );
