@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import { ApplicationName } from "../data/StaticContent";
-import { useDrawerStyless } from "../style/useDrawerStyles";
 import { useTheme } from "@material-ui/core/styles";
 import {
   Drawer,
@@ -30,7 +29,6 @@ import { Link } from "react-router-dom";
 const PersistentDrawerLeft = ({ children }) => {
   const AuthContext = useContext(AuthorizationContext);
   const theme = useTheme();
-  const classes = useDrawerStyless(theme);
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -42,34 +40,22 @@ const PersistentDrawerLeft = ({ children }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className="persistentDrawerLeft__root">
       <AppBar
         position="fixed"
         variant="elevation"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
+        className={`persistentDrawerLeft__appBar`}
       >
-        <Toolbar className={classes.toolbar}>
-          <Container style={{display: 'flex', flex: 0}}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Container>
-          <Container
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-							flex: 1
-            }}
+        <Toolbar className="persistentDrawerLeft__toolbar">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
           >
+            <MenuIcon />
+          </IconButton>
+          <div className="persistentDrawerLeft__appNameContainer">
             <Typography variant="h4" noWrap>
               {ApplicationName}
             </Typography>
@@ -79,10 +65,10 @@ const PersistentDrawerLeft = ({ children }) => {
               variant="circle"
               src="../img/apple-touch-icon.png"
             />
-          </Container>
+          </div>
           {AuthContext.state.token && (
-            <Container style={{ display: 'flex', flexDirection: 'row-reverse', flex: 0}}>
               <IconButton
+                className="persistentDrawerLeft__logoutButton"
                 color="inherit"
                 aria-label="logout"
                 onClick={() => AuthContext.dispatch({ type: "logout" })}
@@ -90,34 +76,32 @@ const PersistentDrawerLeft = ({ children }) => {
               >
                 <ExitToAppIcon />
               </IconButton>
-            </Container>
           )}
         </Toolbar>
       </AppBar>
       <Drawer
-        className={classes.drawer}
+        // className={classes.drawer}
+        className="persistentDrawerLeft__drawer"
         variant="persistent"
         anchor="left"
         open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+        // classes={{
+        //   paper: classes.drawerPaper,
+        // }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton className="persistentDrawerLeft__drawerHeader" onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
             )}
           </IconButton>
-        </div>
         <Divider />
         <List>
           {SitePages.map((link) => {
             return (
-              <Link className={classes.navLink} key={link.text} to={link.url}>
-                <ListItem button>
+              <Link className="persistentDrawerLeft__link" key={link.text} to={link.url}>
+                <ListItem button className="persistentDrawerLeft__navLink">
                   <ListItemIcon>{link.icon}</ListItemIcon>
                   <ListItemText primary={link.text} />
                 </ListItem>
@@ -126,12 +110,13 @@ const PersistentDrawerLeft = ({ children }) => {
           })}
         </List>
       </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
+      <main 
+      className="persistentDrawerLeft__main"
+        // className={clsx(classes.content, {
+        //   [classes.contentShift]: open,
+        // })}
       >
-        <div className={classes.drawerHeader} />
+        <div className="persistentDrawerLeft__drawerHeader" />
         {children}
       </main>
     </div>

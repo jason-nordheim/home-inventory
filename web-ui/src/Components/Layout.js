@@ -22,6 +22,7 @@ const Title = ({ title, props }) => {
 			<Typography variant="h3" style={{ display: 'flex', placeContent: 'center', marginBottom: '2rem' }}>
 				{title}
 			</Typography>
+			<hr /> 
 		</span>
 	);
 };

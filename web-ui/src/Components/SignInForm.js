@@ -61,7 +61,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
   }
 
   return (
-      <Paper elevation={4}>
+      <Paper className="signInForm__paper" elevation={4}>
         <form>
           <div>
             <Typography variant="h5">Sign In</Typography>
