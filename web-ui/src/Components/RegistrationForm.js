@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Typography, Paper, Grid } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Button, Typography, Paper } from "@material-ui/core";
 import showErrorMessage from "./ShowErrorMessage";
-import { AuthorizationContext } from "../App";
 import { register } from "../util/Authentication";
 import NameTextField from "./Forms/NameTextField";
 import EmailTextField from "./Forms/EmailTextField";

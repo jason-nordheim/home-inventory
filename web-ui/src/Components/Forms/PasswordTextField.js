@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField } from "@material-ui/core";
 
 const PasswordTextField = ({ password, setPassword, variant="outlined", passwordError, onChange }) => {

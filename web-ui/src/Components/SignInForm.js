@@ -18,7 +18,6 @@ const SignInForm = ({ display, toggleDisplay }) => {
   const [passwordError, setPasswordError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const MIN_CHARS = 3;
-  const hasWhiteSpaceRegEx = new RegExp(/\s/);
   const AuthContext = useContext(AuthorizationContext);
 
   // remove the error message after 2 seconds
