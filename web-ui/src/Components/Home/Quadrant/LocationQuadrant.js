@@ -2,13 +2,13 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import Quadrant from './Quadrant'
 
-const LocationQuadrant = () => {
+const LocationsQuadrant = () => {
   return (
-    <Quadrant title="Location" front={<LocationFront /> } back={ <LocationBack /> } />
+    <Quadrant title="Location" front={<LocationsFront /> } back={ <LocationsBack /> } />
   );
 }
 
-const LocationFront = () => {
+const LocationsFront = () => {
   return (
     <Typography>
       Location Front 
@@ -16,7 +16,7 @@ const LocationFront = () => {
   )
 }
 
-const LocationBack = () => {
+const LocationsBack = () => {
   return (
     <Typography>
       Location Back 
@@ -24,4 +24,4 @@ const LocationBack = () => {
   )
 }
 
-export default LocationQuadrant
+export default LocationsQuadrant

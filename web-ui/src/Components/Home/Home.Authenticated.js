@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { AuthorizationContext } from "../../App";
 import QuadrantSummary from './Quadrant/QuadrantSummary'
-import LocationQuadrant from './Quadrant/LocationQuadrant'
+import LocationsQuadrant from './Quadrant/LocationQuadrant'
 import VendorsQuadrant from './Quadrant/VendorsQuadrant'
 import ItemsQuadrant from './Quadrant/ItemsQuadrant'
 
@@ -20,7 +20,7 @@ const HomeAuthenticated = () => {
   return (
     <div className="homeAuthenticated__container">
       <div className="homeAuthenticated__quadrantContainer">
-       <LocationQuadrant /> 
+       <LocationsQuadrant /> 
       </div>
       <div className="homeAuthenticated__quadrantContainer">
         <VendorsQuadrant /> 
