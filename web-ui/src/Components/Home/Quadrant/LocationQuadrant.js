@@ -1,7 +1,7 @@
 import React from 'react' 
 import { Typography } from '@material-ui/core'
 import Quadrant from './Quadrant'
-import NewLocationForm from '../../Forms/Locations/NewLocationForm'
+import LocationForm from '../../Forms/Locations/LocationForm'
 
 const LocationsQuadrant = () => {
   return (
@@ -19,7 +19,7 @@ const LocationsFront = () => {
 
 const LocationsBack = () => {
   return (
-    <NewLocationForm /> 
+    <LocationForm /> 
   )
 }
 

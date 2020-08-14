@@ -5,7 +5,7 @@ import StateSelect from "./Fields/StateSelect";
 import { useState } from "react";
 import { locationNameChanged } from "../../../util/FormValidations";
 
-const NewLocationForm = () => {
+const LocationForm = () => {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(null);
   const [street1, setStreet1] = useState("");
@@ -30,4 +30,4 @@ const NewLocationForm = () => {
   );
 };
 
-export default NewLocationForm;
+export default LocationForm;
