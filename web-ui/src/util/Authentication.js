@@ -69,6 +69,11 @@ export const register = async (name, username, email, phone, password) => {
   }
 };
 
+/**
+ * Function to retrieve the user information for the user 
+ * associated with the provided bearer token 
+ * @param {string} token 
+ */
 export const getUserInfo = async (token) => {
   const response = await fetch(`${baseUrl}/my_info`, {
     method: "GET",
