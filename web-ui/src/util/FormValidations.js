@@ -64,21 +64,56 @@ export const emailInputChanged = (e, setEmail, setEmailError) => {
   }
 };
 
-
-
 export const locationNameChanged = (e, setLocationName, setLocationError) => {
-  setLocationName(e.target.value) 
-  // validations - to do 
-  
-}
-
+  setLocationName(e.target.value);
+  // validations - to do
+  // existing location name? 
+};
 
 export const streetOneChanged = (e, setStreet, setStreetError) => {
-  setStreet(e.target.value) 
-  // validations - to do 
-}
+  setStreet(e.target.value);
+  // validations - to do
+  // matches existing street name for current user? 
+};
 
 export const streetTwoChanged = (e, setStreet, setStreetError) => {
   setStreet(e.target.value);
   // validations - to do
 };
+
+export const zipCodeChanged = (e, setZip, setZipError) => {
+  setZip(e.target.value);
+  if (e.target.value !== null && e.target.value.length < 5) {
+    setZipError("Invalid Zip Code");
+  } else {
+    setZipError(null);
+  }
+};
+
+
+export const locationTypeChanged = (e, setLocationType, setLocationTypeError) => {
+  setLocationType(e.target.value) 
+  if (e.target.value == null || e.target.value == "") {
+    setLocationTypeError(null);
+  } else if (!isValidLocationType(e.target.value)) {
+    setLocationTypeError("Invalid Location Type");
+  } else {
+    setLocationTypeError(null);
+  }
+}
+
+export const locationTypes = [
+  "apartment",
+  "house",
+  "condo",
+  "storage unit",
+  "garage",
+  "other",
+];
+
+const isValidLocationType = (locationType) => {
+  locationTypes.forEach(type => {
+    if (type == locationType) return true 
+  }) 
+  return false 
+}
