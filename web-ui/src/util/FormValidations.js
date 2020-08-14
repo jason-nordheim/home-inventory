@@ -71,3 +71,14 @@ export const locationNameChanged = (e, setLocationName, setLocationError) => {
   // validations - to do 
   
 }
+
+
+export const streetOneChanged = (e, setStreet, setStreetError) => {
+  setStreet(e.target.value) 
+  // validations - to do 
+}
+
+export const streetTwoChanged = (e, setStreet, setStreetError) => {
+  setStreet(e.target.value);
+  // validations - to do
+};
