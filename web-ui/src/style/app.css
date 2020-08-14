@@ -270,16 +270,21 @@ table {
   display: flex;
   flex: 1;
   margin: 1rem;
+  justify-content: center;
 }
+
 .quadrant__paper {
   display: flex;
   flex-direction: column;
   flex: 1; 
   min-width: 300px;
+  max-width: 500px;
   padding: 1rem;
 }
 .quadrantBody__container {
-  height: 200px;
+  min-height: 200px;
+  max-height: 350px;
+  flex: 1;
   padding: 5px;
   overflow: scroll;
 }
