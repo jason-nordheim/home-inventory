@@ -9,6 +9,17 @@
   * phone (string)
   * created_at (timestamp/auto)
   * updated_at (timestamp/auto)
+* Location 
+  * id (int/pk/auto)
+  * name (string/unique)
+  * street1 (string)
+  * street2 (string) 
+  * state (string) 
+  * zip (string) 
+  * type (string) 
+  * user_id (int/fk) _links to User model_ 
+  * created_at (timestamp/auto)
+  * updated_at (timestamp/auto)
 * Vendor 
   * id (int/pk/auto) 
   * name (string) 
@@ -22,6 +33,7 @@
   * email (string) 
   * description (text) 
   * references (User) 
+  * created_at (timestamp/auto)
 * Item 
   * id (int/pk/auto) 
   * name (string) 
@@ -31,4 +43,6 @@
   * description (text) 
   * purchase_date (datetime)
   * category (string) 
-  * created_by (int/fk/)
+  * created_by (int/fk) _links to User model_ 
+  * created_at (timestamp/auto)
+  * updated_at (timestamp/auto)
