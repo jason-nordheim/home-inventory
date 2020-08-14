@@ -63,3 +63,11 @@ export const emailInputChanged = (e, setEmail, setEmailError) => {
     setEmailError(null); // clear error
   }
 };
+
+
+
+export const locationNameChanged = (e, setLocationName, setLocationError) => {
+  setLocationName(e.target.value) 
+  // validations - to do 
+  
+}
