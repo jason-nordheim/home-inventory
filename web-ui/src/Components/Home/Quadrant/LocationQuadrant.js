@@ -4,8 +4,13 @@ import Quadrant from './Quadrant'
 import LocationForm from '../../Forms/Locations/LocationForm'
 
 const LocationsQuadrant = () => {
+
+  const submitNewLocation = e => {
+    e.preventDefault() 
+  }
+
   return (
-    <Quadrant title="Location" front={<LocationsFront /> } back={ <LocationsBack /> } />
+    <Quadrant title="Location" front={<LocationsFront /> } back={ <LocationsBack submitNewLocation={submitNewLocation} /> } />
   );
 }
 
@@ -17,9 +22,9 @@ const LocationsFront = () => {
   )
 }
 
-const LocationsBack = () => {
+const LocationsBack = ({submitNewLocation}) => {
   return (
-    <LocationForm /> 
+    <LocationForm onSubmit={submitNewLocation} submitText="create"/> 
   )
 }
 
