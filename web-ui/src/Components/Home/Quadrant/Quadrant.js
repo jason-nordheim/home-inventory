@@ -16,7 +16,7 @@ export const Quadrant = ( { title, front, back, hasNew=true } ) => {
     <Paper className="quadrant__paper" elevation={4}>
       <QuadrantHeader title={title} />
       <QuadrantBody front={front} back={back} showFront={showFront} />
-      {hasNew && <QuadrantFooter onCreateNew={onCreateNew} />}
+      {hasNew && <QuadrantFooter frontDisplayed={showFront} onCreateNew={onCreateNew} />}
     </Paper>
   );
 }
