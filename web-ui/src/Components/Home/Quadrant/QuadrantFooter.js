@@ -2,10 +2,10 @@ import React from "react"
 import { Button } from "@material-ui/core"
 
 
-const QuadrantFooter = ( { onCreateNew } ) => {
+const QuadrantFooter = ( { onCreateNew, text="new" } ) => {
   return (
     <div className="quadrantFooter">
-      <Button variant="contained" onClick={onCreateNew}>New</Button>
+      <Button variant="contained" onClick={onCreateNew}>{text}</Button>
     </div>
   )
 }
