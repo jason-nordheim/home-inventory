@@ -13,7 +13,8 @@ const LocationTypeSelect = ({
   id = "type",
 }) => {
   return (
-    <FormControl size="small" fullWidth>
+    <FormControl required={required} size="small" fullWidth>
+      <InputLabel className="locationTypeSelect__inputLabel" size="small">{label}</InputLabel>
       <Select
         label={label}
         variant={variant}
