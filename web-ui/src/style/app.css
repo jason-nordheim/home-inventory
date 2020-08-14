@@ -297,3 +297,39 @@ table {
 .hide {
   display: none;
 }
+
+.newLocationForm__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+.newLocationForm__textContainer {
+  display: flex;
+  padding: 0.5rem 0rem;
+  flex: 1
+}
+.newLocationForm__stateZipContainer {
+  display: flex;
+  padding: 0.5rem 0rem;
+}
+.newLocationForm__stateContainer {
+  flex: 3; 
+  padding-right: 0.5rem;
+}
+.newLocationForm__zipContainer {
+  flex: 2; 
+  padding-left: 0.5rem
+}
+.newLocationForm__typeContainer {
+  display: flex;
+  padding: 0.5rem 0;
+}
+.newLocationForm__submitContainer {
+  display: flex;
+  justify-content: center;
+}
+.locationTypeSelect__inputLabel, .stateSelect__inputLabel {
+  margin-left: 1rem;
+  margin-top: -0.5rem;
+  display: flex;
+}
