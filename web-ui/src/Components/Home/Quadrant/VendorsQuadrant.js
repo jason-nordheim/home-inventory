@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import Quadrant from "./Quadrant";
+import VendorForm from '../../Forms/Vendor/VendorForm'
 
 const VendorsQuadrant = () => {
   return (
@@ -8,6 +9,7 @@ const VendorsQuadrant = () => {
       title="Vendors"
       front={<VendorsFront />}
       back={<VendorsBack />}
+      onCreateNew={null} 
     />
   );
 };
@@ -17,7 +19,7 @@ const VendorsFront = () => {
 };
 
 const VendorsBack = () => {
-  return <Typography>Vendors Back</Typography>;
+  return <VendorForm /> 
 };
 
 export default VendorsQuadrant;
