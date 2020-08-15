@@ -1,9 +1,9 @@
 import React from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { FormControl, InputLabel, Select, MenuItem, FormLabel, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
 import { locationTypes } from '../../../../util/FormValidations'
 
 const LocationTypeSelect = ({
-  locationType,
+  locationType=locationTypes[0],
   locationTypeError,
   onChange,
   required = true,
@@ -12,24 +12,14 @@ const LocationTypeSelect = ({
   label = "Location Type",
   id = "type",
 }) => {
+  const radioButtons = locationTypes.map(loc => <FormControlLabel key={loc} value={loc} label={loc} control={<Radio />} /> )
+
   return (
     <FormControl required={required} size="small" fullWidth>
-      <InputLabel className="locationTypeSelect__inputLabel" size="small">{label}</InputLabel>
-      <Select
-        label={label}
-        variant={variant}
-        fullWidth
-        id={id}
-        required={required}
-        value={locationTypes[0]}
-        onChange={onChange}
-        disabled={disabled}
-        error={locationTypeError != null}
-      >
-        {locationTypes.map((location) => (
-          <MenuItem key={location} value={location}>{location}</MenuItem>
-        ))}
-      </Select>
+      <FormLabel className="locationTypeSelect__inputLabel" size="small">{label}</FormLabel>
+      <RadioGroup className="locationTypeSelect__radioGroup" aria-label="Location Type" name="type" onChange={onChange} row>
+        {radioButtons } 
+      </RadioGroup>
     </FormControl>
   );
 };
