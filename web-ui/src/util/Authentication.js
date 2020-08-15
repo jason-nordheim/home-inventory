@@ -98,7 +98,9 @@ export const getUserInfo = async (token) => {
  * @param {string} zip 
  * @returns {ActionResult}  
  */
-export const postNewLocation = async (token, name, street1, street2, city, state, zip ) => {
+export const postNewLocation = async (token, name, street1, street2, city, state, zip, type) => {
+  const newLocation = { name, street1, street2, city, state, zip, type} 
+  console.log('newLocation', newLocation)
   try {
     const response = await fetch(`${baseUrl}/locations`, {
       method: 'POST', 
@@ -106,7 +108,7 @@ export const postNewLocation = async (token, name, street1, street2, city, state
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       }, 
-      body: JSON.stringify(data) 
+      body: JSON.stringify(newLocation) 
     })
     const data = await response.json() 
 
