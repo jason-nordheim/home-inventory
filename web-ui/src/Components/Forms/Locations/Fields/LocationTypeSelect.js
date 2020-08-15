@@ -21,13 +21,13 @@ const LocationTypeSelect = ({
         fullWidth
         id={id}
         required={required}
-        value={locationType}
+        value={locationTypes[0]}
         onChange={onChange}
         disabled={disabled}
         error={locationTypeError != null}
       >
         {locationTypes.map((location) => (
-          <MenuItem value={location}>{location}</MenuItem>
+          <MenuItem key={location} value={location}>{location}</MenuItem>
         ))}
       </Select>
     </FormControl>
