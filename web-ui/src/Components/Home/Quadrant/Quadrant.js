@@ -3,7 +3,6 @@ import { Paper} from "@material-ui/core"
 import QuadrantFooter from './QuadrantFooter'
 import QuadrantHeader from './QuadrantHeader'
 import QuadrantBody from './QuadrantBody'
-import { EPERM } from 'constants'
 
 export const Quadrant = ( { title, front, back, hasNew=true, onNewClick } ) => {
   const [showFront, setShowFront ] = useState(true)
