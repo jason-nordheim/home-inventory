@@ -3,8 +3,8 @@ import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import UsStates from "../../../../data/UsStates";
 
 const StateSelect = ({
-  state=UsStates[0].abbreviation,
-  stateError,
+  value,
+  valueError,
   onChange,
   required = true,
   disabled = false,
@@ -24,7 +24,7 @@ const StateSelect = ({
         fullWidth
         id={id}
         required={required}
-        value={UsStates[0].abbreviation}
+        value={value}
         onChange={onChange}
         disabled={disabled}
       >
