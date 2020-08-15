@@ -338,3 +338,11 @@ table {
   margin-top: -0.5rem;
   display: flex;
 }
+.vendorForm__textField {
+  padding: 0.5rem 0;
+}
+.dollarAmountInput__label {
+  z-index: 1;
+  padding: 2rem 0;
+  background-color: white;
+}
