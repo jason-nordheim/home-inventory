@@ -343,6 +343,15 @@ table {
 }
 .dollarAmountInput__label {
   z-index: 1;
-  padding: 2rem 0;
   background-color: white;
+}
+
+.locationTypeSelect__inputLabel{
+  margin-top: 1rem;
+  text-align: center;
+}
+.locationTypeSelect__radioGroup {
+  display: flex;
+  padding: 0.5rem 0;
+  justify-content: space-evenly;
 }
