@@ -17,7 +17,7 @@ const LocationsQuadrant = () => {
 const LocationsFront = () => {
   return (
     <Typography>
-      Location Front 
+      PLACEHOLDER Location Front 
     </Typography>
   )
 }
