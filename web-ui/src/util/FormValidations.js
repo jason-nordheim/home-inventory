@@ -90,6 +90,15 @@ export const zipCodeChanged = (e, setZip, setZipError) => {
   }
 };
 
+export const cityChanged = (e, setCity, setCityError) => {
+  setCity(e.target.value) 
+  if (e.target.value !== '' && e.target.value.length < 2) {
+    setCityError('Invalid City Name')
+  } else {
+    setCityError(null)
+  }
+}
+
 
 export const locationTypeChanged = (e, setLocationType, setLocationTypeError) => {
   setLocationType(e.target.value) 
