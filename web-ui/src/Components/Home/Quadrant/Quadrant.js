@@ -3,19 +3,18 @@ import { Paper} from "@material-ui/core"
 import QuadrantFooter from './QuadrantFooter'
 import QuadrantHeader from './QuadrantHeader'
 import QuadrantBody from './QuadrantBody'
+import { EPERM } from 'constants'
 
-export const Quadrant = ( { title, front, back, hasNew=true, onCreateNew=null } ) => {
+export const Quadrant = ( { title, front, back, hasNew=true, onNewClick } ) => {
   const [showFront, setShowFront ] = useState(true)
 
-  const onCreateNewClickEvent = (e) => {
+  const flip = e => {
     e.preventDefault() 
-
-    /*  Only Execute if function is provided */
-    if (typeof(onCreateNew) === "function") {
-      onCreateNew(e);
-    }
     setShowFront(!showFront)
-  } 
+    if (typeof(onNewClick) == "function") {
+      onNewClick(e) 
+    }
+  }
 
   return (
     <Paper className="quadrant__paper" elevation={4}>
@@ -23,8 +22,8 @@ export const Quadrant = ( { title, front, back, hasNew=true, onCreateNew=null } 
       <QuadrantBody front={front} back={back} showFront={showFront} />
       {hasNew && (
         <QuadrantFooter
+          onNewButtonClick={flip}
           frontDisplayed={showFront}
-          onNewButtonClick={onCreateNewClickEvent}
         />
       )}
     </Paper>
