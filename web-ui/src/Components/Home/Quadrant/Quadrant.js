@@ -4,12 +4,16 @@ import QuadrantFooter from './QuadrantFooter'
 import QuadrantHeader from './QuadrantHeader'
 import QuadrantBody from './QuadrantBody'
 
-export const Quadrant = ( { title, front, back, hasNew=true, onCreateNew } ) => {
+export const Quadrant = ( { title, front, back, hasNew=true, onCreateNew=null } ) => {
   const [showFront, setShowFront ] = useState(true)
 
   const onCreateNewClickEvent = (e) => {
     e.preventDefault() 
-    onCreateNew(e)
+
+    /*  Only Execute if function is provided */
+    if (typeof(onCreateNew) === "function") {
+      onCreateNew(e);
+    }
     setShowFront(!showFront)
   } 
 
