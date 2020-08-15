@@ -4,16 +4,16 @@ import Quadrant from "./Quadrant";
 
 const ItemsQuadrant = () => {
   return (
-    <Quadrant title="Vendors" front={<ItemsFront />} back={<ItemsBack />} />
+    <Quadrant title="Items" front={<ItemsFront />} back={<ItemsBack />} />
   );
 };
 
 const ItemsFront = () => {
-  return <Typography>Vendors Front</Typography>;
+  return <Typography>Items Front</Typography>;
 };
 
 const ItemsBack = () => {
-  return <Typography>Vendors Back</Typography>;
+  return <Typography>Items Back</Typography>;
 };
 
 export default ItemsQuadrant;
