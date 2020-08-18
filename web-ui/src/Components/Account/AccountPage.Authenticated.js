@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Typography,
   Paper,
 } from "@material-ui/core";
 
 import AccountDetailsAccordian from './AccountDetailsAccordian'
+import { AuthorizationContext } from "../../App";
 
 
-const AuthenticatedAccountPage = ({ user }) => {
+const AuthenticatedAccountPage = () => {
+  const [AuthState, AuthActions] = useContext(AuthorizationContext)
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    AuthActions.MyInfo()
+      .then(data => setUser(data))
+  }, [])
+
   return (
     <div className="authenticatedAccountPage_container">
         <Paper className="authenticatedAccountPage__paper">
