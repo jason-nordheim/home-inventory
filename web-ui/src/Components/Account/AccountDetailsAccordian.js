@@ -22,6 +22,11 @@ import {
 } from "../../util/FormValidations";
 
 const AccountDetailsAccordian = ({ user }) => {
+  /**
+   * TODO: 
+   *  - refafor to enable editing 
+   *  - refactor to use Context 
+   */
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState(user.username);
   const [usernameError, setUsernameError] = useState(null);
