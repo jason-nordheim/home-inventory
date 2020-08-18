@@ -75,7 +75,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
                 { AuthState.status === 'LOADING'? 'Loading...' : 'Sign In'}
               </Button>
             </div>
-            <div>{errorMessage !== null && showErrorMessage(errorMessage)}</div>
+            <div>{ AuthState.status === 'ERROR' ? showErrorMessage(AuthState.errors.last()) : null }</div>
           </div>
           <br />
           <div className="signInForm__goToRegister">
