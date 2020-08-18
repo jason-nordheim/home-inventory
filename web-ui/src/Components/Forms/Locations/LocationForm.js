@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import LocationNameField from "./Fields/LocationNameField";
-import StreetTextField from "./Fields/StreetTextField";
-import StateSelect from "./Fields/StateSelect";
+import LocationNameField from "../Fields/LocationNameField";
+import StreetTextField from "../Fields/StreetTextField";
+import StateSelect from "../Fields/StateSelect";
 import {
   locationNameChanged,
   streetOneChanged,
@@ -10,9 +10,9 @@ import {
   cityChanged, 
   locationTypes,
 } from "../../../util/FormValidations";
-import ZipCodeTextField from "./Fields/ZipCodeTextField";
-import LocationTypeSelect from "./Fields/LocationTypeSelect";
-import CityTextField from "./Fields/CityTextField";
+import ZipCodeTextField from "../Fields/ZipCodeTextField";
+import LocationTypeSelect from "../Fields/LocationTypeSelect";
+import CityTextField from "../Fields/CityTextField";
 import { Button } from '@material-ui/core'
 import { AuthorizationContext } from '../../../App'
 import UsStates from '../../../data/UsStates'

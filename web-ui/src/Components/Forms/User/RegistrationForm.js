@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
-import ErrorMessage from "./Fields/ErrorMessage";
-import NameTextField from "./Fields/NameTextField"
-import EmailTextField from "./Fields/EmailTextField";
-import PhoneTextField from "./Fields/PhoneTextField";
-import UsernameTextField from "./Fields/UsernameTextField";
-import PasswordTextField from "./Fields/PasswordTextField";
+import ErrorMessage from "../Fields/ErrorMessage"
+import NameTextField from "../Fields/NameTextField"
+import EmailTextField from "../Fields/EmailTextField";
+import PhoneTextField from "../Fields/PhoneTextField";
+import UsernameTextField from "../Fields/UsernameTextField";
+import PasswordTextField from "../Fields/PasswordTextField";
 import {
   nameInputChanged,
   emailInputChanged,
@@ -14,7 +14,7 @@ import {
   passwordInputChanged,
 } from "../../../util/FormValidations";
 import { AuthorizationContext } from "../../../App";
-import SuccessMessage from './Fields/SuccessMessage'
+import SuccessMessage from '../Fields/SuccessMessage'
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext)

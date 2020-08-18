@@ -4,6 +4,7 @@ import QuadrantSummary from './Quadrant/QuadrantSummary'
 import LocationsQuadrant from './Quadrant/LocationQuadrant'
 import VendorsQuadrant from './Quadrant/VendorsQuadrant'
 import ItemsQuadrant from './Quadrant/ItemsQuadrant'
+import AddressQuadrant from './Quadrant/AddressQuadrant'
 
 const HomeAuthenticated = () => {
   //const AuthContext = useContext(AuthorizationContext);
@@ -11,16 +12,19 @@ const HomeAuthenticated = () => {
   return (
     <div className="homeAuthenticated__container">
       <div className="homeAuthenticated__quadrantContainer">
-       <LocationsQuadrant /> 
+        <AddressQuadrant />
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <VendorsQuadrant /> 
+        <LocationsQuadrant />
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <ItemsQuadrant /> 
+        <VendorsQuadrant />
       </div>
       <div className="homeAuthenticated__quadrantContainer">
-        <QuadrantSummary /> 
+        <ItemsQuadrant />
+      </div>
+      <div className="homeAuthenticated__quadrantContainer">
+        <QuadrantSummary />
       </div>
     </div>
   );

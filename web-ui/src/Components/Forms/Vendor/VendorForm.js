@@ -1,7 +1,7 @@
 import React from 'react' 
 import { Typography } from '@material-ui/core'
 import { useState } from 'react'
-import NameTextField from './Fields/NameTextField'
+import NameTextField from '../Fields/NameTextField'
 
 
 const VendorFrom = ({title="New Vendor"}) => {

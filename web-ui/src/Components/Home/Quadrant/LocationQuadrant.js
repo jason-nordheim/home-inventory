@@ -6,7 +6,7 @@ import { LocationsBack } from "./LocationsBack";
 const LocationsQuadrant = () => {
   return (
     <Quadrant
-      title="Location"
+      title="Locations"
       front={<LocationsFront />}
       back={<LocationsBack/> }
     />

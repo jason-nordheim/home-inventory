@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
-import { locationTypes } from '../../../../util/FormValidations'
+import { locationTypes } from '../../../util/FormValidations'
 
 const LocationTypeSelect = ({
   locationType=locationTypes[0],

@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
-import UsStates from "../../../../data/UsStates";
+import UsStates from "../../../data/UsStates";
 
 const StateSelect = ({
   value,
