@@ -1,6 +1,5 @@
-import { useReducer, useTimeout } from 'react';
+import { useReducer } from 'react';
 import { fetcher, baseUrl } from './apiHelpers';
-import { login } from '../../util/API';
 
 /**
  * Authenticatoin Reducer 
@@ -32,23 +31,6 @@ const authenticationReducer = (state, action) => {
 				status : 'ERROR_OCCURED',
 				error  : [ ...state.error, { type: 'REGISTER_ERROR', value: action.payload } ]
 			};
-		case 'MY_INFO_SUCCESS': 
-			return {
-				...state, 
-				status: 'IDLE', 
-				temp: action.payload
-			}
-		case 'MY_INFO_ERROR':
-			return {
-				...state, 
-				status: 'ERROR_OCCURED', 
-				error  : [ ...state.error, { type: 'MY_INFO_ERROR', value: action.payload } ]
-			}
-		case 'CLEAR_TEMP': 
-			return {
-				...state, 
-				temp: undefined
-			}
 		default:
 			return state;
 	}
@@ -59,7 +41,6 @@ const authenticationReducer = (state, action) => {
  */
 export const initialState = {
 	status : 'IDLE',
-	temp   : undefined, 
 	error  : [],
 	token  : null
 };
