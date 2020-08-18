@@ -8,6 +8,7 @@ exports.up = function(knex) {
     t.string("city");
     t.string("state");
     t.string("zip");
+    t.integer('created_by').references('id').inTable('user')
     t.timestamps(true, true);
   });
 };
