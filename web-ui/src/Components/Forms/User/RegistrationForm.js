@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
 import ErrorMessage from "./Fields/ErrorMessage";
 import NameTextField from "./Fields/NameTextField"
@@ -13,8 +13,10 @@ import {
   userNameInputChanged,
   passwordInputChanged,
 } from "../../../util/FormValidations";
+import { AuthorizationContext } from "../../../App";
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
+  const [AuthState, AuthActions] = useContext(AuthorizationContext)
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState(null);
   const [password, setPassword] = useState("");
@@ -39,7 +41,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    AuthActions.Register(name, username, password, email, phone)
   };
 
   return (
@@ -111,7 +113,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
                 )
               }
             >
-              Register
+              { AuthState.status === 'LOADING' ? `Loading...` : 'Register'}
             </Button>
           </div>
           <br />

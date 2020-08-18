@@ -2,7 +2,7 @@
 /**
  * Base URL of the API 
  */
-export const baseUrl = `http://localhost:3000`;
+export const baseUrl = `http://localhost:4000`;
 
 /**
  * Helper method to create requests 
@@ -11,9 +11,7 @@ export const baseUrl = `http://localhost:3000`;
  * @param {string} method 'GET', 'POST', 'PATCH', etc. 
  * @param {object} payload json data to be attached to the body of the request 
  */
-export const fetcher = async (token = null, url, method = 'GET', payload = null) => {
-	console.log('token', token);
-
+export const fetcher = async (token = null, url, method = 'GET', payload = null) => { 
 	const options = {
 		method  : method,
 		headers : {

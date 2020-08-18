@@ -5,7 +5,7 @@ import UnAuthenticatedAccountPage from "../Components/Account/AccountPage.UnAuth
 import { AuthorizationContext } from "../App";
 
 const AccountPage = () => {
-  const [AuthState, AuthDispatch] = useContext(AuthorizationContext);
+  const [AuthState, AuthActions] = useContext(AuthorizationContext);
   const token = AuthState.token;
   return (
     <Layout title="Account">

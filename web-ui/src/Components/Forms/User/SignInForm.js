@@ -17,7 +17,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
   const [passwordError, setPasswordError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const MIN_CHARS = 3;
-  const AuthContext = useContext(AuthorizationContext);
+  const [AuthState, AuthActions] = useContext(AuthorizationContext);
 
   // remove the error message after 2 seconds
   useEffect(() => {
@@ -30,23 +30,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    AuthContext.dispatch({ type: "login" });
-
-    try {
-      const actionResult = await login(username, password);
-      if (actionResult.success) {
-        AuthContext.dispatch({ type: "success", payload: actionResult.data });
-      } else {
-        AuthContext.dispatch({ type: "error", payload: actionResult.data })
-      }
-    } catch (err) {
-      console.log('error', err)
-      setErrorMessage(err);
-    }
-  };
-
-  if (display === false) {
-    return null;
+    AuthActions.Login(username, password)
   }
 
   return (
@@ -88,7 +72,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
                   username.length < MIN_CHARS
                 }
               >
-                Sign In
+                { AuthState.status === 'LOADING'? 'Loading...' : 'Sign In'}
               </Button>
             </div>
             <div>{errorMessage !== null && showErrorMessage(errorMessage)}</div>

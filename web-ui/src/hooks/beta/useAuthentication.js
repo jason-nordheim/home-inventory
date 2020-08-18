@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useReducer } from 'react';
 import { fetcher, baseUrl } from './apiHelpers';
 
 /**
@@ -10,9 +10,9 @@ import { fetcher, baseUrl } from './apiHelpers';
 const authenticationReducer = (state, action) => {
 	switch (action.type) {
 		case 'LOGIN':
-            return { ...state, status: 'LOADING' };
-        case 'LOGIN_SUCCESS': 
-            return { ...state, status: 'IDLE', token: action.payload}
+			return { ...state, status: 'LOADING' };
+		case 'LOGIN_SUCCESS':
+			return { ...state, status: 'IDLE', token: action.payload };
 		case 'LOGIN_ERROR':
 			return {
 				...state,
@@ -28,8 +28,8 @@ const authenticationReducer = (state, action) => {
 		case 'REGISTER_FAILURE':
 			return {
 				...state,
-				status: 'ERROR_OCCURED',
-				error: [ ...state.error, { type: 'REGISTER_ERROR', value: action.payload } ]
+				status : 'ERROR_OCCURED',
+				error  : [ ...state.error, { type: 'REGISTER_ERROR', value: action.payload } ]
 			};
 		default:
 			return state;
@@ -45,35 +45,35 @@ export const initialState = {
 	token  : null
 };
 
-
 export const useAuthentication = () => {
-    const [state, dispatch] = useReducer(authenticationReducer, initialState)
+	const [ state, dispatch ] = useReducer(authenticationReducer, initialState);
 
-    /**
+	/**
      * Logs the user into the system and saves their token 
      * @param {string} username 
      * @param {string} password 
      */
-    function Login(username, password) {
-        if (state.status !== 'IDLE') throw new Error('Operation already in progress')
-        else {
-            dispatch({ type: 'LOGIN' })
-            fetcher(null,`${baseUrl}/login`, 'POST', {username, password})
-                .then(res => res.json())
-                .then(data => dispatch({ type: 'LOGIN_SUCCESS', payload: data.token}))
-                .catch(error => dispatch({ type: 'LOGIN_FAILURE', payload: error.messsage }))
-        }
-    }
-    /**
+	function Login(username, password) {
+        console.log('loggin in existing user', {username, password})
+		if (state.status !== 'IDLE') throw new Error('Operation already in progress');
+		else {
+			dispatch({ type: 'LOGIN' });
+			fetcher(null, `${baseUrl}/login`, 'POST', { username, password })
+				.then((res) => res.json())
+				.then((data) => dispatch({ type: 'LOGIN_SUCCESS', payload: data.token }))
+				.catch((error) => dispatch({ type: 'LOGIN_FAILURE', payload: error.messsage }));
+		}
+	}
+	/**
      * Logs the user out 
      */
-    function Logout(){
-        if(state.status !== 'IDLE') throw new Error('Operation already in progress')
-        else {
-            dispatch({ type: 'LOGOUT' })
-        }
-    }
-    /**
+	function Logout() {
+		if (state.status !== 'IDLE') throw new Error('Operation already in progress');
+		else {
+			dispatch({ type: 'LOGOUT' });
+		}
+	}
+	/**
      * Registers a new user 
      * @param {string} name 
      * @param {string} username 
@@ -81,21 +81,22 @@ export const useAuthentication = () => {
      * @param {string} email 
      * @param {string} phone 
      */
-    function Register(name, username, password, email, phone){
-        if (state.status !== 'IDLE') throw new Error('Operation already in progress')
-        else {
-            fetcher(null,`${baseUrl}/users`, 'POST', {name, username, password, email, phone})
-                .then(res => res.json())
-                .then(_ => dispatch({ type: 'REGISTER_SUCCESS'}))
-                .catch(error => dispatch({ type: 'REGISTER_FAILURE', payload: error.messsage }))
-        }
-    }
+	function Register(name, username, password, email, phone) {
+		console.log('registering new user: ', { name, username, password, email, phone });
+		if (state.status !== 'IDLE') throw new Error('Operation already in progress');
+		else {
+			fetcher(null, `${baseUrl}/users`, 'POST', { name, username, password, email, phone })
+				.then((res) => res.json())
+				.then((_) => dispatch({ type: 'REGISTER_SUCCESS' }))
+				.catch((error) => dispatch({ type: 'REGISTER_FAILURE', payload: error.messsage }));
+		}
+	}
 
-    const actions = {
-        Register, 
-        Login, 
-        Logout,
-    }
+	const actions = {
+		Register,
+		Login,
+		Logout
+	};
 
-    return [state, actions]
-}
+	return [ state, actions ];
+};
