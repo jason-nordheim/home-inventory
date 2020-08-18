@@ -1,5 +1,6 @@
-import { useReducer } from 'react';
+import { useReducer, useTimeout } from 'react';
 import { fetcher, baseUrl } from './apiHelpers';
+import { login } from '../../util/API';
 
 /**
  * Authenticatoin Reducer 
@@ -31,6 +32,23 @@ const authenticationReducer = (state, action) => {
 				status : 'ERROR_OCCURED',
 				error  : [ ...state.error, { type: 'REGISTER_ERROR', value: action.payload } ]
 			};
+		case 'MY_INFO_SUCCESS': 
+			return {
+				...state, 
+				status: 'IDLE', 
+				temp: action.payload
+			}
+		case 'MY_INFO_ERROR':
+			return {
+				...state, 
+				status: 'ERROR_OCCURED', 
+				error  : [ ...state.error, { type: 'MY_INFO_ERROR', value: action.payload } ]
+			}
+		case 'CLEAR_TEMP': 
+			return {
+				...state, 
+				temp: undefined
+			}
 		default:
 			return state;
 	}
@@ -41,6 +59,7 @@ const authenticationReducer = (state, action) => {
  */
 export const initialState = {
 	status : 'IDLE',
+	temp   : undefined, 
 	error  : [],
 	token  : null
 };
@@ -90,12 +109,32 @@ export const useAuthentication = () => {
 				.then((_) => dispatch({ type: 'REGISTER_SUCCESS' }))
 				.catch((error) => dispatch({ type: 'REGISTER_FAILURE', payload: error.messsage }));
 		}
+		Login(username, password) 
+	}
+
+	/**
+	 * Function to get the currently logged in user information 
+	 */
+	function MyInfo() {
+		console.log('retrieving user info...')
+		if (state.status !== 'IDLE') throw new Error('Operation already in progress')
+		else if (!state.token) throw new Error('No token available')
+		else {
+			fetcher(state.token, `${baseUrl}/user`, 'GET', null)
+				.then(res => res.json())
+				.then(data => dispatch({ type: 'MY_INFO_SUCCES', payload: data }))
+				.catch(error => dispatch({ type: 'MY_INFO_ERROR', payload: error }))
+		}
+		useTimeout(()=> {
+			dispatch({type: 'CLEAR_TEMP'})
+		},10000)
 	}
 
 	const actions = {
 		Register,
 		Login,
-		Logout
+		Logout, 
+		MyInfo
 	};
 
 	return [ state, actions ];
