@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SitePages from './data/SitePages';
-import useAuthentication, { defaultState } from './hooks/useAuthentication'
+import { useAuthentication, initialState } from './hooks/beta/useAuthentication'
 import './style/app.css'
 
-export const AuthorizationContext = React.createContext(defaultState)
+export const AuthorizationContext = React.createContext(initialState)
 
 const App = () => {
-  const AuthContext = useAuthentication(defaultState)
+  const AuthContext = useAuthentication(initialState)
 
 
 	return (

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SignInForm from "../Forms/User/SignInForm"
 import RegistrationForm from "../Forms/User/RegistrationForm";
+import { AuthorizationContext } from "../../App";
 
 const UnAuthenticatedAccountPage = () => {
   const [register, setRegister] = useState(false);
@@ -10,14 +11,10 @@ const UnAuthenticatedAccountPage = () => {
    */
   return (
     <div className="unAuthenticatedAccountPage__container">
-        <SignInForm
-          display={!register}
-          toggleDisplay={(e) => setRegister(!register)}
-        />
-        <RegistrationForm
-          display={!!register}
-          toggleDisplay={(e) => setRegister(!register)}
-        />
+      { register 
+        ? <RegistrationForm toggleDisplay={(e) => setRegister(!register)} /> 
+        : <SignInForm toggleDisplay={(e) => setRegister(!register)} />
+      }  
     </div>
   );
 };

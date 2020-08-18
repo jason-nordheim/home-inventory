@@ -33,7 +33,6 @@ const SignInForm = ({ display, toggleDisplay }) => {
     AuthContext.dispatch({ type: "login" });
 
     try {
-      console.log("un", username, password);
       const actionResult = await login(username, password);
       if (actionResult.success) {
         AuthContext.dispatch({ type: "success", payload: actionResult.data });
@@ -41,6 +40,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
         AuthContext.dispatch({ type: "error", payload: actionResult.data })
       }
     } catch (err) {
+      console.log('error', err)
       setErrorMessage(err);
     }
   };

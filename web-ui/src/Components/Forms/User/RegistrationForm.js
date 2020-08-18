@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
 import ErrorMessage from "./Fields/ErrorMessage";
-import { register } from "../../../util/API";
 import NameTextField from "./Fields/NameTextField"
 import EmailTextField from "./Fields/EmailTextField";
 import PhoneTextField from "./Fields/PhoneTextField";
@@ -40,37 +39,11 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await register(name, username, email, phone, password)
-      .then((actionResult) => {
-        if (!actionResult.success) {
-          //failure
-          const keys = Object.keys(actionResult.data);
-          const errMsg = keys.reduce((acc, curr) => {
-            return (acc += curr + " " + actionResult.data[curr] + "\n");
-          }, "");
-          if (errMsg == null){
-            setErrorMessage('Unknown Error (501): Unable to create account')
-          } else {
-            setErrorMessage(errMsg);
-          }
-        } else {
-          console.log('err2', actionResult.data)
-          setErrorMessage(actionResult.data)
-        }
-      })
-      .catch((err) => {
-        console.log('err3', err)
-        setErrorMessage(err.message)
-      });
+    
   };
 
-
-
-  if (display === false) {
-    return null;
-  }
-
   return (
+    
     <div className="registrationForm__container">
       <Paper className="registrationForm__paper" elevation={4}>
         <form className="registrationForm__form">
