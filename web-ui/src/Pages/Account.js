@@ -5,14 +5,13 @@ import UnAuthenticatedAccountPage from "../Components/Account/AccountPage.UnAuth
 import { AuthorizationContext } from "../App";
 
 const AccountPage = () => {
-  const [AuthState, AuthActions] = useContext(AuthorizationContext);
-  const token = AuthState.token;
+  const [AuthState, _] = useContext(AuthorizationContext);
   return (
     <Layout title="Account">
-      { token === undefined || token === null ? (
+      { AuthState.token === undefined || AuthState.token === null ? (
         <UnAuthenticatedAccountPage />
       ) : (
-        null
+        <AuthenticatedAccountPage /> 
       )}
     </Layout>
   );
