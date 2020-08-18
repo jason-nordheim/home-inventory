@@ -13,11 +13,7 @@ const App = () => {
 	return (
     <AuthorizationContext.Provider value={AuthContext}>
       <BrowserRouter>
-        <Switch
-          // atEnter={{ opacity: 0 }}
-          // atLeave={{ opacity: 0 }}
-          // atActive={{ opacity: 1, transition: 'linear', transitionDuration: '0.2s'}}
-        >
+        <Switch>
           {SitePages.map((link) => {
             return (
               <Route
