@@ -19,6 +19,17 @@ const SignInForm = ({ display, toggleDisplay }) => {
   const MIN_CHARS = 3;
   const [AuthState, AuthActions] = useContext(AuthorizationContext);
 
+  useEffect(() => {
+    const observer = {
+      update: (authState) => {
+        if (authState.status === "ERROR_OCCURED") {
+          setErrorMessage(authState.errors[authState.errors.length - 1].value);
+        }
+      },
+    };
+    AuthActions.observers.addObserver(observer);
+  }, []);
+
   // remove the error message after 2 seconds
   useEffect(() => {
     if (errorMessage !== null) {
@@ -28,10 +39,10 @@ const SignInForm = ({ display, toggleDisplay }) => {
     }
   }, [errorMessage]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    AuthActions.Login(username, password)
-  }
+    AuthActions.Login(username, password);
+  };
 
   return (
     <div className="signInForm__container">
@@ -72,10 +83,12 @@ const SignInForm = ({ display, toggleDisplay }) => {
                   username.length < MIN_CHARS
                 }
               >
-                { AuthState.status === 'LOADING'? 'Loading...' : 'Sign In'}
+                {AuthState.status === "LOADING" ? "Loading..." : "Sign In"}
               </Button>
             </div>
-            <div>{ AuthState.status === 'ERROR' ? showErrorMessage(AuthState.errors.last()) : null }</div>
+            <div>
+              { errorMessage !== null ? showErrorMessage(errorMessage): null}
+            </div>
           </div>
           <br />
           <div className="signInForm__goToRegister">
