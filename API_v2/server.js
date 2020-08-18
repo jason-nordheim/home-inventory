@@ -66,7 +66,8 @@ app.post('/users', (req, res) => {
         .returning("*")
         .then((data) => {
           res.json(data);
-        });
+        })
+        .catch(error => res.status(500).json({iid: 91, error }))
     })
     .catch((err) => res.status(500).json({ iid: 7, error: err }));
 
