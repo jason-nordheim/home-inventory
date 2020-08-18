@@ -8,10 +8,8 @@ import {
   streetTwoChanged,
   zipCodeChanged,
   cityChanged, 
-  locationTypeChanged,
   locationTypes,
 } from "../../../util/FormValidations";
-import { createLocation } from '../../../util/Authentication'
 import ZipCodeTextField from "./Fields/ZipCodeTextField";
 import LocationTypeSelect from "./Fields/LocationTypeSelect";
 import CityTextField from "./Fields/CityTextField";
@@ -32,11 +30,9 @@ const LocationForm = () => {
   const [city, setCity] = useState('')
   const [cityError, setCityError] = useState(null)
   const [state, setState] = useState(UsStates[0].abbreviation);
-  const [stateError, setStateError] = useState(null);
   const [zip, setZip] = useState(blank);
   const [zipError, setZipError] = useState(null);
   const [locationType, setLocationType] = useState(locationTypes[0]);
-  const [typeError, setTypeError] = useState(null);
 
   useEffect(() => {
     console.log(locationType)
@@ -45,8 +41,8 @@ const LocationForm = () => {
   const onFormSubmit = async (e) => {
     e.preventDefault() 
     if (AuthContext.state.token.length > 3) {
-      console.log({ auth: AuthContext.state.token, name, street1, street2, city, state, zip, type: locationType})
-      const result = createLocation(AuthContext.state.token, name, street1, street2, city, state, zip, locationType)
+      console.log('auth', { auth: AuthContext.state.token, name, street1, street2, city, state, zip, type: locationType})
+      //const result = createLocation(AuthContext.state.token, name, street1, street2, city, state, zip, locationType)
       //console.log(result)
     }
   }
@@ -93,7 +89,7 @@ const LocationForm = () => {
             <StateSelect
               label="State"
               value={state}
-              valueError={stateError}
+              valueError={null}
               onChange={(e) => setState(e.target.value) }
             />
           </div>
@@ -109,7 +105,7 @@ const LocationForm = () => {
         <div className="newLocationForm__typeContainer">
           <LocationTypeSelect
             value={locationType}
-            erorr={typeError}
+            erorr={null}
             onChange={(e) => { 
               setLocationType(e.target.value)
              }}
@@ -122,9 +118,7 @@ const LocationForm = () => {
             nameError !== null || 
             street1Error !== null || 
             cityError !== null || 
-            stateError !== null || 
             zipError !== null || 
-            typeError !== null || 
             name === '' || 
             city === '' || 
             street1 === ''  || 

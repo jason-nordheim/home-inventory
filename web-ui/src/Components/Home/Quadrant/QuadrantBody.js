@@ -1,5 +1,4 @@
 import React from "react";
-import { Typography, Paper } from "@material-ui/core";
 import QuadrantFront from './QuadrantFront'
 import QuadrantBack from './QuadrantBack'
 

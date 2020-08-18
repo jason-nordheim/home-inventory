@@ -102,7 +102,7 @@ export const cityChanged = (e, setCity, setCityError) => {
 
 export const locationTypeChanged = (e, setLocationType, setLocationTypeError) => {
   setLocationType(e.target.value) 
-  if (e.target.value == null || e.target.value == "") {
+  if (e.target.value === null || e.target.value === "") {
     setLocationTypeError(null);
   } else if (!isValidLocationType(e.target.value)) {
     setLocationTypeError("Invalid Location Type");
@@ -122,7 +122,7 @@ export const locationTypes = [
 
 const isValidLocationType = (locationType) => {
   locationTypes.forEach(type => {
-    if (type == locationType) return true 
+    if (type === locationType) return true 
   }) 
   return false 
 }

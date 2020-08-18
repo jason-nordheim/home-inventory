@@ -7,7 +7,9 @@ import './style/app.css'
 export const AuthorizationContext = React.createContext(defaultState)
 
 const App = () => {
-	const AuthContext = useAuthentication(defaultState)
+  const AuthContext = useAuthentication(defaultState)
+
+
 	return (
     <AuthorizationContext.Provider value={AuthContext}>
       <BrowserRouter>

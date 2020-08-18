@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import {  Button, Typography, Paper } from "@material-ui/core";
+import { Button, Typography, Paper } from "@material-ui/core";
 import { AuthorizationContext } from "../../../App";
-import { login } from "../../../util/Authentication";
+import { login } from "../../../util/API";
 import UsernameTextField from "./Fields/UsernameTextField";
 import PasswordTextField from "./Fields/PasswordTextField";
 import {
   userNameInputChanged,
   passwordInputChanged,
-} from "../../../util/FormValidations"
+} from "../../../util/FormValidations";
 import showErrorMessage from "../User/Fields/ErrorMessage";
-
 
 const SignInForm = ({ display, toggleDisplay }) => {
   const [username, setUsername] = useState("");
@@ -29,29 +28,20 @@ const SignInForm = ({ display, toggleDisplay }) => {
     }
   }, [errorMessage]);
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     AuthContext.dispatch({ type: "login" });
 
     try {
+      console.log("un", username, password);
       const actionResult = await login(username, password);
-
-      // user got something wrong
-      if (!actionResult.success) {
-        setErrorMessage(actionResult.data.error);
+      if (actionResult.success) {
+        AuthContext.dispatch({ type: "success", payload: actionResult.data });
       } else {
-        // user credentials check out
-        const token = actionResult.data.token;
-        AuthContext.dispatch({
-          type: "success",
-          payload: token,
-        });
+        AuthContext.dispatch({ type: "error", payload: actionResult.data })
       }
     } catch (err) {
-      console.error(err);
-      setErrorMessage(err)
+      setErrorMessage(err);
     }
   };
 
@@ -101,15 +91,13 @@ const SignInForm = ({ display, toggleDisplay }) => {
                 Sign In
               </Button>
             </div>
-            <div>
-              {errorMessage !== null && showErrorMessage(errorMessage)}
-            </div>
+            <div>{errorMessage !== null && showErrorMessage(errorMessage)}</div>
           </div>
           <br />
           <div className="signInForm__goToRegister">
             <Typography paragraph>
-              Don't have an account? <u onClick={toggleDisplay}>Click here</u> to
-              register
+              Don't have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
+              to register
             </Typography>
           </div>
         </form>

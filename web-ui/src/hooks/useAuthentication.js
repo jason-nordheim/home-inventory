@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { useEffect } from "react";
-import { getUserInfo } from '../util/Authentication'
+import { getUserInfo } from '../util/API'
 
 export const defaultState = {
   isLoading: false,
@@ -10,6 +10,7 @@ export const defaultState = {
 };
 
 const authenticationReducer = (state, action) => {
+  console.log('action', action)
   switch (action.type) {
     case "user": 
       return {
@@ -69,18 +70,12 @@ const useAuthentication = (initialState = defaultState) => {
   useEffect(() => {
     const rawData = localStorage.getItem("sorted");
     const payload = JSON.parse(rawData);
-    console.log("restoring", payload);
-    dispatch({ type: "reset", payload });
+    if(payload) dispatch({ type: "reset", payload });
   }, []);
 
   useEffect(() => {
     if (state.token && state.user == null) {
-      getUserInfo(state.token)
-        .then(user => { 
-          user.password_digest = null 
-          console.log(user)
-          dispatch({ type: 'user', payload: user})
-        })
+      getUserInfo(state.token).then(user => dispatch({ type: 'user', payload: user}))
     }
     saveState(state)
   }, [state]);

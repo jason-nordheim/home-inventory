@@ -1,21 +1,12 @@
-import React, { useContext } from "react";
-import {
-  Grid,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  Button, 
-} from "@material-ui/core";
-import { AuthorizationContext } from "../../App";
+import React from "react";
+// import { AuthorizationContext } from "../../App";
 import QuadrantSummary from './Quadrant/QuadrantSummary'
 import LocationsQuadrant from './Quadrant/LocationQuadrant'
 import VendorsQuadrant from './Quadrant/VendorsQuadrant'
 import ItemsQuadrant from './Quadrant/ItemsQuadrant'
 
 const HomeAuthenticated = () => {
-  const AuthContext = useContext(AuthorizationContext);
+  //const AuthContext = useContext(AuthorizationContext);
 
   return (
     <div className="homeAuthenticated__container">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography, Paper } from "@material-ui/core";
 import ErrorMessage from "./Fields/ErrorMessage";
-import { register } from "../../../util/Authentication";
+import { register } from "../../../util/API";
 import NameTextField from "./Fields/NameTextField"
 import EmailTextField from "./Fields/EmailTextField";
 import PhoneTextField from "./Fields/PhoneTextField";
@@ -65,7 +65,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
   };
 
 
-  
+
   if (display === false) {
     return null;
   }

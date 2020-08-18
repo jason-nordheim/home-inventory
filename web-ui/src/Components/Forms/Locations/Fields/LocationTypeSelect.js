@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, InputLabel, Select, MenuItem, FormLabel, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
 import { locationTypes } from '../../../../util/FormValidations'
 
 const LocationTypeSelect = ({
