@@ -48,20 +48,31 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
           const errMsg = keys.reduce((acc, curr) => {
             return (acc += curr + " " + actionResult.data[curr] + "\n");
           }, "");
-          setErrorMessage(errMsg);
+          if (errMsg == null){
+            setErrorMessage('Unknown Error (501): Unable to create account')
+          } else {
+            setErrorMessage(errMsg);
+          }
+        } else {
+          console.log('err2', actionResult.data)
+          setErrorMessage(actionResult.data)
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log('err3', err)
+        setErrorMessage(err.message)
       });
   };
+
+
+  
   if (display === false) {
     return null;
   }
 
   return (
     <div className="registrationForm__container">
-      <Paper clasName="registrationForm__paper" elevation={4}>
+      <Paper className="registrationForm__paper" elevation={4}>
         <form className="registrationForm__form">
           <div className="registrationForm__header">
             <Typography variant="h5">Create New Account</Typography>

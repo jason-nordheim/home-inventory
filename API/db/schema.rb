@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_211651) do
     t.string "city"
     t.string "state"
     t.string "zip"
-    t.string "type"
+    t.string "category"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

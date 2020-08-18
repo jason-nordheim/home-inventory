@@ -3,21 +3,31 @@ class LocationsController < ApplicationController
 
   # GET /locations
   def index
-    @locations = Location.all
+    @locations = Location.find_by(user_id: @user.id)
     render json: @locations
   end
 
   # GET /locations/1
-  def show
-    render json: @location
-  end
+  # def show
+  #   render json: @location
+  # end
 
   # POST /locations
   def create
-    @location = Location.new(location_params)
+    byebug
+    @location = Location.new(
+      name: params[:name], 
+      street1: params[:street1], 
+      street2: params[:street2], 
+      city: params[:city], 
+      state: params[:state], 
+      zip: params[:zip], 
+      category: params[:cateogry], 
+      user_id: @user.id 
+    )
 
     if @location.save
-      render json: @location, status: :created, location: @location
+      render json: @location, status: :created
     else
       render json: @location.errors, status: :unprocessable_entity
     end
@@ -45,6 +55,6 @@ class LocationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_params
-      params.require(:location).permit(:name, :street1, :street2, :city, :state, :zip, :belongs_to)
+      params.require(:location).permit(:name, :street1, :street2, :city, :state, :zip, :type)
     end
 end

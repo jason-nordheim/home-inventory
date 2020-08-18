@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  skip_before_action :authenticate, only: [:create]
 
-  def my_info 
-    authenticate()
+  def my_info  
     render json: @user 
   end 
 
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
     })
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      my_info
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -50,10 +49,6 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
     # Only allow a trusted parameter "white list" through.
     def user_params

@@ -11,7 +11,7 @@ import {
   locationTypeChanged,
   locationTypes,
 } from "../../../util/FormValidations";
-import { postNewLocation } from '../../../util/Authentication'
+import { createLocation } from '../../../util/Authentication'
 import ZipCodeTextField from "./Fields/ZipCodeTextField";
 import LocationTypeSelect from "./Fields/LocationTypeSelect";
 import CityTextField from "./Fields/CityTextField";
@@ -46,7 +46,7 @@ const LocationForm = () => {
     e.preventDefault() 
     if (AuthContext.state.token.length > 3) {
       console.log({ auth: AuthContext.state.token, name, street1, street2, city, state, zip, type: locationType})
-      const result = postNewLocation(AuthContext.state.token, name, street1, street2, city, state, zip, locationType)
+      const result = createLocation(AuthContext.state.token, name, street1, street2, city, state, zip, locationType)
       //console.log(result)
     }
   }

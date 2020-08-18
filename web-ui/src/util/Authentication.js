@@ -59,7 +59,7 @@ export const register = async (name, username, email, phone, password) => {
     });
     const data = await response.json();
 
-    if (response.status !== 201) {
+    if (response.ok) {
       return new ActionResult(false, data);
     } else {
       return new ActionResult(true, data);
@@ -70,9 +70,9 @@ export const register = async (name, username, email, phone, password) => {
 };
 
 /**
- * Function to retrieve the user information for the user 
- * associated with the provided bearer token 
- * @param {string} token 
+ * Function to retrieve the user information for the user
+ * associated with the provided bearer token
+ * @param {string} token
  */
 export const getUserInfo = async (token) => {
   const response = await fetch(`${baseUrl}/my_info`, {
@@ -87,30 +87,32 @@ export const getUserInfo = async (token) => {
 };
 
 /**
- * Attempts to create a new location for the user associated with the 
- * provided bearer token 
- * @param {string} token 
- * @param {string} name 
- * @param {string} street1 
- * @param {string} street2 
- * @param {string} city 
- * @param {string} state 
- * @param {string} zip 
- * @returns {ActionResult}  
+ * Attempts to create a new location for the user associated with the
+ * provided bearer token
+ * @param {string} token
+ * @param {string} name
+ * @param {string} street1
+ * @param {string} street2
+ * @param {string} city
+ * @param {string} state
+ * @param {string} zip
+ * @returns {ActionResult}
  */
-export const postNewLocation = async (token, name, street1, street2, city, state, zip, type) => {
-  const newLocation = { name, street1, street2, city, state, zip, type} 
-  console.log('newLocation', newLocation)
+export const createLocation = async (
+  token,
+  name,
+  street1,
+  street2,
+  city,
+  state,
+  zip,
+  type
+) => {
+  const newLocation = { name, street1, street2, city, state, zip, type };
+  console.log("newLocation", newLocation);
   try {
-    const response = await fetch(`${baseUrl}/locations`, {
-      method: 'POST', 
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      }, 
-      body: JSON.stringify(newLocation) 
-    })
-    const data = await response.json() 
+    const response = await authFetch(token, `${baseUrl}/locations`, 'POST')
+    const data = await response.json();
 
     if (response.status !== 201) {
       return new ActionResult(false, data);
@@ -120,9 +122,38 @@ export const postNewLocation = async (token, name, street1, street2, city, state
   } catch (err) {
     return new ActionResult(false, err);
   }
-}
+};
+
+export const getLocations = async (token) => {
+  try {
+    const response = await authFetch(token, `${baseUrl}/locations`, "POST");
+    const data = await response.json();
+
+     if (response.ok) {
+       return new ActionResult(false, data);
+     } else {
+       return new ActionResult(true, data);
+     }
+  } catch (err) {
+    return new ActionResult(false, err);
+  }
+};
+
+const authFetch = async (token, url, method, payload=null) => {
+  const options = {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  };
+  if (payload) {
+    options.body = JSON.stringify(payload)
+  }
+  return await fetch(url, options);
+};
+
 
 export const updateLocation = async () => {
-  throw new Error('Not Implemented')
-}
-
+  throw new Error("Not Implemented");
+};

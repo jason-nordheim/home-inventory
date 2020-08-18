@@ -7,7 +7,7 @@ class CreateLocations < ActiveRecord::Migration[6.0]
       t.string      :city
       t.string      :state
       t.string      :zip
-      t.string      :type 
+      t.string      :category  
       t.belongs_to  :user
 
       t.timestamps
