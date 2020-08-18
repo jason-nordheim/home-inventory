@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { fetcher, baseUrl } from './apiHelpers';
 
 /**
@@ -9,31 +9,34 @@ import { fetcher, baseUrl } from './apiHelpers';
  */
 const authenticationReducer = (state, action) => {
 	switch (action.type) {
-		case 'LOGIN':
-			return { ...state, status: 'LOADING' };
-		case 'LOGIN_SUCCESS':
-			return { ...state, status: 'IDLE', token: action.payload };
-		case 'LOGIN_ERROR':
-			return {
-				...state,
-				status : 'ERROR_OCCURED',
-				error  : [ ...state.error, { type: 'LOGIN_ERROR', value: action.payload } ] // append any new errors categoriezed
-			};
-		case 'LOGOUT':
-			return { ...state, status: 'IDLE', token: null };
-		case 'REGISTER':
-			return { ...state, status: 'LOADING' };
-		case 'REGISTER_SUCCESS':
-			return { ...state, status: 'IDLE' };
-		case 'REGISTER_FAILURE':
-			return {
-				...state,
-				status : 'ERROR_OCCURED',
-				error  : [ ...state.error, { type: 'REGISTER_ERROR', value: action.payload } ]
-			};
-		default:
-			return state;
-	}
+    case "LOGIN":
+      return { ...state, status: "LOADING" };
+    case "LOGIN_SUCCESS":
+      return { ...state, status: "IDLE", token: action.payload };
+    case "LOGIN_ERROR":
+      return {
+        ...state,
+        status: "ERROR_OCCURED",
+        error: [...state.error, { type: "LOGIN_ERROR", value: action.payload }], // append any new errors categoriezed
+      };
+    case "LOGOUT":
+      return { ...state, status: "IDLE", token: null };
+    case "REGISTER":
+      return { ...state, status: "LOADING" };
+    case "REGISTER_SUCCESS":
+      return { ...state, status: "IDLE" };
+    case "LOGIN_FAILURE":
+      return {
+        ...state,
+        status: "ERROR_OCCURED",
+        error: [
+          ...state.error,
+          { type: "REGISTER_ERROR", value: action.payload },
+        ],
+      };
+    default:
+      return state;
+  }
 };
 
 /**
@@ -48,20 +51,34 @@ export const initialState = {
 export const useAuthentication = () => {
 	const [ state, dispatch ] = useReducer(authenticationReducer, initialState);
 
+	useEffect(() => {
+		console.log(`state updated`, state)
+	}, [state])
+
 	/**
      * Logs the user into the system and saves their token 
      * @param {string} username 
      * @param {string} password 
      */
 	function Login(username, password) {
-        console.log('loggin in existing user', {username, password})
+    //console.log('loggin in existing user', {username, password})
 		if (state.status !== 'IDLE') throw new Error('Operation already in progress');
 		else {
 			dispatch({ type: 'LOGIN' });
 			fetcher(null, `${baseUrl}/login`, 'POST', { username, password })
-				.then((res) => res.json())
-				.then((data) => dispatch({ type: 'LOGIN_SUCCESS', payload: data.token }))
-				.catch((error) => dispatch({ type: 'LOGIN_FAILURE', payload: error.messsage }));
+				.then((res) => {
+					if (res.status == 401) {
+						throw new Error('Invalid Username or Password')
+					} else return res.json();
+				})
+				.then((data) => {
+					//console.log('success', data)
+					dispatch({ type: 'LOGIN_SUCCESS', payload: data.token })
+				})
+				.catch((error) => {
+					//console.log('failure', error)
+					dispatch({ type: 'LOGIN_FAILURE', payload: error.error })
+				})
 		}
 	}
 	/**
