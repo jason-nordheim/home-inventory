@@ -39,7 +39,10 @@ app
     database("user")
       .select("*")
       .then((users) => res.json(users))
-      .catch((err) => res.status(500).json({ iid: 11, error: err }));
+      .catch((err) => {
+        console.error('GET => /users', err)
+        res.status(500).json({ iid: 11, error: err })
+      });
   })
   
 
@@ -69,7 +72,10 @@ app.post('/users', (req, res) => {
         })
         .catch(error => res.status(500).json({iid: 91, error }))
     })
-    .catch((err) => res.status(500).json({ iid: 7, error: err }));
+    .catch((err) => {
+      console.error('POST => /users', err)
+      res.status(500).json({ iid: 7, error: err })
+    });
 
 }) 
 
@@ -86,12 +92,12 @@ app.post('/login', (req, res) => {
     .first() // get the first result of the returned query
     .then((user) => {
       // see if we have a user with that username
-      if (!user) throw new Error("Invalid Username");
+      if (!user) res.status(401).json({error: "Invalid Username"});
       // try to see if the password matches
       return bcrypt
         .compare(password, user.password_digest)
         .then((passwordMatches) => {
-          if (!passwordMatches) throw new Error("Invalid Password");
+          if (!passwordMatches) res.status(401).json({error: "Invalid Password"});
           else return user;
         });
     })
@@ -101,8 +107,10 @@ app.post('/login', (req, res) => {
         else res.status(200).json({ token });
       });
     })
-    .catch((err) => res.status(500).json({ iid: 5, error: err }));
-
+    .catch((err) => {
+      console.error('POST => /login', err)
+      res.status(500).json({ iid: 5, error: err })
+    });
 })
 
 
@@ -121,7 +129,10 @@ app.get('/login', authenticate, (req, res) => {
       user.password_digest = null;
       res.status(200).json({ ...user });
     })
-    .catch((err) => res.status(500).json({ iid: 3, error: err }));
+    .catch((err) => {
+      console.error('GET => /login', err)
+      res.status(500).json({ iid: 3, error: err })
+    });
 
 })
 
@@ -135,7 +146,10 @@ app.get('/address', authenticate, (req, res) => {
     .where({ created_by: req.user_id })
     .returning("*")
     .then((addresses) => res.json({ addresses }))
-    .catch((err) => res.status(500).json({ iid: 1, error: err }));
+    .catch((err) => {
+      console.error('GET => /address', err)
+      res.status(500).json({ iid: 1, error: err })
+    });
 })
 
 app.post('/address', authenticate, (req, res) => {
@@ -153,7 +167,10 @@ app.post('/address', authenticate, (req, res) => {
   .then(addresses => {
     res.status(201).json(addresses)
   })
-  .catch(err => res.status(500).json({ iid: 2,error: err}))
+  .catch(err => {
+    console.error('POST => /address', err)
+    res.status(500).json({ iid: 2,error: err})
+  })
 })
 
 
