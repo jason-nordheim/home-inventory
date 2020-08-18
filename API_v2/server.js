@@ -14,6 +14,24 @@ app.use(bodyParser.json())
 const database = require('./database')
 const { response, json } = require( 'express' )
 
+
+const authenticate = (req, res, next) => {
+  console.log(req.headers)
+  if (!req.headers.authorization) {
+    res.status(400).send();
+  } else {
+    const encoded_token = req.headers.authorization.split(" ")[1];
+    const decoded_token = jwt.decode(encoded_token, SECRET);
+    req.user_id = decoded_token.user_id;
+    console.log(`req`, req.user_id)
+  }
+  // const { token } = req.headers
+  // console.log('token', token)
+  // const decoded = jwt.decode(token, SECRET);
+  // console.log(decoded)
+  next();
+};
+
 /**
  * Handle `GET` to `/users` 
  */
@@ -71,35 +89,40 @@ app.post('/login', (req, res) => {
     })
 })
 
-const authenticate = (req, res, next) => {
-  if (!req.headers.authorization) {
-    res.status(400).send() 
-  } else {
-    const encoded_token = req.headers.authorization.split(' ')[1]
-    const decoded_token = jwt.decode(encoded_token, SECRET)
-    req.user_id = decoded_token.user_id 
-  }
-  // const { token } = req.headers
-  // console.log('token', token)
-  // const decoded = jwt.decode(token, SECRET);
-  // console.log(decoded) 
-  next() 
-};
+
 
 /**
  * Example protected route... returns user informaiton 
  * for the user associated with the login 
  */
 app.get('/login', authenticate, (req, res) => {
-  database('user').select('*').where({id: req.user_id })
-    .returning('*')
+  database("user")
+    .select("*")
+    .where({ id: req.user_id })
+    .returning("*")
     .first()
-    .then(user => {
-      user.password_digest = null 
-      res.status(200).json({...user})
+    .then((user) => {
+      user.password_digest = null;
+      res.status(200).json({ ...user });
     })
+    .catch((err) => res.status(500).json({ error: err }));
+
 })
 
+
+/**
+ * Get all the addressses created by the current user 
+ */
+app.get('/address', authenticate, (req, res) => {
+  database("address").select('*').where({created_by: req.user_id})
+    .returning('*')
+    .then(addresses => res.json({addresses}))
+    .catch(err => res.status(500).json({error: err}))
+})
+
+app.post('/address', authenticate, (req, res) => {
+    
+})
 
 
 
