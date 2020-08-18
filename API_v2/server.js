@@ -12,7 +12,6 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const database = require('./database')
-const { response, json } = require( 'express' )
 
 
 const authenticate = (req, res, next) => {
@@ -35,10 +34,15 @@ const authenticate = (req, res, next) => {
 /**
  * Handle `GET` to `/users` 
  */
-app.get('/users', (_, res) => {
-  database('user').select('*')
-    .then(users => res.json(users))
-})
+app
+  .get("/users", (_, res) => {
+    database("user")
+      .select("*")
+      .then((users) => res.json(users))
+      .catch((err) => res.status(500).json({ iid: 11, error: err }));
+  })
+  
+
 
 /**
  * POST request for user (create new user)
@@ -46,17 +50,26 @@ app.get('/users', (_, res) => {
 app.post('/users', (req, res) => {
   const { name, username, password, phone, email, bio } = req.body
  
-  bcrypt.hash(password, 12)
-    .then(hashedPassword => {
-      const newUser = { name, username, password_digest: hashedPassword, phone, email, bio }
-      database('user').insert(newUser)
-        .returning('*')
-        .then(data => {
-          res.json(data)
-        })
-    }).catch(err => {
-      res.status(500).json({error: err})
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      const newUser = {
+        name,
+        username,
+        password_digest: hashedPassword,
+        phone,
+        email,
+        bio,
+      };
+      database("user")
+        .insert(newUser)
+        .returning("*")
+        .then((data) => {
+          res.json(data);
+        });
     })
+    .catch((err) => res.status(500).json({ iid: 7, error: err }));
+
 }) 
 
 /**
@@ -65,28 +78,30 @@ app.post('/users', (req, res) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body 
 
-  database('user').select('*').where({ username })
-    .returning('*') // return all attributes of that user 
-    .first() // get the first result of the returned query 
-    .then(user => {
-      // see if we have a user with that username 
+  database("user")
+    .select("*")
+    .where({ username })
+    .returning("*") // return all attributes of that user
+    .first() // get the first result of the returned query
+    .then((user) => {
+      // see if we have a user with that username
       if (!user) throw new Error("Invalid Username");
-      // try to see if the password matches 
-      return bcrypt.compare(password, user.password_digest)
-        .then(passwordMatches => {
-        if (!passwordMatches) throw new Error('Invalid Password')
-        else return user 
-        })
+      // try to see if the password matches
+      return bcrypt
+        .compare(password, user.password_digest)
+        .then((passwordMatches) => {
+          if (!passwordMatches) throw new Error("Invalid Password");
+          else return user;
+        });
     })
-    .then(user => {
-      jwt.sign({user_id: user.id}, SECRET, (error, token) => {
-        if (error) throw new Error("Unable to sign token")
-        else res.status(200).json({ token })
-      })
+    .then((user) => {
+      jwt.sign({ user_id: user.id }, SECRET, (error, token) => {
+        if (error) throw new Error("Unable to sign token");
+        else res.status(200).json({ token });
+      });
     })
-    .catch(err => {
-      res.status('401').json({error: err.message})
-    })
+    .catch((err) => res.status(500).json({ iid: 5, error: err }));
+
 })
 
 
@@ -105,7 +120,7 @@ app.get('/login', authenticate, (req, res) => {
       user.password_digest = null;
       res.status(200).json({ ...user });
     })
-    .catch((err) => res.status(500).json({ error: err }));
+    .catch((err) => res.status(500).json({ iid: 3, error: err }));
 
 })
 
@@ -114,14 +129,30 @@ app.get('/login', authenticate, (req, res) => {
  * Get all the addressses created by the current user 
  */
 app.get('/address', authenticate, (req, res) => {
-  database("address").select('*').where({created_by: req.user_id})
-    .returning('*')
-    .then(addresses => res.json({addresses}))
-    .catch(err => res.status(500).json({error: err}))
+  database("address")
+    .select("*")
+    .where({ created_by: req.user_id })
+    .returning("*")
+    .then((addresses) => res.json({ addresses }))
+    .catch((err) => res.status(500).json({ iid: 1, error: err }));
 })
 
 app.post('/address', authenticate, (req, res) => {
-    
+  const { name, street1, street2, city, state, zip } = req.body   
+  database("address").insert({
+    name,
+    street1,
+    street2,
+    city,
+    state,
+    zip,
+    created_by: req.user_id,
+  }).returning('*')
+  .where({created_by: req.user_id})
+  .then(addresses => {
+    res.status(201).json(addresses)
+  })
+  .catch(err => res.status(500).json({ iid: 2,error: err}))
 })
 
 
