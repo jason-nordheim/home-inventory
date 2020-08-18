@@ -117,7 +117,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
             </Button>
           </div>
           <br />
-          {errorMessage !== null && ErrorMessage(errorMessage)}
+          {AuthState.status === 'ERROR' ? ErrorMessage(AuthState.errors.last()): AuthState.status === '' }
           <div className="registrationForm__goToLogin">
             <Typography paragraph>
               Already have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
