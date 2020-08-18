@@ -120,14 +120,12 @@ export const useAuthentication = () => {
 		if (state.status !== 'IDLE') throw new Error('Operation already in progress')
 		else if (!state.token) throw new Error('No token available')
 		else {
-			fetcher(state.token, `${baseUrl}/user`, 'GET', null)
+			return fetcher(state.token, `${baseUrl}/login`, 'GET', null)
 				.then(res => res.json())
-				.then(data => dispatch({ type: 'MY_INFO_SUCCES', payload: data }))
-				.catch(error => dispatch({ type: 'MY_INFO_ERROR', payload: error }))
+				.then(data => {
+					return data 
+				})
 		}
-		useTimeout(()=> {
-			dispatch({type: 'CLEAR_TEMP'})
-		},10000)
 	}
 
 	const actions = {
