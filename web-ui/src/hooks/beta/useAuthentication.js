@@ -10,26 +10,52 @@ import { useState } from "react";
  */
 const authenticationReducer = (state, action) => {
   switch (action.type) {
+    case "RESET":
+      return { ...action.payload, actions: [action.type], status: "IDLE" };
     case "LOGIN":
-      return { ...state, status: "LOADING" };
+      return {
+        ...state,
+        actions: [...state.actions, action.type],
+        status: "LOADING",
+      };
     case "LOGIN_SUCCESS":
-      return { ...state, status: "IDLE", token: action.payload };
+      return {
+        ...state,
+        actions: [...state.actions, action.type],
+        status: "IDLE",
+        token: action.payload,
+      };
     case "LOGIN_ERROR":
       return {
         ...state,
         status: "ERROR_OCCURED",
+        actions: [...state.actions, String(action.type)],
         errors: [...state.errors, { type: action.type, value: action.payload }], // append any new errors categoriezed
       };
     case "LOGOUT":
-      return { ...state, status: "IDLE", token: null };
+      return {
+        ...state,
+        actions: [...state.actions, action.type],
+        status: "IDLE",
+        token: null,
+      };
     case "REGISTER":
-      return { ...state, status: "LOADING" };
+      return {
+        ...state,
+        actions: [...state.actions, action.type],
+        status: "LOADING",
+      };
     case "REGISTER_SUCCESS":
-      return { ...state, status: "IDLE" };
+      return {
+        ...state,
+        actions: [...state.actions, action.type],
+        status: "IDLE",
+      };
     case "REGISTER_ERROR":
       return {
         ...state,
         status: "ERROR_OCCURED",
+        actions: [...state.actions, action.type],
         errors: [...state.errors, { type: action.type, value: action.payload }],
       };
     default:
@@ -43,6 +69,7 @@ const authenticationReducer = (state, action) => {
 export const initialState = {
   status: "IDLE",
   errors: [],
+  actions: [],
   token: null,
 };
 
@@ -52,6 +79,19 @@ export const useAuthentication = () => {
 
   useEffect(() => {
     console.log(`state updated`, state);
+    if (state.actions.length === 0) {
+      const restore_state = JSON.parse(localStorage.getItem("sorted"));
+      if (restore_state) {
+        dispatch({
+          type: "RESET",
+          payload: {...restore_state, errors: [] } 
+        });
+      } else {
+        dispatch({ type: "RESET", initialState });
+      }
+    } else {
+      localStorage.setItem("sorted", JSON.stringify(state));
+    }
     notifyObservers();
   }, [state]);
 
@@ -62,36 +102,28 @@ export const useAuthentication = () => {
    */
   function Login(username, password) {
     //console.log('loggin in existing user', {username, password})
-    if (state.status !== "IDLE")
-      throw new Error("Operation already in progress");
-    else {
-      dispatch({ type: "LOGIN" });
-      fetcher(null, `${baseUrl}/login`, "POST", { username, password })
-        .then((res) => {
-          if (res.status == 401) throw new Error() 
-          else return res.json();
-        })
-        .then((data) => {
-          //console.log('success', data)
-          dispatch({ type: "LOGIN_SUCCESS", payload: data.token });
-        })
-        .catch((error) => {
-          dispatch({
-            type: "LOGIN_ERROR",
-            payload: "Invalid Username or Password",
-          });
+    dispatch({ type: "LOGIN" });
+    return fetcher(null, `${baseUrl}/login`, "POST", { username, password })
+      .then((res) => {
+        if (res.status == 401) throw new Error();
+        else return res.json();
+      })
+      .then((data) => {
+        //console.log('success', data)
+        dispatch({ type: "LOGIN_SUCCESS", payload: data.token });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOGIN_ERROR",
+          payload: "Invalid Username or Password",
         });
-    }
+      });
   }
   /**
    * Logs the user out
    */
   function Logout() {
-    if (state.status !== "IDLE")
-      throw new Error("Operation already in progress");
-    else {
-      dispatch({ type: "LOGOUT" });
-    }
+    return dispatch({ type: "LOGOUT" });
   }
   /**
    * Registers a new user
@@ -125,7 +157,6 @@ export const useAuthentication = () => {
           dispatch({ type: "REGISTER_FAILURE", payload: error.messsage })
         );
     }
-    Login(username, password);
   }
 
   /**

@@ -14,6 +14,7 @@ import {
   passwordInputChanged,
 } from "../../../util/FormValidations";
 import { AuthorizationContext } from "../../../App";
+import SuccessMessage from './Fields/SuccessMessage'
 
 const RegistrationForm = ({ display, toggleDisplay }) => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext)
@@ -28,7 +29,21 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null)
 
+  /** watch for an error  */
+  useEffect(() => {
+    const observer = {
+      update: (authState) => {
+        if (authState.status === "ERROR_OCCURED") {
+          setErrorMessage(authState.errors[authState.errors.length - 1].value);
+        } else if (authState.actions[AuthState.actions.length] === "REGISTER_SUCCESS") {
+          setSuccessMessage("Account Created Successfully") 
+        }
+      },
+    };
+    AuthActions.observers.addObserver(observer);
+  }, []);
   // remove the error message after 5 seconds
   useEffect(() => {
     if (errorMessage !== null) {
@@ -37,6 +52,14 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
       }, 5000);
     }
   }, [errorMessage]);
+
+  useEffect(() => {
+    if (successMessage !== null) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+      });
+    }
+  }, [successMessage])
 
 
   const handleSubmit = async (e) => {
@@ -118,6 +141,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
           </div>
           <br />
           {AuthState.status === 'ERROR' ? ErrorMessage(AuthState.errors.last()): AuthState.status === '' }
+          { successMessage ? SuccessMessage(successMessage) : null }
           <div className="registrationForm__goToLogin">
             <Typography paragraph>
               Already have an account? <u onClick={toggleDisplay}>Click here</u>{" "}
