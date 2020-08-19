@@ -22,12 +22,7 @@ const authenticate = (req, res, next) => {
     const encoded_token = req.headers.authorization.split(" ")[1];
     const decoded_token = jwt.decode(encoded_token, SECRET);
     req.user_id = decoded_token.user_id;
-    console.log(`req`, req.user_id)
   }
-  // const { token } = req.headers
-  // console.log('token', token)
-  // const decoded = jwt.decode(token, SECRET);
-  // console.log(decoded)
   next();
 };
 
@@ -172,6 +167,29 @@ app.post('/address', authenticate, (req, res) => {
     res.status(500).json({ iid: 2,error: err})
   })
 })
+
+
+app.get('/locations', authenticate, (req, res) => {
+  database('location').select('*').where({ user_id: req.user_id})
+    .returning('*')
+    .then(locations => {
+      res.status(200).json(locations)
+    }).catch(err => {
+      console.error('GET => /locations', err)
+    })
+})
+
+app.post("/locations", authenticate, (req, res) => {
+  const { name, type, address_id } = req.body 
+  database('location')
+    .insert({ name, type, address_id, user_id: req.user_id})
+    .returning('*')
+    .where({ user_id: req.user_id })
+    .orderBy('created_at', { order: 'desc'})
+    .then(locations => {
+      res.status(201).json(locations)
+    })
+});
 
 
 
