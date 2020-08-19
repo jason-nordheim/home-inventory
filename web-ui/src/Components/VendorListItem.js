@@ -17,7 +17,7 @@ export const VendorListItem = ({
         primary={vendor.name}
         secondary={
           <Typography component="span" variant="body2" color="textSecondary">
-            {`Phone ${vendor.phone} Email: (${vendor.email})`}
+            {`Phone ${vendor.phone}\n\nEmail ${vendor.email}\n\nNotes ${vendor.notes}`}
           </Typography>
         }
       />
