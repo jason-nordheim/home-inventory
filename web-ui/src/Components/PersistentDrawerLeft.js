@@ -25,7 +25,7 @@ import SitePages from "../data/SitePages";
 import { Link } from "react-router-dom";
 
 const PersistentDrawerLeft = ({ children }) => {
-  const [AuthState, AuthDispatch] = useContext(AuthorizationContext);
+  const [AuthState, AuthActions] = useContext(AuthorizationContext);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -70,7 +70,7 @@ const PersistentDrawerLeft = ({ children }) => {
               className="persistentDrawerLeft__logoutButton"
               color="inherit"
               aria-label="logout"
-              onClick={() => AuthDispatch.dispatch({ type: "LOGOUT" })}
+              onClick={() => AuthActions.users.Logout()} 
               edge="end"
             >
               <ExitToAppIcon />
