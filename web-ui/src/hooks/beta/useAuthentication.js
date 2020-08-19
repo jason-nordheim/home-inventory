@@ -181,6 +181,7 @@ export const useAuthentication = () => {
     }
   }
 
+
   /**
    * Function to add an obsever to be notified whenever
    * state changes
@@ -231,6 +232,9 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Function to retrieve all the addresses pertaining to the current user 
+   */
   function getAddresses(){ 
     if (!state.token) throw new Error("No token available");
     else {
@@ -239,16 +243,30 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Creates a location in which items can be placed 
+   * @param {string} name user-defined name of locatoin 
+   * @param {string} type "apartment" | "condo" | "storage room" | "etc"
+   * @param {number} address_id foriegn key to the associated address 
+   */
   function createLocation(name, type, address_id){
     if(!state.token) throw new Error('No token available')
     else {
       return fetcher(state.token, `${baseUrl}/locations`, 'POST', { name, type, address_id})
         .then(res => res.json())
+        .then(data => {
+          console.log('locationCreated', data)
+          return data 
+        })
     }
   }
 
   function getLocations(){
-
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/locations`, 'GET')
+        .then(res => res.json())
+    }
   }
 
 
@@ -267,8 +285,8 @@ export const useAuthentication = () => {
       getAll: getAddresses
     },
     locations: {
-      create: null, // todo 
-      getAll: null 
+      create: createLocation, 
+      getAll: getLocations 
     }
   };
 
