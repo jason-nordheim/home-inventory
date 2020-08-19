@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import SignInForm from "../Forms/User/SignInForm"
 import RegistrationForm from "../Forms/User/RegistrationForm";
-import { AuthorizationContext } from "../../App";
 
 const UnAuthenticatedAccountPage = () => {
   const [register, setRegister] = useState(false);
