@@ -134,39 +134,25 @@ export const useAuthentication = () => {
    * @param {string} phone
    */
   function Register(name, username, password, email, phone) {
-    console.log("registering new user: ", {
+    return fetcher(null, `${baseUrl}/users`, "POST", {
       name,
       username,
       password,
       email,
       phone,
-    });
-    if (state.status !== "IDLE")
-      throw new Error("Operation already in progress");
-    else {
-      fetcher(null, `${baseUrl}/users`, "POST", {
-        name,
-        username,
-        password,
-        email,
-        phone,
-      })
-        .then((res) => res.json())
-        .then((_) => dispatch({ type: "REGISTER_SUCCESS" }))
-        .catch((error) =>
-          dispatch({ type: "REGISTER_FAILURE", payload: error.messsage })
-        );
-    }
+    })
+      .then((res) => res.json())
+      .then((_) => dispatch({ type: "REGISTER_SUCCESS" }))
+      .catch((error) =>
+        dispatch({ type: "REGISTER_FAILURE", payload: error.messsage })
+      );
   }
 
   /**
    * Function to get the currently logged in user information
    */
   function MyInfo() {
-    console.log("retrieving user info...");
-    if (state.status !== "IDLE")
-      throw new Error("Operation already in progress");
-    else if (!state.token) throw new Error("No token available");
+    if (!state.token) throw new Error("No token available");
     else {
       return fetcher(state.token, `${baseUrl}/login`, "GET", null)
         .then((res) => res.json())
@@ -176,24 +162,42 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Function to add an obsever to be notified whenever 
+   * state changes 
+   * @param {object} obj needs to have 'update(state)' method or 
+   * this will not work properly 
+   */
   function addObserver(obj) {
     setObservers([...observers, obj]);
   }
 
+  /**
+   * function to notify any observers 
+   */
   function notifyObservers() {
     observers.forEach((obj) => {
       obj.update(state);
     });
   }
 
+  function createAddress(name, street1, street2, city, state, zip) {
+
+  }
+
   const actions = {
-    Register,
-    Login,
-    Logout,
-    MyInfo,
+    users: {
+      Register,
+      Login,
+      Logout,
+      MyInfo
+    }, 
     observers: {
       addObserver,
     },
+    addresses: {
+      create: createAddress
+    }
   };
 
   return [state, actions];
