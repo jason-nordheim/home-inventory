@@ -10,7 +10,7 @@ const NameTextField = ({
   disabled = false,
   variant = "outlined",
   label="Name", 
-  id="name"
+  id=null
 }) => {
   return (
     <TextField
