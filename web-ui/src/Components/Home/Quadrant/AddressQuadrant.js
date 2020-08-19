@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from "react";
 import Quadrant from "./Quadrant";
-import AddressFront from './AddressFront'
-import AddressBack from './AddressBack'
-
+import AddressFront from "./AddressFront";
+import AddressBack from "./AddressBack";
 
 export const AddressQuadrant = () => {
-  return (
-  <Quadrant title="Addresses" front={<AddressFront /> } back={ <AddressBack /> } />
-  )
-}
+  const [showFront, setShowFront] = useState(true);
 
-export default AddressQuadrant
+  return (
+    <Quadrant
+      showFront={showFront}
+      setShowFront={setShowFront}
+      title="Addresses"
+      front={<AddressFront />}
+      back={<AddressBack onCreate={() => setShowFront(!showFront) } />}
+    />
+  );
+};
+
+export default AddressQuadrant;

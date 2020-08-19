@@ -4,10 +4,9 @@ import QuadrantFooter from './QuadrantFooter'
 import QuadrantHeader from './QuadrantHeader'
 import QuadrantBody from './QuadrantBody'
 
-export const Quadrant = ( { title, front, back, hasNew=true, onNewClick } ) => {
-  const [showFront, setShowFront ] = useState(true)
+export const Quadrant = ( { title, front, back, hasNew=true, onNewClick, showFront, setShowFront} ) => {
 
-  const flip = e => {
+  const handleClick = e => {
     e.preventDefault() 
     setShowFront(!showFront)
     if (typeof(onNewClick) == "function") {
@@ -21,7 +20,7 @@ export const Quadrant = ( { title, front, back, hasNew=true, onNewClick } ) => {
       <QuadrantBody front={front} back={back} showFront={showFront} />
       {hasNew && (
         <QuadrantFooter
-          onNewButtonClick={flip}
+          onNewButtonClick={handleClick}
           frontDisplayed={showFront}
         />
       )}

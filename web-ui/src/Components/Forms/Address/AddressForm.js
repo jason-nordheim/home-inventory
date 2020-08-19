@@ -8,7 +8,7 @@ import ZipCodeTextField from "../Fields/ZipCodeTextField";
 import UsStates from "../../../data/UsStates";
 import { Button } from '@material-ui/core'
 
-export const AddressForm = ({ variant="CREATE"}) => {
+export const AddressForm = ({ variant="CREATE", onSuccess}) => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext);
   const blank = "";
   const [name, setName] = useState(blank);
@@ -43,10 +43,25 @@ export const AddressForm = ({ variant="CREATE"}) => {
   /*
    * Handles the submit event (CREATE/EDIT/DELETE) 
    */
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault() 
     switch (variant) {
       case "CREATE":
+         if (AuthState.token) {
+           AuthActions.addresses.create(
+             name,
+             street1,
+             street2,
+             city,
+             state,
+             zip
+           )
+           if(typeof(onSuccess) === "function"){
+             onSuccess()
+           }
+         } else {
+           alert('You must be logged in to perform this action')
+         }
         break; 
       case "EDIT":
         break; 
@@ -97,7 +112,7 @@ export const AddressForm = ({ variant="CREATE"}) => {
           </div>
         </div>
         <div className="addressForm__buttonContainer">
-          <Button variant="contained" color="primary" onClick={onSubmit} >
+          <Button variant="contained" color="primary" onClick={handleSubmit} >
             { submitText }
           </Button>
         </div>

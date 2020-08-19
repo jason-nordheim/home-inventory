@@ -10,6 +10,25 @@ import { useState } from "react";
  */
 const authenticationReducer = (state, action) => {
   switch (action.type) {
+    case "CREATE_ADDRESS":
+      return {
+        ...state,
+        status: "LOADING",
+        actions: [...state.actions, action.type],
+      };
+    case "ADDRESS_ERROR": 
+      return {
+        ...state, 
+        status: 'IDLE', 
+        actions: [...state.actions, action.type], 
+        errors: [...state.errors, { type: action.type, value: action.payload }], // append any new errors categoriezed
+      }
+    case "ADDRESS_CREATED":
+      return {
+        ...state,
+        status: "IDLE",
+        actions: [...state.actions, action.type],
+      };
     case "RESET":
       return { ...action.payload, actions: [action.type], status: "IDLE" };
     case "LOGIN":
@@ -84,7 +103,7 @@ export const useAuthentication = () => {
       if (restore_state) {
         dispatch({
           type: "RESET",
-          payload: {...restore_state, errors: [] } 
+          payload: { ...restore_state, errors: [] },
         });
       } else {
         dispatch({ type: "RESET", initialState });
@@ -163,17 +182,17 @@ export const useAuthentication = () => {
   }
 
   /**
-   * Function to add an obsever to be notified whenever 
-   * state changes 
-   * @param {object} obj needs to have 'update(state)' method or 
-   * this will not work properly 
+   * Function to add an obsever to be notified whenever
+   * state changes
+   * @param {object} obj needs to have 'update(state)' method or
+   * this will not work properly
    */
   function addObserver(obj) {
     setObservers([...observers, obj]);
   }
 
   /**
-   * function to notify any observers 
+   * function to notify any observers
    */
   function notifyObservers() {
     observers.forEach((obj) => {
@@ -181,8 +200,46 @@ export const useAuthentication = () => {
     });
   }
 
-  function createAddress(name, street1, street2, city, state, zip) {
+  /**
+   * Creates an address for the current user
+   * @param {string} name
+   * @param {string} street1
+   * @param {string} street2
+   * @param {string} city
+   * @param {string} state
+   * @param {string} zip
+   */
+  function createAddress(name, street1, street2, city, _state, zip) {
+    console.log(state)
+    if (!state.token) throw new Error("No token available");
+    else {
+      dispatch({ type: "CREATE_ADDRESS"})
+      return fetcher(state.token, `${baseUrl}/address`, "POST", {
+        name,
+        street1,
+        street2,
+        city,
+        state: _state,
+        zip,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({ type: 'ADDRESS_CREATED', payload: data})
+          return data 
+        })
+        .catch((err) => dispatch({ type: "ADDRESS_ERROR", payload: err}));
+    }
+  }
 
+  function getAddresses(){ 
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/address`, 'GET')
+        .then(res => res.json())
+        .then(data => {
+          return data 
+        })
+    }
   }
 
   const actions = {
@@ -190,14 +247,15 @@ export const useAuthentication = () => {
       Register,
       Login,
       Logout,
-      MyInfo
-    }, 
+      MyInfo,
+    },
     observers: {
       addObserver,
     },
     addresses: {
-      create: createAddress
-    }
+      create: createAddress,
+      getAll: getAddresses
+    },
   };
 
   return [state, actions];
