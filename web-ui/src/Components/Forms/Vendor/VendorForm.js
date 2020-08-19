@@ -4,6 +4,7 @@ import { useState } from 'react'
 import NameTextField from '../Fields/NameTextField'
 import PhoneTextField from '../Fields/PhoneTextField'
 import EmailTextField from '../Fields/EmailTextField'
+import MultilineTextField from "../Fields/MultilineTextField";
 
 
 const VendorFrom = ({title="New Vendor", createVendor}) => {
@@ -39,6 +40,9 @@ const VendorFrom = ({title="New Vendor", createVendor}) => {
             size="small"
             onChange={(e) => setVendorEmail(e.target.value)}
           />
+        </div>
+        <div className="vendorForm__textField">
+          <MultilineTextField /> 
         </div>
       </form>
     </div>
