@@ -1,9 +1,10 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 
-const PhoneTextField = ({ phone, onChange, phoneError, required=true, disabled=false, variant="outlined"}) => {
+const PhoneTextField = ({ phone, onChange, phoneError, required=true, disabled=false, size="medium", variant="outlined"}) => {
   return (
     <TextField
+      size={size}
       variant={variant}
       fullWidth
       error={phoneError !== null}
