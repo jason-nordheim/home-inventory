@@ -223,6 +223,29 @@ app.post('/vendors', authenticate, (req, res) => {
 })
 
 
+app.get('/items', authenticate, (req, res) => {
+  database('item').select('*').where({ user_id: req.user_id })
+    .then(items => res.status(200).json(items))
+    .catch(err => {
+      console.error('GET => /items', err)
+      res.status(500).json({iid: 26, error: err})
+    })
+})
+
+app.post('/items', authenticate, (req, res) => {
+  const { name, est_value, acc_value, category, make, model, purchase_date, selling, location_id } = req.body 
+  const newItem = { name, est_value, acc_value, category, make, model, purchase_date, selling, location_id, user_id: req.user_id }
+  database('item')
+    .insert(newItem)
+    .returning('*')
+    .then(items => res.status(201).json(items))
+    .catch(err => {
+      console.error('POST => /items', err)
+      res.status(500).json({iid: 31, error: err})
+    })
+})
+
+
 
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
 
