@@ -1,15 +1,18 @@
-import React from "react";
+import React , { useState } from "react";
 import { Typography } from "@material-ui/core";
 import Quadrant from "./Quadrant";
 import VendorForm from '../../Forms/Vendor/VendorForm'
 
 const VendorsQuadrant = () => {
+  const [showFront, setShowFront] = useState(true);
+
   return (
     <Quadrant
       title="Vendors"
       front={<VendorsFront />}
       back={<VendorsBack />}
-      onCreateNew={null} 
+      showFront={showFront}
+      setShowFront={setShowFront}
     />
   );
 };
