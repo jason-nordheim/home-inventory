@@ -3,11 +3,13 @@ import { Typography } from '@material-ui/core'
 import { useState } from 'react'
 import NameTextField from '../Fields/NameTextField'
 import PhoneTextField from '../Fields/PhoneTextField'
+import EmailTextField from '../Fields/EmailTextField'
 
 
-const VendorFrom = ({title="New Vendor"}) => {
+const VendorFrom = ({title="New Vendor", createVendor}) => {
   const [vendorName, setVendorName] = useState('')
   const [vendorPhone, setVendorPhone] = useState('')
+  const [vendorEmail, setVendorEmail] = useState('')
 
   return (
     <div className="vendorForm__container">
@@ -22,12 +24,20 @@ const VendorFrom = ({title="New Vendor"}) => {
             onChange={(e) => setVendorName(e.target.value)}
           />
         </div>
-        <div className="vendorPhone__textField">
+        <div className="vendorForm__textField">
           <PhoneTextField
             size="small"
             phone={vendorPhone}
             phoneError={null}
             onChange={(e) => setVendorPhone(e.target.value)}
+          />
+        </div>
+        <div className="vendorForm__textField">
+          <EmailTextField
+            email={vendorEmail}
+            emailError={null}
+            size="small"
+            onChange={(e) => setVendorEmail(e.target.value)}
           />
         </div>
       </form>
