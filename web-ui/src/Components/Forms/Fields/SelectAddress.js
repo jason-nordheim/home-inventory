@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 const SelectAddress = ({
-  value,
+  value="",
   valueError,
   onChange,
   menuItems = [], 
@@ -12,7 +12,6 @@ const SelectAddress = ({
   label = "Address",
   id = "address",
 }) => {
-  console.log('address', menuItems)
   return (
     <FormControl required={required} size="small" fullWidth>
       <InputLabel className="selectAddress__inputLabel" size="small">
