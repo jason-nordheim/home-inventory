@@ -16,13 +16,13 @@ const authenticationReducer = (state, action) => {
         status: "LOADING",
         actions: [...state.actions, action.type],
       };
-    case "ADDRESS_ERROR": 
+    case "ADDRESS_ERROR":
       return {
-        ...state, 
-        status: 'IDLE', 
-        actions: [...state.actions, action.type], 
+        ...state,
+        status: "IDLE",
+        actions: [...state.actions, action.type],
         errors: [...state.errors, { type: action.type, value: action.payload }], // append any new errors categoriezed
-      }
+      };
     case "ADDRESS_CREATED":
       return {
         ...state,
@@ -100,17 +100,15 @@ export const useAuthentication = () => {
     console.log(`state updated`, state);
     if (state.actions.length === 0) {
       const restore_state = JSON.parse(localStorage.getItem("sorted"));
-      if (restore_state) {
+      if (restore_state)
         dispatch({
           type: "RESET",
           payload: { ...restore_state, errors: [] },
         });
-      } else {
-        dispatch({ type: "RESET", initialState });
-      }
-    } else {
-      localStorage.setItem("sorted", JSON.stringify(state));
-    }
+      else dispatch({ type: "RESET", initialState });
+    } else localStorage.setItem("sorted", JSON.stringify(state));
+
+    // anytime state changes, update any observers
     notifyObservers();
   }, [state]);
 
@@ -124,7 +122,7 @@ export const useAuthentication = () => {
     dispatch({ type: "LOGIN" });
     return fetcher(null, `${baseUrl}/login`, "POST", { username, password })
       .then((res) => {
-        if (res.status == 401) throw new Error();
+        if (res.status === 401) throw new Error();
         else return res.json();
       })
       .then((data) => {
@@ -181,7 +179,6 @@ export const useAuthentication = () => {
     }
   }
 
-
   /**
    * Function to add an obsever to be notified whenever
    * state changes
@@ -214,7 +211,7 @@ export const useAuthentication = () => {
     // console.log(state)
     if (!state.token) throw new Error("No token available");
     else {
-      dispatch({ type: "CREATE_ADDRESS"})
+      dispatch({ type: "CREATE_ADDRESS" });
       return fetcher(state.token, `${baseUrl}/address`, "POST", {
         name,
         street1,
@@ -225,50 +222,96 @@ export const useAuthentication = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          dispatch({ type: 'ADDRESS_CREATED', payload: data})
-          return data 
+          dispatch({ type: "ADDRESS_CREATED", payload: data });
+          return data;
         })
-        .catch((err) => dispatch({ type: "ADDRESS_ERROR", payload: err}));
+        .catch((err) => dispatch({ type: "ADDRESS_ERROR", payload: err }));
     }
   }
 
   /**
-   * Function to retrieve all the addresses pertaining to the current user 
+   * Function to retrieve all the addresses pertaining to the current user
    */
-  function getAddresses(){ 
+  function getAddresses() {
     if (!state.token) throw new Error("No token available");
     else {
-      return fetcher(state.token, `${baseUrl}/address`, 'GET')
-        .then(res => res.json())
+      return fetcher(state.token, `${baseUrl}/address`, "GET").then((res) =>
+        res.json()
+      );
     }
   }
 
   /**
-   * Creates a location in which items can be placed 
-   * @param {string} name user-defined name of locatoin 
+   * Creates a location in which items can be placed
+   * @param {string} name user-defined name of locatoin
    * @param {string} type "apartment" | "condo" | "storage room" | "etc"
-   * @param {number} address_id foriegn key to the associated address 
+   * @param {number} address_id foriegn key to the associated address
    */
-  function createLocation(name, type, address_id){
-    if(!state.token) throw new Error('No token available')
-    else {
-      return fetcher(state.token, `${baseUrl}/locations`, 'POST', { name, type, address_id})
-        .then(res => res.json())
-        .then(data => {
-          console.log('locationCreated', data)
-          return data 
-        })
-    }
-  }
-
-  function getLocations(){
+  function createLocation(name, type, address_id) {
     if (!state.token) throw new Error("No token available");
     else {
-      return fetcher(state.token, `${baseUrl}/locations`, 'GET')
-        .then(res => res.json())
+      return fetcher(state.token, `${baseUrl}/locations`, "POST", {
+        name,
+        type,
+        address_id,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          return data;
+        });
     }
   }
 
+  /**
+   * Function to get the locations created by the
+   * currently authenticated user
+   */
+  function getLocations() {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/locations`, "GET").then((res) =>
+        res.json()
+      );
+    }
+  }
+
+  /**
+   * Function to get all the vendors created by the
+   * current user
+   */
+  function getVendors() {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/vendors`, "GET")
+        .then((res) => res.json())
+        .then((data) => {
+          return data;
+        });
+    }
+  }
+
+  /**
+   * Function to create a new vendor (for currently authenticated user)
+   * @param {string} name 
+   * @param {string} phone 
+   * @param {string} email 
+   * @param {string} notes 
+   */
+  function createVendor(name, phone, email, notes) {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/vendors`, "POST", {
+        name,
+        phone,
+        email,
+        notes,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          return data;
+        });
+    }
+  }
 
   const actions = {
     users: {
@@ -282,12 +325,16 @@ export const useAuthentication = () => {
     },
     addresses: {
       create: createAddress,
-      getAll: getAddresses
+      getAll: getAddresses,
     },
     locations: {
-      create: createLocation, 
-      getAll: getLocations 
-    }
+      create: createLocation,
+      getAll: getLocations,
+    },
+    vendors: {
+      create: createVendor,
+      getAll: getVendors,
+    },
   };
 
   return [state, actions];
