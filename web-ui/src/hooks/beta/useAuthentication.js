@@ -210,7 +210,7 @@ export const useAuthentication = () => {
    * @param {string} zip
    */
   function createAddress(name, street1, street2, city, _state, zip) {
-    console.log(state)
+    // console.log(state)
     if (!state.token) throw new Error("No token available");
     else {
       dispatch({ type: "CREATE_ADDRESS"})
@@ -236,11 +236,21 @@ export const useAuthentication = () => {
     else {
       return fetcher(state.token, `${baseUrl}/address`, 'GET')
         .then(res => res.json())
-        .then(data => {
-          return data 
-        })
     }
   }
+
+  function createLocation(name, type, address_id){
+    if(!state.token) throw new Error('No token available')
+    else {
+      return fetcher(state.token, `${baseUrl}/locations`, 'POST', { name, type, address_id})
+        .then(res => res.json())
+    }
+  }
+
+  function getLocations(){
+
+  }
+
 
   const actions = {
     users: {
@@ -256,6 +266,10 @@ export const useAuthentication = () => {
       create: createAddress,
       getAll: getAddresses
     },
+    locations: {
+      create: null, // todo 
+      getAll: null 
+    }
   };
 
   return [state, actions];
