@@ -310,6 +310,45 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Creates a new item for the currently logged in user 
+   * @param {string} name 
+   * @param {number} est_value 
+   * @param {number} acc_value 
+   * @param {string} category 
+   * @param {string} make 
+   * @param {string} model 
+   * @param {date} purchase_date 
+   * @param {boolean} selling 
+   * @param {number} location_id 
+   */
+  function createItem(name, est_value, acc_value, category, make, model, purchase_date, selling, location_id ){
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/items`, "POST", {
+        name,
+        est_value,
+        acc_value,
+        category,
+        make,
+        model,
+        purchase_date,
+        selling,
+        location_id,
+      }).then(res => res.json())
+    }
+  }
+
+  function getItems() {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/items`,'GET')
+        .then(res => res.json())
+    }
+  }
+
+
+
   const actions = {
     users: {
       Register,
@@ -332,6 +371,10 @@ export const useAuthentication = () => {
       create: createVendor,
       getAll: getVendors,
     },
+    items: {
+      create: createItem,
+      getAll: getItems
+    }
   };
 
   return [state, actions];
