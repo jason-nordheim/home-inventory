@@ -9,7 +9,7 @@ const StreetTextField = ({
   disabled = false,
   variant = "outlined",
   label="Street", 
-  id="street"
+  id=null
 }) => {
   return (
     <TextField
