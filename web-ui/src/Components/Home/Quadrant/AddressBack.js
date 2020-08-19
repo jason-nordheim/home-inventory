@@ -1,8 +1,8 @@
 import React from "react";
-import LocationForm from "../../Forms/Locations/LocationForm";
+import AddressForm from "../../Forms/Address/AddressForm";
 
 export const AddressBack = () => {
-  return <LocationForm submitText="create" />;
+  return <AddressForm />;
 };
 
 export default AddressBack
