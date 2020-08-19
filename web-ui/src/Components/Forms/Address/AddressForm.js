@@ -39,6 +39,16 @@ export const AddressForm = ({ variant="CREATE", onSuccess}) => {
        break; 
    }
   }, [])
+
+  const clearForm = () => {
+    setName('')
+    setStreet1('')
+    setStreet2('')
+    setCity('')
+    setState(UsStates[0].abbreviation)
+    setZip('')
+  }
+
   
   /*
    * Handles the submit event (CREATE/EDIT/DELETE) 
@@ -48,17 +58,13 @@ export const AddressForm = ({ variant="CREATE", onSuccess}) => {
     switch (variant) {
       case "CREATE":
          if (AuthState.token) {
-           AuthActions.addresses.create(
-             name,
-             street1,
-             street2,
-             city,
-             state,
-             zip
-           )
+           AuthActions.addresses
+             .create(name, street1, street2, city, state, zip)
+             .then(() => clearForm());
            if(typeof(onSuccess) === "function"){
              onSuccess()
            }
+           
          } else {
            alert('You must be logged in to perform this action')
          }
