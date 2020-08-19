@@ -14,7 +14,7 @@ const AuthenticatedAccountPage = () => {
 
   useEffect(() => {
     if(AuthState.token) {
-      AuthActions.MyInfo()
+      AuthActions.users.MyInfo()
         .then(data => setUser(data))
     }
   }, [])
