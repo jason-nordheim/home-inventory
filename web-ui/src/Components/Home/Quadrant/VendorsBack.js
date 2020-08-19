@@ -1,7 +1,12 @@
-import React from "react"
-import VendorForm from "../../Forms/Vendor/VendorForm"
+import React from "react";
+import VendorForm from "../../Forms/Vendor/VendorForm";
 
-
-export const VendorsBack = ({ createVendor }) => {
-  return <VendorForm  createVendor={createVendor} />
-}
+export const VendorsBack = ({ createVendor, onSubmit, callFormClear }) => {
+  return (
+    <VendorForm
+      createVendor={createVendor}
+      onSubmit={onSubmit}
+      callFormClear={callFormClear}
+    />
+  );
+};
