@@ -3,19 +3,18 @@ import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@ma
 import { locationTypes } from '../../../util/FormValidations'
 
 const LocationTypeSelect = ({
-  locationType=locationTypes[0],
-  locationTypeError,
+  value=locationTypes[0],
+  error,
   onChange,
   required = true,
   disabled = false,
-  variant = "outlined",
   label = "Location Type",
   id = "type",
 }) => {
   const radioButtons = locationTypes.map(loc => <FormControlLabel key={loc} value={loc} label={loc} control={<Radio />} /> )
 
   return (
-    <FormControl required={required} size="small" fullWidth>
+    <FormControl required={required} size="small" disabled={disabled} fullWidth>
       <FormLabel className="locationTypeSelect__inputLabel" size="small">{label}</FormLabel>
       <RadioGroup className="locationTypeSelect__radioGroup" aria-label="Location Type" name="type" onChange={onChange} row>
         {radioButtons } 
