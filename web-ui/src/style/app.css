@@ -329,7 +329,7 @@ table {
   display: flex;
   padding: 0.5rem 0;
 }
-.newLocationForm__submitContainer, .addressForm__buttonContainer {
+.newLocationForm__submitContainer, .addressForm__buttonContainer, .locationForm__buttonContainer {
   display: flex;
   justify-content: center;
 }
