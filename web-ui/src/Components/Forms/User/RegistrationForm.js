@@ -64,7 +64,7 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    AuthActions.Register(name, username, password, email, phone)
+    AuthActions.users.Register(name, username, password, email, phone)
   };
 
   return (
