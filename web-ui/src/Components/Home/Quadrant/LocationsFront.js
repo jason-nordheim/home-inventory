@@ -1,16 +1,17 @@
-import React from 'react'
-import { List } from '@material-ui/core'
+import React, {useState, useEffect } from "react";
+import { List } from "@material-ui/core";
+import LocationListItem from "../../../Components/LocationListItem";
 /**
- * Component to be placed in the main content section of the 
- * Location Quadrant 
+ * Component to be placed in the main content section of the
+ * Location Quadrant
  */
-export const LocationsFront = () => {
-  return (
-    <List>
+export const LocationsFront = ({
+  locations = [],
+  setChecked,
+}) => {
+  return <List>{locations.map(loc => {
+    return <LocationListItem key={loc.id} location={loc} handleChecked={setChecked} /> 
+  })}</List>;
+};
 
-    </List>
-  )
-}
-
-
-export default LocationsFront
+export default LocationsFront;
