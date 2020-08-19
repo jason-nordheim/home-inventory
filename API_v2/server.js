@@ -198,7 +198,7 @@ app.post("/locations", authenticate, (req, res) => {
 
 app.get('/vendors', authenticate, (req, res) => {
   database('vendor')
-    .select('*').where({ created_by: req.user_id})
+    .select('*').where({ user_id: req.user_id})
     .returning('*')
     .then(vendors => {
       res.status(200).json(vendors)
@@ -211,7 +211,7 @@ app.get('/vendors', authenticate, (req, res) => {
 
 app.post('/vendors', authenticate, (req, res) => {
   const { name, phone, email, notes } = req.body 
-  database('vendor').insert({name, phone, email, notes, created_by: req.user_id})
+  database('vendor').insert({name, phone, email, notes, user_id: req.user_id})
     .returning('*')
     .then(vendors => {
       res.status(201).json(vendors)
