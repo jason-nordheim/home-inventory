@@ -11,6 +11,7 @@ const VendorFrom = ({title="New Vendor", createVendor}) => {
   const [vendorName, setVendorName] = useState('')
   const [vendorPhone, setVendorPhone] = useState('')
   const [vendorEmail, setVendorEmail] = useState('')
+  const [vendorDescription, setVendorDescription] = useState('')
 
   return (
     <div className="vendorForm__container">
@@ -42,7 +43,10 @@ const VendorFrom = ({title="New Vendor", createVendor}) => {
           />
         </div>
         <div className="vendorForm__textField">
-          <MultilineTextField /> 
+          <MultilineTextField value={vendorDescription} error={null} onChange={e => setVendorDescription(e.target.value)} /> 
+        </div>
+        <div>
+          
         </div>
       </form>
     </div>
