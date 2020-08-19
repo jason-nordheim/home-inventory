@@ -307,9 +307,6 @@ export const useAuthentication = () => {
         notes,
       })
         .then((res) => res.json())
-        .then((data) => {
-          return data;
-        });
     }
   }
 
