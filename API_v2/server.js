@@ -191,6 +191,9 @@ app.post("/locations", authenticate, (req, res) => {
     })
 });
 
+app.get('/vendors', authenticate, (req, res) => {
+  const { name, phone, email, } = req.body 
+})
 
 
 
