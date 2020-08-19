@@ -8,8 +8,6 @@ export const AuthorizationContext = React.createContext(initialState)
 
 const App = () => {
   const AuthContext = useAuthentication(initialState)
-
-
 	return (
     <AuthorizationContext.Provider value={AuthContext}>
       <BrowserRouter>
