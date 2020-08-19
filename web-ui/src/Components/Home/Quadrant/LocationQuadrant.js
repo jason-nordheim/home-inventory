@@ -11,7 +11,7 @@ const LocationsQuadrant = () => {
 
   useEffect(() => {
     updateLocationList()
-  },[])
+  },[showFront])
   
   const setChecked = (location) => {
     if(locations !== null && locations !== []) {
