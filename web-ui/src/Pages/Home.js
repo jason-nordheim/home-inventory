@@ -6,7 +6,7 @@ import HomeUnAuthenticated from '../Components/Home/Home.UnAuthenticated'
 
 
 const HomePage = () => {  
-	const [AuthState, AuthDispatch] = useContext(AuthorizationContext)
+	const [AuthState, AuthActions] = useContext(AuthorizationContext)
 	return (
     <Layout title="Home">
       {AuthState.token == null && <HomeUnAuthenticated />}
