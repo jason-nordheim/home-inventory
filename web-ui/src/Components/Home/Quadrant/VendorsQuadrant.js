@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { List } from "@material-ui/core";
 import Quadrant from "./Quadrant";
-import VendorsFront from './VendorsFront'
+import VendorsFront from "./VendorsFront";
 import { AuthorizationContext } from "../../../App";
-import { VendorsBack } from './VendorsBack'
+import { VendorsBack } from "./VendorsBack";
 
 const VendorsQuadrant = () => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext);
@@ -25,32 +25,51 @@ const VendorsQuadrant = () => {
       }
     });
   };
-  
+
   const shouldBeChecked = (vendor) => {
     if (vendors !== null && vendors !== []) {
-      // should be checked if it already was in previous load 
-      vendors.forEach(v => {
+      // should be checked if it already was in previous load
+      vendors.forEach((v) => {
         if (v.id === vendor.id && v.checked) {
-          return true 
+          return true;
         }
-      })
+      });
     }
-    return false // default to not checked 
-  }
+    return false; // default to not checked
+  };
 
   const setChecked = (id) => {
-    const mappedVendors = vendors.map(v => {
-      if(v.id === id) return v.checked = !v.checked
-      else return v
-    })
-    setVendors(mappedVendors)
+    const mappedVendors = vendors.map((v) => {
+      if (v.id === id) {
+        v.checked = !v.checked
+        return v; 
+      }
+      else return v;
+    });
+    setVendors(mappedVendors);
+  };
+
+  const createVendor = (
+    vendorName,
+    vendorPhone,
+    vendorEmail,
+    vendorNotes
+  ) => {
+    AuthActions.vendors.create(vendorName, vendorPhone, vendorEmail, vendorNotes)
+      .then(() => {
+        setShowFront(!showFront)
+      })
   };
 
   return (
     <Quadrant
       title="Vendors"
       front={<VendorsFront vendors={vendors} setChecked={setChecked} />}
-      back={<VendorsBack />}
+      back={
+        <VendorsBack
+          createVendor={createVendor}
+        />
+      }
       showFront={showFront}
       setShowFront={setShowFront}
     />
