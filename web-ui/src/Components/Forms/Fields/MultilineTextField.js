@@ -9,9 +9,9 @@ const MultilineTextField = ({
   required = true,
   disabled = false,
   variant = "outlined",
-  label = "Name",
+  label = "Description",
   id = null,
-  size = "small"
+  size = "small",
   maxRows = 4, 
 }) => {
   return (
