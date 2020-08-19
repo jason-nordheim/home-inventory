@@ -9,8 +9,8 @@ const CityTextField = ({
   required = true,
   disabled = false,
   variant = "outlined",
-  label = "Location Name",
-  id = "name",
+  label = "City",
+  id = "city",
 }) => {
   return (
     <TextField

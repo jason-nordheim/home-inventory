@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 
 const StreetTextField = ({
-  street,
+  value,
   error,
   onChange,
   required = true,
@@ -19,7 +19,7 @@ const StreetTextField = ({
       error={error !== null}
       id={id}
       label={label}
-      defaultValue={street}
+      defaultValue={value}
       helperText={error == null ? "" : error}
       onChange={onChange}
       required={required}
