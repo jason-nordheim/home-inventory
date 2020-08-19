@@ -308,20 +308,20 @@ table {
   flex-direction: column;
   padding: 0.5rem;
 }
-.newLocationForm__textContainer {
+.newLocationForm__textContainer, .addressForm__textContainer {
   display: flex;
   padding: 0.5rem 0rem;
   flex: 1
 }
-.newLocationForm__stateZipContainer {
+.newLocationForm__stateZipContainer{
   display: flex;
   padding: 0.5rem 0rem;
 }
-.newLocationForm__stateContainer {
+.newLocationForm__stateContainer, .addressForm__stateContainer{
   flex: 3; 
   padding-right: 0.5rem;
 }
-.newLocationForm__zipContainer {
+.newLocationForm__zipContainer, .addressForm__zipContainer {
   flex: 2; 
   padding-left: 0.5rem
 }
@@ -329,7 +329,7 @@ table {
   display: flex;
   padding: 0.5rem 0;
 }
-.newLocationForm__submitContainer {
+.newLocationForm__submitContainer, .addressForm__buttonContainer {
   display: flex;
   justify-content: center;
 }
