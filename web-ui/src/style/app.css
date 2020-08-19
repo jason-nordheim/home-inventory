@@ -333,7 +333,7 @@ table {
   display: flex;
   justify-content: center;
 }
-.locationTypeSelect__inputLabel, .stateSelect__inputLabel {
+.locationTypeSelect__inputLabel, .stateSelect__inputLabel, .selectAddress__inputLabel{
   margin-left: 1rem;
   margin-top: -0.5rem;
   display: flex;
