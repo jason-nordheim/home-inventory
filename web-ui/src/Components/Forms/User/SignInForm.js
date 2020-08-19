@@ -40,7 +40,7 @@ const SignInForm = ({ display, toggleDisplay }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    AuthActions.Login(username, password);
+    AuthActions.users.Login(username, password);
   };
 
   return (
