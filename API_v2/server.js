@@ -176,6 +176,7 @@ app.get('/locations', authenticate, (req, res) => {
       res.status(200).json(locations)
     }).catch(err => {
       console.error('GET => /locations', err)
+      res.status(500).json({ iid: 101, error: err })
     })
 })
 
@@ -189,10 +190,36 @@ app.post("/locations", authenticate, (req, res) => {
     .then(locations => {
       res.status(201).json(locations)
     })
+    .catch(err => {
+      console.error('POST => /locations', err)
+      res.status(500).json({ iid: 22, error: err})
+    })
 });
 
 app.get('/vendors', authenticate, (req, res) => {
-  const { name, phone, email, } = req.body 
+  database('vendor')
+    .select('*').where({ created_by: req.user_id})
+    .returning('*')
+    .then(vendors => {
+      res.status(200).json(vendors)
+    })
+    .catch(err => {
+      console.error('GET => /vendors', err)
+      res.status(500).json({ iid: 24, error: err });
+    })
+})
+
+app.post('/vendors', authenticate, (req, res) => {
+  const { name, phone, email, notes } = req.body 
+  database('vendor').insert({name, phone, email, notes, created_by: req.user_id})
+    .returning('*')
+    .then(vendors => {
+      res.status(201).json(vendors)
+    })
+    .catch(err => {
+      console.error('POST => /vendors', err)
+      res.status(500).json({ iid: 25, error: err})
+    })
 })
 
 
