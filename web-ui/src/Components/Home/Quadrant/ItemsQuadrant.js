@@ -8,10 +8,17 @@ const ItemsQuadrant = () => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext);
   const [showFront, setShowFront] = useState(true);
   const [items, setItems] = useState([])
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     updateItems()
+    getLocations()
   }, [showFront])
+
+  const getLocations = () => {
+    AuthActions.locations.getAll()
+      .then(locations => setLocations(locations))
+  }
 
   const updateItems = () => {
     AuthActions.items.getAll()
@@ -41,7 +48,7 @@ const ItemsQuadrant = () => {
       showFront={showFront}
       title="Items"
       front={<ItemsFront />}
-      back={<ItemsBack />}
+      back={<ItemsBack locations={locations} />}
     />
   );
 };
