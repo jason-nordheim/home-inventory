@@ -114,6 +114,11 @@ const VendorsQuadrant = () => {
     // todo 
   }
 
+  function onSubmit() {
+    setShowFront(!showFront)
+    updatedVendorList()
+  }
+
   /**
    * frequently need to reference 
    */
@@ -123,7 +128,7 @@ const VendorsQuadrant = () => {
    * Children components 
    */
   const front = <VendorsFront vendors={vendors} setChecked={setChecked} />;
-  const back = <VendorsBack createVendor={createVendor} />;
+  const back = <VendorsBack createVendor={createVendor} onSubmit={onSubmit} />;
 
 
   return (
