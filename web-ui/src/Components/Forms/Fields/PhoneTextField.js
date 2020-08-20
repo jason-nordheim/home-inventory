@@ -7,7 +7,7 @@ const PhoneTextField = ({ id=null, label="Phone", phone, onChange, phoneError, r
       size={size}
       variant={variant}
       fullWidth
-      error={phoneError !== null}
+      error={phoneError != null}
       id={id}
       label={label}
       defaultValue={phone}
