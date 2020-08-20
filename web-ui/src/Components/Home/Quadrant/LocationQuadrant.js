@@ -52,9 +52,11 @@ const LocationsQuadrant = () => {
   }
 
   const deleteSelected = () => {
-    console.log(
-      locations.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0)
-    );
+    const selected_locations = locations.reduce((acc, val) => (val.checked ? [...acc, val]: acc),[])
+    selected_locations.forEach(loc => {
+      AuthActions.locations.delete(loc.id)
+    })
+    updateLocationList() 
   }
 
   return (
