@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NameTextField from "../Fields/NameTextField";
 import DollarAmountInput from "../Fields/DollarAmountInput";
 import DatePicker from "../Fields/DatePicker";
-import DateFnsUtils from "@date-io/date-fns";
+import { Switch, FormControl, FormHelperText } from '@material-ui/core'
 
 export const ItemForm = () => {
   const [itemName, setItemName] = useState("");
@@ -79,6 +79,16 @@ export const ItemForm = () => {
             required={false}
             onChange={(e) => setActualValue(e.target.value)}
           />
+          <FormControl size="small" className="itemForm__switch">
+            <FormHelperText>For Sale?</FormHelperText>
+            <Switch
+              size="small"
+              label="For Sale?"
+              checked={selling}
+              color="primary"
+              onChange={(e) => setSelling(e.target.checked)}
+            />
+          </FormControl>
         </div>
         <div className="itemForm__fullWidthField">
           <DatePicker
@@ -87,6 +97,7 @@ export const ItemForm = () => {
             onChange={(date) => setPurchaseDate(date)}
           />
         </div>
+        <div className="itemForm__fullWidthField"></div>
       </form>
     </div>
   );
