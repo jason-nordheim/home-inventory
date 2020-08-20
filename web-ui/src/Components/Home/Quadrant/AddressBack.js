@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import AddressForm from "../../Forms/Address/AddressForm";
 
 export const AddressBack = ({address, updateAddress, submitText, createAddress, onSubmit }) => {
+
   return (
     <AddressForm
       submitText={submitText}
