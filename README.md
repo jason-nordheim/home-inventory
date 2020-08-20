@@ -124,6 +124,7 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
                 ]
                 
             }
+        }
     },
     {
         "endpoint": "/address", 
@@ -253,8 +254,7 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
                 ] 
             }
         }
-    },
-    {
+    },{
         "endpoint": "/locations", 
         "table_name": "location", 
         "methods": {
@@ -290,8 +290,7 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
                 ] 
             }
         }
-    }, 
-     {
+    }, {
         "endpoint": "/items", 
         "table_name": "item", 
         "methods": {
