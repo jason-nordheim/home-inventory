@@ -366,4 +366,3 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
 ]
 
 ```
- name, est_value, acc_value, category, make, model, purchase_date, selling, location_id 
