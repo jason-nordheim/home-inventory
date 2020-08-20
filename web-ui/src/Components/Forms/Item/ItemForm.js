@@ -19,6 +19,10 @@ export const ItemForm = ({ locations, onSubmit, createNewItem }) => {
   const [notes, setNotes] = useState('')
   const [location, setLocation] = useState(locations[0]);
 
+  /**
+   * handles the submit event of item form 
+   * @param {event} e 
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (typeof onSubmit === "function") {
@@ -37,7 +41,24 @@ export const ItemForm = ({ locations, onSubmit, createNewItem }) => {
       selling,
       location
     );
+    clearForm() 
   };
+
+  /**
+   * function to clear form fields upon submit
+   */
+  function clearForm() {
+    setItemName('')
+    setEstimatedValue(0)
+    setActualValue(0)
+    setCategory('')
+    setMake('')
+    setModel('')
+    setSerialNumber('')
+    setPurchaseDate(new Date)
+    setNotes('')
+    setLocation(locations[0])
+  }
 
   return (
     <div className="itemForm__container">
@@ -141,7 +162,7 @@ export const ItemForm = ({ locations, onSubmit, createNewItem }) => {
             onChange={(e) => setNotes(e.target.value)}
           />
         </div>
-        <div>
+        <div className="itemForm__buttonContainer">
           <Button variant="contained" onClick={handleSubmit} color="primary">
             Submit
           </Button>
