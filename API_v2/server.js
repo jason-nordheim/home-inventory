@@ -12,6 +12,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const database = require('./database')
+const { json } = require( 'express' )
 
 
 const authenticate = (req, res, next) => {
@@ -242,6 +243,17 @@ app.post('/items', authenticate, (req, res) => {
     .catch(err => {
       console.error('POST => /items', err)
       res.status(500).json({iid: 31, error: err})
+    })
+})
+
+app.delete('/items', authenticate, (req, res) => {
+  database('item')
+    .where({ user_id: req.user_id, id: req.body.id})
+    .delete() 
+    .then(() => res.status(204).send())
+    .catch(err => {
+      console.error('DELETE => /items', err) 
+      res.status(500).json({iid: 32, error: err })
     })
 })
 
