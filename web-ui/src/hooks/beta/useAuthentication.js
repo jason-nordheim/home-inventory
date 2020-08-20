@@ -321,12 +321,16 @@ export const useAuthentication = () => {
    * @param {date} purchase_date 
    * @param {boolean} selling 
    * @param {number} location_id 
+   * @param {string} notes 
+   * @param {string} serial_number 
    */
-  function createItem(name, est_value, acc_value, category, make, model, purchase_date, selling, location_id ){
+  function createItem(name, serial_number, notes,  est_value, acc_value, category, make, model, purchase_date, selling, location_id ){
     if (!state.token) throw new Error("No token available");
     else {
       return fetcher(state.token, `${baseUrl}/items`, "POST", {
         name,
+        serial_number,
+        notes,
         est_value,
         acc_value,
         category,
@@ -335,7 +339,7 @@ export const useAuthentication = () => {
         purchase_date,
         selling,
         location_id,
-      }).then(res => res.json())
+      }).then((res) => res.json());
     }
   }
 
