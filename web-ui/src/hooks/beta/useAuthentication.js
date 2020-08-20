@@ -92,12 +92,17 @@ export const initialState = {
   token: null,
 };
 
+/**
+ * Hook to be used in conjunction with React.createContext/React.useContext 
+ * to handle all interactions with the server as they all require access 
+ * to the currently authenticated user token 
+ */
 export const useAuthentication = () => {
   const [state, dispatch] = useReducer(authenticationReducer, initialState);
   const [observers, setObservers] = useState([]);
 
+  /** effect to be executed anytime state changes  */
   useEffect(() => {
-    console.log(`state updated`, state);
     if (state.actions.length === 0) {
       const restore_state = JSON.parse(localStorage.getItem("sorted"));
       if (restore_state)
@@ -229,6 +234,11 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Function to delete the address supplied at the time of the function 
+   * invokation 
+   * @param {number} id 
+   */
   function deleteAddress(id) {
     if (!state.token) throw new Error("No token available");
     else {
@@ -255,6 +265,7 @@ export const useAuthentication = () => {
    * @param {string} name user-defined name of locatoin
    * @param {string} type "apartment" | "condo" | "storage room" | "etc"
    * @param {number} address_id foriegn key to the associated address
+   * @returns {object} fetch response object from call to API 
    */
   function createLocation(name, type, address_id) {
     if (!state.token) throw new Error("No token available");
@@ -274,6 +285,7 @@ export const useAuthentication = () => {
   /**
    * Function to get the locations created by the
    * currently authenticated user
+   * @returns {Array<Object>} location objects retrieved from database 
    */
   function getLocations() {
     if (!state.token) throw new Error("No token available");
@@ -284,6 +296,12 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Function to send DELETE request to API on behalf 
+   * of the currently authenticated user 
+   * @param {number} id id of the location to be deleted 
+   * @returns {object} fetch request response object 
+   */
   function deleteLocation(id) {
     if (!state.token) throw new Error("No token available");
     else {
@@ -296,6 +314,7 @@ export const useAuthentication = () => {
   /**
    * Function to get all the vendors created by the
    * current user
+   * @returns {object} data in JSON format 
    */
   function getVendors() {
     if (!state.token) throw new Error("No token available");
@@ -314,6 +333,7 @@ export const useAuthentication = () => {
    * @param {string} phone
    * @param {string} email
    * @param {string} notes
+   * @returns {object} fetch response object 
    */
   function createVendor(name, phone, email, notes) {
     if (!state.token) throw new Error("No token available");
@@ -327,6 +347,11 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Sends delete request to the API using fetch API 
+   * @param {number} id unique identifier of the vendor to be deleted 
+   * @returns {object} fetch response object 
+   */
   function deleteVendor(id) {
     if (!state.token) throw new Error("No token available");
     else {
@@ -338,17 +363,18 @@ export const useAuthentication = () => {
 
   /**
    * Creates a new item for the currently logged in user
-   * @param {string} name
-   * @param {number} est_value
-   * @param {number} acc_value
-   * @param {string} category
-   * @param {string} make
-   * @param {string} model
-   * @param {date} purchase_date
-   * @param {boolean} selling
-   * @param {number} location_id
-   * @param {string} notes
-   * @param {string} serial_number
+   * @param {string} name the user-defined name of the item 
+   * @param {number} est_value the estimated value of the item 
+   * @param {number} acc_value the actual value of the item 
+   * @param {string} category the category pertaining to the new item
+   * @param {string} make the make or manufacturer of the item 
+   * @param {string} model the model name or number 
+   * @param {date} purchase_date the date the item was purchased 
+   * @param {boolean} selling boolean indicator to determine if that object is for sale 
+   * @param {number} location_id unique identifier associated with the location of the item 
+   * @param {string} notes notes about the item to be created 
+   * @param {string} serial_number serial number of new item 
+   * @returns {object} fetch response object
    */
   function createItem(
     name,
@@ -381,6 +407,10 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Makes fetch GET request to API to retrieve items 
+   * @returns {Array<Object>} array of items related to the currently autenticated user 
+   */
   function getItems() {
     if (!state.token) throw new Error("No token available");
     else {
@@ -390,15 +420,25 @@ export const useAuthentication = () => {
     }
   }
 
+  /**
+   * Makes fetch DELETE request to API to delete the item 
+   * associated with the supplied ID 
+   * @param {number} id unique identifier of the object to be deleted
+   * @returns {Object} fetch request response object 
+   */
   function deleteItem(id) {
     if (!state.token) throw new Error("No token available");
     else {
       return fetcher(state.token, `${baseUrl}/items`, "DELETE", { id }).then(
-        (res) => res.json
+        (res) => res.json()
       );
     }
   }
 
+  /**
+   * Actions to be executed throughout application that will require 
+   * authentication for execution 
+   */
   const actions = {
     users: {
       Register,
