@@ -46,9 +46,7 @@ const VendorsQuadrant = () => {
     if (vendors !== null && vendors !== []) {
       // should be checked if it already was in previous load
       vendors.forEach((v) => {
-        if (v.id === vendor.id && v.checked) {
-          return true;
-        }
+        if (v.id === vendor.id && v.checked) return true;
       });
     }
     return false; // default to not checked
@@ -86,8 +84,9 @@ const VendorsQuadrant = () => {
   ) => {
     AuthActions.vendors.create(name, phone, email, notes)
       .then(() => {
-        setShowFront(!showFront)
+        setShowFront(true)
       })
+      updatedVendorList() 
   };
 
   /**
