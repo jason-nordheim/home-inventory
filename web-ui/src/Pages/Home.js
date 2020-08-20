@@ -1,4 +1,4 @@
-import React, { useContext, useState, useTimeout } from 'react';
+import React, { useContext } from 'react';
 import Layout from '../Components/Layout';
 import { AuthorizationContext } from '../App';
 import HomeAuthenticated from '../Components/Home/Home.Authenticated'
@@ -13,6 +13,9 @@ const HomePage = () => {
   const authenticated = AuthState.token ? true : false 
   const title = `${authenticated ? "Dashboard" : "Home"}`; 
   
+  /**
+   * Render dashbaord if authenticated 
+   */
 	return (
     <Layout title={title}>
       { authenticated ? <HomeAuthenticated /> : <HomeUnAuthenticated />}
