@@ -12,6 +12,8 @@ Once the dependecies are installed, the application can be run by calling `npm s
     may cause the application to break. 
 
 
+Full instructions for installation are placed in the `README.md` placed in the root of the repository 
+
 ## Credits 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
