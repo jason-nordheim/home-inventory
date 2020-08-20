@@ -3,9 +3,10 @@ import NameTextField from "../Fields/NameTextField";
 import DollarAmountInput from "../Fields/DollarAmountInput";
 import DatePicker from "../Fields/DatePicker";
 import SelectLocation from "../Fields/SelectLocation";
-import { Switch, FormControl, FormHelperText } from "@material-ui/core";
+import { Switch, FormControl, FormHelperText, Button, FormControlLabel } from "@material-ui/core";
+import MultilineTextField from '../Fields/MultilineTextField'
 
-export const ItemForm = ({ locations }) => {
+export const ItemForm = ({ locations, handleSubmit, createNewItem }) => {
   const [itemName, setItemName] = useState("");
   const [estimatedValue, setEstimatedValue] = useState(0.0);
   const [actualValue, setActualValue] = useState(0.0);
@@ -15,7 +16,28 @@ export const ItemForm = ({ locations }) => {
   const [serialNumber, setSerialNumber] = useState("");
   const [purchaseDate, setPurchaseDate] = useState(new Date());
   const [selling, setSelling] = useState(false);
+  const [notes, setNotes] = useState('')
   const [location, setLocation] = useState(locations[0]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (typeof handleSubmit === "function") {
+      handleSubmit();
+    }
+    createNewItem(
+      itemName,
+      serialNumber,
+      notes,
+      estimatedValue,
+      actualValue,
+      category,
+      make,
+      model,
+      purchaseDate,
+      selling,
+      location
+    );
+  };
 
   return (
     <div className="itemForm__container">
@@ -74,27 +96,32 @@ export const ItemForm = ({ locations }) => {
         </div>
         <div className="itemForm__fullWidthField">
           <DollarAmountInput
+            className="itemForm__dollarAmount"
             label="Actual Value"
             value={actualValue}
             error={null}
             required={false}
             onChange={(e) => setActualValue(e.target.value)}
           />
-          <FormControl size="small" className="itemForm__switch">
-            <FormHelperText>For Sale?</FormHelperText>
-            <Switch
-              size="small"
+          <FormControl size="small" className="itemForm__switchContainer">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={selling}
+                  color="primary"
+                  onChange={(e) => setSelling(e.target.checked)}
+                />
+              }
               label="For Sale?"
-              checked={selling}
-              color="primary"
-              onChange={(e) => setSelling(e.target.checked)}
-            />
+            >
+            </FormControlLabel>
           </FormControl>
         </div>
         <div className="itemForm__fullWidthField">
           <DatePicker
             value={purchaseDate}
             label="Purchase Date"
+            required={false}
             onChange={(date) => setPurchaseDate(date)}
           />
         </div>
@@ -102,10 +129,22 @@ export const ItemForm = ({ locations }) => {
           <SelectLocation
             menuItems={locations}
             value={location}
-            onChange={(e) =>
-              setLocation(locations.find((loc) => loc.id === e.target.value))
-            }
+            onChange={(e) => setLocation(e.target.value)}
           />
+        </div>
+        <div className="itemForm__fullWidthField">
+          <MultilineTextField
+            label="Notes"
+            error={null}
+            required={false}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+        </div>
+        <div>
+          <Button variant="contained" onClick={onSubmit} color="primary">
+            Submit
+          </Button>
         </div>
       </form>
     </div>
