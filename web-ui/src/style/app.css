@@ -277,7 +277,7 @@ table {
   display: flex;
   flex-direction: column;
   flex: 1; 
-  min-width: 300px;
+  min-width: 400px;
   max-width: 500px;
   padding: 1rem;
 }
