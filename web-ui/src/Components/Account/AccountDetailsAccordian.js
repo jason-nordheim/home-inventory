@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Typography,
   Paper,
@@ -13,44 +13,101 @@ import EmailTextField from "../Forms/Fields/EmailTextField";
 import PhoneTextField from "../Forms/Fields/PhoneTextField";
 import UsernameTextField from "../Forms/Fields/UsernameTextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
 import {
   nameInputChanged,
   emailInputChanged,
   phoneInputChanged,
   userNameInputChanged,
 } from "../../util/FormValidations";
+import { AuthorizationContext } from "../../App";
 
-export const AccountDetailsAccordian = ({ user }) => {
+
+
+
+/**
+ * Componet Definition 
+ * @param {user} user (destructured from props) 
+ */
+export function AccountDetailsAccordian(){
+  const [AuthState, AuthActions] = useContext(AuthorizationContext);
+  const [editMode, setEditMode] = useState(false)
+  const [user, setUser] = useState(null)
+  
+  useEffect(() => {
+    getLoggedInUser();
+  }, []);
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+  
+  function getLoggedInUser() {
+    if (AuthState.token) {
+      AuthActions.users.MyInfo().then((data) => {
+        console.log('data', data)
+        setUser(data)
+      });
+    }
+  }
+
+
   /**
-   * TODO: 
-   *  - refafor to enable editing 
-   *  - refactor to use Context 
+   * Event handler for the 'onChange' event for 
+   * the name input name field  
+   * @param {event} e 
    */
-  const [editMode, setEditMode] = useState(false);
-  const [username, setUsername] = useState(user.username);
-  const [usernameError, setUsernameError] = useState(null);
-  const [name, setName] = useState(user.name);
-  const [nameError, setNameError] = useState(null);
-  const [email, setEmail] = useState(user.email);
-  const [emailError, setEmailError] = useState(null);
-  const [phone, setPhone] = useState(user.phone);
-  const [phoneError, setPhoneError] = useState(null);
-  const [bio, setBio] = useState("");
+  function onNameChanged(e){
+    function setName(newName){
+      setUser({...user, name: newName})
+    }
+    nameInputChanged(e, setName, null)
+  };
+  
+  /**
+   * Event handler 'onChnage' event of the email input field  
+   * @param {event} e 
+   */
+  function onEmailChanged(e){
+    function setEmail(newEmail) {
+      setUser({...user, email: newEmail})
+    }
+    emailInputChanged(e, setEmail, null);
+  };
 
-  const onNameChanged = (e) => {
-    nameInputChanged(e, setName, setNameError);
+  /**
+   * Event handler for the 'onChange' event of the 
+   * phone input field 
+   * @param {event} e 
+   */
+  function onPhoneChanged(e){
+    function setPhone(newPhone) {
+      setUser({...user, phone: newPhone})
+    }
+    phoneInputChanged(e, setPhone, null);
   };
-  const onEmailChanged = (e) => {
-    emailInputChanged(e, setEmail, setEmailError);
+
+  /**
+   * Event handler for the 'onChange' event of the 
+   * username input field 
+   * @param {event} e 
+   */
+  function onUsernameChanged(e){
+    function setUsername(newUsername) {
+      setUser({...user, username: newUsername})
+    }
+    userNameInputChanged(e, setUsername, null);
   };
-  const onPhoneChanged = (e) => {
-    phoneInputChanged(e, setPhone, setPhoneError);
-  };
-  const onUsernameChanged = (e) => {
-    userNameInputChanged(e, setUsername, setUsernameError);
-  };
+
+  function onBioChanged(e) {
+    function setBio(newBio){
+      setUser({...user, bio: newBio})
+    }
+    setBio(e.target.value)
+  }
+
+  
   return (
+    AuthState.token && user &&   
     <Accordion className="accountDetailsAccordian">
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="h5">Account Details</Typography>
@@ -64,8 +121,8 @@ export const AccountDetailsAccordian = ({ user }) => {
               >
                 <div className="accountDetailsAccordian__textfield">
                   <UsernameTextField
-                    username={username}
-                    usernameError={usernameError}
+                    value={user['username']}
+                    error={null}
                     onChange={onUsernameChanged}
                     required={false}
                     disabled={!editMode}
@@ -73,9 +130,8 @@ export const AccountDetailsAccordian = ({ user }) => {
                 </div>
                 <div className="accountDetailsAccordian__textfield">
                   <NameTextField
-                    name={name}
-                    setName={setName}
-                    nameError={nameError}
+                    value={user["name"]}
+                    error={null}
                     onChange={onNameChanged}
                     required={false}
                     disabled={!editMode}
@@ -83,8 +139,9 @@ export const AccountDetailsAccordian = ({ user }) => {
                 </div>
                 <div className="accountDetailsAccordian__textfield">
                   <EmailTextField
-                    email={email}
-                    emailError={emailError}
+                    size="small"
+                    value={user.email}
+                    error={null}
                     onChange={onEmailChanged}
                     required={false}
                     disabled={!editMode}
@@ -92,8 +149,9 @@ export const AccountDetailsAccordian = ({ user }) => {
                 </div>
                 <div className="accountDetailsAccordian__textfield">
                   <PhoneTextField
-                    phone={phone}
-                    phoneError={phoneError}
+                    size="small"
+                    value={user.phone}
+                    error={null}
                     onChange={onPhoneChanged}
                     required={false}
                     disabled={!editMode}
@@ -109,8 +167,8 @@ export const AccountDetailsAccordian = ({ user }) => {
                   <TextField
                     variant="outlined"
                     fullWidth
-                    defaultValue={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    defaultValue={user.bio}
+                    onChange={onBioChanged}
                     multiline
                     name="bio"
                     label="Bio"
