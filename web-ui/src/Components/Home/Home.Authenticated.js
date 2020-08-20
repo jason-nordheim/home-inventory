@@ -23,9 +23,6 @@ const HomeAuthenticated = () => {
       <div className="homeAuthenticated__quadrantContainer">
         <ItemsQuadrant />
       </div>
-      <div className="homeAuthenticated__quadrantContainer">
-        <QuadrantSummary />
-      </div>
     </div>
   );
 };
