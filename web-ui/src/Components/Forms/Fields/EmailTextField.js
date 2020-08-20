@@ -7,11 +7,11 @@ export const EmailTextField = ({id=null, size="medium", label="email",  email, o
         size={size}
         variant={variant}
         fullWidth
-        error={emailError !== null}
+        error={emailError != null}
         id={id}
         label={label}
         defaultValue={email}
-        helperText={emailError == null ? "" : emailError}
+        helperText={emailError == null ? '' : emailError}
         onChange={onChange}
         required={required}
         disabled={disabled}
