@@ -13,7 +13,17 @@ const LocationsQuadrant = () => {
     updateLocationList()
   },[showFront])
   
-  const setChecked = (location) => {
+  /**
+   * Recieves location object and determines if 
+   * the location object was already checked in 
+   * a previous version of state (referencing id 
+   * for identification of addresses)
+   * 
+   * If it location object was not in a previous 
+   * version of state, it will be defaulted to false 
+   * @param {object} location 
+   */
+  function setChecked(location){
     if(locations !== null && locations !== []) {
       locations.forEach(l => {
         if (l.id === location.id && l.checked) {
@@ -24,7 +34,16 @@ const LocationsQuadrant = () => {
     return false 
   }
 
-  const updateLocationList = () => {
+  /**
+   * Makes calls to the database to fetch all the 
+   * addresses and locations related to the currently authenticated 
+   * user. 
+   * 
+   * Once both are retrieved, the existing locations are mapped to 
+   * their associated addresses so that full information can be available
+   * in the list. 
+   */
+  function updateLocationList(){
     AuthActions.addresses.getAll().then(data => {
       AuthActions.locations.getAll().then(locations => {
         const mappedLocations = locations.map((loc) => {
@@ -36,12 +55,29 @@ const LocationsQuadrant = () => {
     })
   }
 
-  const createNewLocation = (locationName, locationType, addressId ) => {
+  /**
+   * Calls on AuthActions to create a location, passing in the 
+   * required parameters 
+   * 
+   * When the request is completed, a call is made to refresh the
+   * list of locations (and addreses)
+   * @param {string} locationName 
+   * @param {string} locationType 
+   * @param {number} addressId 
+   */
+  function createNewLocation(locationName, locationType, addressId ){
     AuthActions.locations.create(locationName, locationType, addressId)
       .then(() => updateLocationList())
   }
 
-  const onChecked = (id) => {
+  /**
+   * Function to be passed to children, will recieve the 
+   * ID from the click event of the checkbox (of the list item/location)
+   * and toggle the checked property for the associated 
+   * location 
+   * @param {number} id 
+   */
+  function onChecked(id){
     const updatedLocations = locations.map(l => {
       if (l.id === id) {
         l.checked = !l.checked
@@ -51,6 +87,11 @@ const LocationsQuadrant = () => {
     setLocations(updatedLocations)
   }
 
+  /**
+   * Handles the request to delete the selected location(s)
+   * 
+   * calls the list to update when complete 
+   */
   const deleteSelected = () => {
     const selected_locations = locations.reduce((acc, val) => (val.checked ? [...acc, val]: acc),[])
     selected_locations.forEach(loc => {
