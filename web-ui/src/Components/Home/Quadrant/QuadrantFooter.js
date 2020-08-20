@@ -19,6 +19,7 @@ const QuadrantFooter = ({
       {frontDisplayed ? (
         <Button
           variant="contained"
+          color="secondary"
           onClick={() => deleteSelected()}
           disabled={deleteDisabled}
         >
@@ -28,6 +29,7 @@ const QuadrantFooter = ({
       {frontDisplayed ? (
         <Button
           variant="contained"
+          color="primary"
           onClick={() => editSelected()}
           disabled={editDisabled}
         >
