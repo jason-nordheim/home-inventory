@@ -14,6 +14,8 @@ export const Quadrant = ({
   setShowFront,
   deleteSelected, 
   deleteDisabled, 
+  editSelected,
+  editDisabled
 }) => {
   const handleClick = (e) => {
     e.preventDefault();
@@ -33,6 +35,8 @@ export const Quadrant = ({
           frontDisplayed={showFront}
           deleteDisabled={deleteDisabled}
           deleteSelected={deleteSelected}
+          editSelected={editSelected}
+          editDisabled={editDisabled}
         />
       )}
     </Paper>
