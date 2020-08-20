@@ -308,7 +308,7 @@ table {
   flex-direction: column;
   padding: 0.5rem;
 }
-.newLocationForm__textContainer, .addressForm__textContainer {
+.newLocationForm__textContainer, .addressForm__textContainer, .itemForm__fullWidthField {
   display: flex;
   padding: 0.5rem 0rem;
   flex: 1
