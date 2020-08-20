@@ -10,20 +10,32 @@ const ItemsQuadrant = () => {
   const [items, setItems] = useState([])
   const [locations, setLocations] = useState([])
 
+  /**
+   * refreshes the items and locations whenever the 
+   * card is flipped 
+   */
   useEffect(() => {
     updateItems()
     getLocations()
   }, [showFront])
 
-  const getLocations = () => {
+  /**
+   * Retreives the location objects from te database 
+   * and saves them to component state 
+   */
+  function getLocations(){
     AuthActions.locations.getAll()
       .then(locations => setLocations(locations))
   }
 
-  const updateItems = () => {
+  /**
+   * Refreshes the list of items displayed on the 
+   * front of the quadrant, adding a checked property 
+   * to keep in sync with the checkbox UI element displayed
+   */
+  function updateItems(){
     AuthActions.items.getAll()
       .then(data => {
-        console.log('items', data)
         const mappedItems = data.map(i => {
           return {...i, checked: shouldBeChecked(i) }
         })
@@ -32,7 +44,7 @@ const ItemsQuadrant = () => {
   }
 
   /**
-   * Determines if the items retrieved from the database should be checked 
+   * Determines if the items recieved from the database should be checked 
    * by comparing to the items that were in the previous state 
    * @param {item} item 
    */
@@ -47,6 +59,12 @@ const ItemsQuadrant = () => {
     return false 
   }
 
+  /**
+   * Utility function provided via props to children components 
+   * that is called when the checkbox is selected, and toggles the 
+   * checked property of the item with associatd ID in the displayed list 
+   * @param {number} id 
+   */
   const setItemChecked = (id) => {
     const mappedItems = items.map(i => {
       if(i.id == id) {
@@ -70,7 +88,7 @@ const ItemsQuadrant = () => {
    * @param {boolean} selling 
    * @param {number} location_id 
    */
-  const createNewItem = (
+  function createNewItem(
     name,
     serial_number,
     notes,
@@ -82,7 +100,7 @@ const ItemsQuadrant = () => {
     purchase_date,
     selling,
     location_id
-  ) => {
+  ){
     AuthActions.items
       .create(
         name,
@@ -97,10 +115,16 @@ const ItemsQuadrant = () => {
         selling,
         location_id
       )
-      .then(console.log);
   };
 
-  const deleteSelected = () => {
+  /**
+   * Reduces the items (from state) to just those with a checked 
+   * property that returns true and then iterates over each object 
+   * and sends delete request to the API 
+   * 
+   * Requests a list refresh upon completion
+   */
+  function deleteSelected(){
     const selected_items = items.reduce(
       (acc, val) => (val.checked ? [...acc, val] : acc),
       []
@@ -111,14 +135,31 @@ const ItemsQuadrant = () => {
     updateItems(); 
   }
 
+  /**
+   * Handles the request to edit the selected 
+   * list item 
+   */
+  function editSelected(){
+
+  }
+
+  /**
+   * Used to determine which buttons should be enabled 
+   * at any given time 
+   */
+  const num_checked = items.reduce(
+    (acc, val) => (val.checked ? acc + 1 : acc),
+    0
+  );
+
   return (
     <Quadrant
       setShowFront={setShowFront}
       showFront={showFront}
+      editSelected={editSelected}
+      editDisabled={num_checked !== 1}
       deleteSelected={deleteSelected}
-      deleteDisabled={
-        items.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0) === 0
-      }
+      deleteDisabled={num_checked === 0}
       title="Items"
       front={<ItemsFront items={items} setItemChecked={setItemChecked} />}
       back={<ItemsBack createNewItem={createNewItem} locations={locations} />}
