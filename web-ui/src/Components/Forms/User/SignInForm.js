@@ -54,8 +54,8 @@ const SignInForm = ({ display, toggleDisplay }) => {
           <div className="signInForm__fieldContainer">
             <div className="signInForm__usernameTextField">
               <UsernameTextField
-                username={username}
-                usernameError={usernameError}
+                value={username}
+                error={usernameError}
                 onChange={(e) =>
                   userNameInputChanged(e, setUsername, setUsernameError)
                 }
