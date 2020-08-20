@@ -31,10 +31,7 @@ const VendorFrom = ({title="New Vendor", createVendor, onSubmit}) => {
     e.preventDefault()
 
     createVendor(vendorName, vendorPhone, vendorEmail, vendorDescription)
-      .then((data) => {
-              if (data.iid) return;
-              else clearForm(); // only clear if success
-            })
+    clearForm() 
 
     // let parent know that submit was executed 
     if (typeof onSubmit === "function") {
