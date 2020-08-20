@@ -18,9 +18,14 @@ const VendorsQuadrant = () => {
   }, [showFront]);
 
   /**
-   * Runs a request to the server to get the list of vendors 
+   * Makes call to the database to fetch all the vendors created 
+   * by the currently authenticated user. 
+   * 
+   * Upon recieving vendor list, the vendor objects recieve 
+   * a checked property which will be used to keep track of 
+   * which vendors are checked within the list 
    */
-  const updatedVendorList = () => {
+  function updatedVendorList(){
     AuthActions.vendors.getAll().then((data) => {
       if (data.iid === undefined) {
         // data is valid
@@ -65,7 +70,9 @@ const VendorsQuadrant = () => {
   };
 
   /**
-   * Creates a new Vendor record 
+   * Creates a new Vendor record and flips the Quadrant to 
+   * display the front (it should be displaying the form when 
+   * this is called)
    * @param {string} name 
    * @param {string} phone 
    * @param {string} email 
@@ -95,17 +102,24 @@ const VendorsQuadrant = () => {
   }
 
   /**
-   * JSX 
+   * frequently need to reference 
    */
+  const num_checked = vendors.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0)
+
+  /**
+   * Children components 
+   */
+  const front = <VendorsFront vendors={vendors} setChecked={setChecked} />;
+  const back = <VendorsBack createVendor={createVendor} />;
+
+  
   return (
     <Quadrant
       title="Vendors"
       deleteSelected={deleteSelected}
-      deleteDisabled={
-        vendors.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0) == 0
-      }
-      front={<VendorsFront vendors={vendors} setChecked={setChecked} />}
-      back={<VendorsBack createVendor={createVendor} />}
+      deleteDisabled={num_checked == 0}
+      front={front}
+      back={back}
       showFront={showFront}
       setShowFront={setShowFront}
     />
