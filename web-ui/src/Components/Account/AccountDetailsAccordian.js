@@ -105,6 +105,14 @@ export function AccountDetailsAccordian(){
     setBio(e.target.value)
   }
 
+  function handleEditClick(e) {
+    e.preventDefault();
+    if (editMode) {
+      // alert("Unable to edit at this time");
+      //updateUser(user.id, name, username, phone, email)
+    }
+    setEditMode(!editMode);
+  }
   
   return (
     AuthState.token && user &&   
@@ -184,14 +192,7 @@ export function AccountDetailsAccordian(){
             <Button
               variant="contained"
               color="primary"
-              onClick={(e) => {
-                e.preventDefault();
-                if (editMode) {
-                  alert("Unable to edit at this time");
-                  //updateUser(user.id, name, username, phone, email)
-                }
-                setEditMode(!editMode);
-              }}
+              onClick={handleEditClick}
             >
               {editMode ? "Save" : "Edit"}
             </Button>
