@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 
-const PhoneTextField = ({
+export const PhoneTextField = ({
   id = null,
   label = "Phone",
   phone,
