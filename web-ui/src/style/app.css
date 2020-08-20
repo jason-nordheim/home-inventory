@@ -311,12 +311,11 @@ table {
 .newLocationForm__textContainer, .addressForm__textContainer, .itemForm__fullWidthField {
   display: flex;
   padding: 0.5rem 0rem;
-  flex: 1;
-  justify-content: space-between;
   align-content: center;
+  justify-content: space-between;
 }
-.itemForm__switch {
-  top: -0.5rem
+.itemForm__dollarAmount {
+  margin-right: 5em;
 }
 .newLocationForm__stateZipContainer{
   display: flex;
@@ -359,4 +358,8 @@ table {
   display: flex;
   padding: 0.5rem 0;
   justify-content: space-evenly;
+}
+
+.add_margin_left {
+  margin-left: 1rem;
 }
