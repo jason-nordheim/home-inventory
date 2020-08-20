@@ -282,8 +282,8 @@ table {
   padding: 1rem;
 }
 .quadrantBody__container {
-  min-height: 200px;
-  max-height: 350px;
+  min-height: 310px;
+  max-height: 310px;
   flex: 1;
   padding: 5px;
   overflow: scroll;
@@ -333,8 +333,9 @@ table {
   display: flex;
   padding: 0.5rem 0;
 }
-.newLocationForm__submitContainer, .addressForm__buttonContainer, .locationForm__buttonContainer {
+.newLocationForm__submitContainer, .vendorForm__submitButton, .addressForm__buttonContainer, .locationForm__buttonContainer, .itemForm__buttonContainer {
   display: flex;
+  margin: 1rem 0rem; 
   justify-content: center;
 }
 .locationTypeSelect__inputLabel, .stateSelect__inputLabel, .selectAddress__inputLabel{
