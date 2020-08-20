@@ -79,9 +79,8 @@ const RegistrationForm = ({ display, toggleDisplay }) => {
           <div className="registrationForm__fieldContainer">
             <div className="registrationForm__nameField">
               <NameTextField
-                name={name}
-                setName={setName}
-                nameError={nameError}
+                value={name}
+                error={nameError}
                 onChange={(e) => nameInputChanged(e, setName, setNameError)}
               />
             </div>

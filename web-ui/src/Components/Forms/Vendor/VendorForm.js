@@ -52,7 +52,7 @@ const VendorFrom = ({title="New Vendor", createVendor, onSubmit}) => {
         </div>
         <div className="vendorForm__textField">
           <NameTextField
-            name={vendorName}
+            value={vendorName}
             error={null}
             onChange={(e) => setVendorName(e.target.value)}
           />
