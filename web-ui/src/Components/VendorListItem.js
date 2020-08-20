@@ -7,6 +7,14 @@ import {
   Checkbox,
 } from "@material-ui/core";
 
+/**
+ * Component to display vendor information 
+ * @param {function} handleChecked function to be executed upon the 
+ * 'onChange' event of the checkbox for a specific vendor 
+ * @param {object} vendor mapped vendor object with the additional 
+ * property of 'checked' that will indicate if that vendor should show
+ * up as 'checked' 
+ */
 export const VendorListItem = ({
   vendor,
   handleChecked,

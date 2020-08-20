@@ -36,10 +36,6 @@ export function AccountDetailsAccordian(){
   useEffect(() => {
     getLoggedInUser();
   }, []);
-
-  useEffect(() => {
-    console.log(user)
-  }, [user])
   
   function getLoggedInUser() {
     if (AuthState.token) {

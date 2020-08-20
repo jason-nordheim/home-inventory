@@ -7,8 +7,12 @@ import {
   Checkbox,
 } from "@material-ui/core";
 
+/**
+ * List Item Component with Checkboxes 
+ * @param {id} item object to be displayed in the list 
+ * @param {function} setItemChecked handles the "onCheck" event of the list item 
+ */
 export const ItemListItem = ({
-         id,
          item, 
          setItemChecked,
        }) => {

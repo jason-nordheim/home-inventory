@@ -24,18 +24,36 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SitePages from "../data/SitePages";
 import { Link } from "react-router-dom";
 
+/**
+ * Drawer component containing the site navigation 
+ * @param {Array<React.Componet>} children components to be display within the main-content
+ * portion of the page  
+ * @returns {React.Component} functional component 
+ */
 const PersistentDrawerLeft = ({ children }) => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext);
-  const theme = useTheme();
+  const theme = useTheme();  /** required for opening and closing the drawer  */
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
+
+  /**
+   * Handle the opening of the drawer 
+   * @returns null 
+   */
+  function handleDrawerOpen(){
     setOpen(true);
   };
 
+  /**
+   * Handles the closing of the drawer 
+   * @returns {null}
+   */
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  /** cheveron should change direction depending on the state of the drawer  */
+  const cheveron =theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />;
 
   return (
     <div className="persistentDrawerLeft__root">
@@ -79,25 +97,17 @@ const PersistentDrawerLeft = ({ children }) => {
         </Toolbar>
       </AppBar>
       <Drawer
-        // className={classes.drawer}
         className="persistentDrawerLeft__drawer"
         variant="persistent"
         anchor="left"
         open={open}
-        // classes={{
-        //   paper: classes.drawerPaper,
-        // }}
       >
         <div className="persistentDrawerLeft__drawerHeader">
           <IconButton
             className="persistentDrawerLeft__iconButon"
             onClick={handleDrawerClose}
           >
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            {cheveron}
           </IconButton>
         </div>
         <Divider className="persistentDrawerLeft__divider" />
@@ -118,12 +128,7 @@ const PersistentDrawerLeft = ({ children }) => {
           })}
         </List>
       </Drawer>
-      <main
-        className="persistentDrawerLeft__main"
-        // className={clsx(classes.content, {
-        //   [classes.contentShift]: open,
-        // })}
-      >
+      <main className="persistentDrawerLeft__main">
         <div className="persistentDrawerLeft__drawerHeader" />
         {children}
       </main>

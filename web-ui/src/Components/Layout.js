@@ -1,10 +1,19 @@
 import React from 'react';
 import PersistentDrawerLeft from './PersistentDrawerLeft';
-import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../style/useTheme';
-// import StickyFooter from './StickyFooter'
+import { Title } from './Title'
 
-const Layout = ({ children, title }) => {
+
+/** override default theme settings  */
+import { ThemeProvider } from '@material-ui/core';
+import theme from '../style/useTheme'; 
+
+
+/**
+ * Component to normalize the layout of each page
+ * @param {string} title title of the page 
+ * @param {React.Component} children child components to be displayed   
+ */
+export const Layout = ({ children, title }) => {
 	return (
 		<ThemeProvider theme={theme}>
 		{ /* always start at the top of the page */window.scrollTo(0, 0)}
@@ -14,17 +23,6 @@ const Layout = ({ children, title }) => {
 			</PersistentDrawerLeft>
 			{/* <StickyFooter />  */}
 		</ThemeProvider>
-	);
-};
-
-const Title = ({ title, props }) => {
-	return (
-		<span className="title__container">
-			<Typography variant="h3" style={{ display: 'flex', placeContent: 'center', marginBottom: '1rem' }}>
-				{title}
-			</Typography>
-			<hr /> 
-		</span>
 	);
 };
 
