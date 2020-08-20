@@ -8,53 +8,28 @@ import ZipCodeTextField from "../Fields/ZipCodeTextField";
 import UsStates from "../../../data/UsStates";
 import { Button } from "@material-ui/core";
 
+
+
 export const AddressForm = ({
-  address = null,
+  address,
   submitText,
   onSubmit,
   createAddress,
   updateAddress,
 }) => {
-  /**
-   * Setup default values
-   *
-   * In the event that this for is being used to edit an address, the form
-   * will be prefilled with the existing information
-   */
-  const defaultValues = {
-    name:
-      address.name !== null || address.name !== undefined ? address.name : "",
-    street1:
-      address.street1 !== null || address.street1 !== undefined
-        ? address.street1
-        : "",
-    street2:
-      address.street2 !== null || address.street2 !== undefined
-        ? address.street2
-        : "",
-    city:
-      address.city !== null || address.city !== undefined ? address.city : "",
-    state:
-      address.state !== null || address.state !== undefined
-        ? address.state
-        : UsStates[0].abbreviation,
-    zip: address.zip !== null || address.zip !== undefined ? address.zip : "",
-  };
-
-  /**
-   * Context
-   */
-  const [AuthState, AuthActions] = useContext(AuthorizationContext);
-
   /*
    * State Variables
    */
-  const [name, setName] = useState(defaultValues.name);
-  const [street1, setStreet1] = useState(defaultValues.street1);
-  const [street2, setStreet2] = useState(defaultValues.street2);
-  const [city, setCity] = useState(defaultValues.city);
-  const [state, setState] = useState(defaultValues.state);
-  const [zip, setZip] = useState(defaultValues.zip);
+  const [name, setName] = useState(address.name);
+  const [street1, setStreet1] = useState(address.street1);
+  const [street2, setStreet2] = useState(address.street2);
+  const [city, setCity] = useState(address.city);
+  const [state, setState] = useState(address.state);
+  const [zip, setZip] = useState(address.zip);
+
+  console.log({address, name, street1, street2, city, state, zip, })
+
+
 
   /*
    * Handles the click event for the address form
@@ -66,7 +41,7 @@ export const AddressForm = ({
    */
   function handleSubmit(e) {
     e.preventDefault();
-    if (address === null) {
+    if (address.id) {
       createAddress(name, street1, street2, city, state, zip);
     } else {
       updateAddress(name, street1, street2, city, state, zip);
