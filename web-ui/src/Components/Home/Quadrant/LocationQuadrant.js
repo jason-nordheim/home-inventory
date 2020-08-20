@@ -106,13 +106,19 @@ const LocationsQuadrant = () => {
     //todo 
   }
 
+  function onSubmit() {
+    setShowFront(!showFront)
+    updateLocationList() 
+  }
+
   return (
     <Quadrant
       showFront={showFront}
+      onNewClick={() => setShowFront(!showFront)}
       setShowFront={setShowFront}
       title="Locations"
       front={<LocationsFront locations={locations} setChecked={onChecked} />}
-      back={<LocationsBack createNew={createNewLocation}/> }
+      back={<LocationsBack createNew={createNewLocation} onSubmit={onSubmit}/> }
       deleteSelected={deleteSelected}
       deleteDisabled={ num_checked === 0}
       editDisabled={num_checked !== 1}

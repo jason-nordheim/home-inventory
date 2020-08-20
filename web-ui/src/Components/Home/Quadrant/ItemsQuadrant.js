@@ -144,6 +144,14 @@ const ItemsQuadrant = () => {
   }
 
   /**
+   * function called upon submission of the form 
+   */
+  function onSubmit(){
+    console.log('submit')
+    setShowFront(!showFront)
+  }
+
+  /**
    * Used to determine which buttons should be enabled 
    * at any given time 
    */
@@ -160,9 +168,10 @@ const ItemsQuadrant = () => {
       editDisabled={num_checked !== 1}
       deleteSelected={deleteSelected}
       deleteDisabled={num_checked === 0}
+      onNewClick={() => setShowFront(!showFront)}
       title="Items"
       front={<ItemsFront items={items} setItemChecked={setItemChecked} />}
-      back={<ItemsBack createNewItem={createNewItem} locations={locations} />}
+      back={<ItemsBack createNewItem={createNewItem} locations={locations} onSubmit={onSubmit} />}
     />
   );
 };

@@ -3,10 +3,10 @@ import NameTextField from "../Fields/NameTextField";
 import DollarAmountInput from "../Fields/DollarAmountInput";
 import DatePicker from "../Fields/DatePicker";
 import SelectLocation from "../Fields/SelectLocation";
-import { Switch, FormControl, FormHelperText, Button, FormControlLabel } from "@material-ui/core";
+import { Switch, FormControl, Button, FormControlLabel } from "@material-ui/core";
 import MultilineTextField from '../Fields/MultilineTextField'
 
-export const ItemForm = ({ locations, handleSubmit, createNewItem }) => {
+export const ItemForm = ({ locations, onSubmit, createNewItem }) => {
   const [itemName, setItemName] = useState("");
   const [estimatedValue, setEstimatedValue] = useState(0.0);
   const [actualValue, setActualValue] = useState(0.0);
@@ -19,10 +19,10 @@ export const ItemForm = ({ locations, handleSubmit, createNewItem }) => {
   const [notes, setNotes] = useState('')
   const [location, setLocation] = useState(locations[0]);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (typeof handleSubmit === "function") {
-      handleSubmit();
+    if (typeof onSubmit === "function") {
+      onSubmit();
     }
     createNewItem(
       itemName,
@@ -142,7 +142,7 @@ export const ItemForm = ({ locations, handleSubmit, createNewItem }) => {
           />
         </div>
         <div>
-          <Button variant="contained" onClick={onSubmit} color="primary">
+          <Button variant="contained" onClick={handleSubmit} color="primary">
             Submit
           </Button>
         </div>

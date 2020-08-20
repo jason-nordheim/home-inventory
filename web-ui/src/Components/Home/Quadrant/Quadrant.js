@@ -15,15 +15,9 @@ export const Quadrant = ({
   deleteSelected, 
   deleteDisabled, 
   editSelected,
-  editDisabled
+  editDisabled, 
 }) => {
-  const handleClick = (e) => {
-    e.preventDefault();
-    setShowFront(!showFront);
-    if (typeof onNewClick == "function") {
-      onNewClick(e);
-    }
-  };
+
 
   return (
     <Paper className="quadrant__paper" elevation={4}>
@@ -31,7 +25,7 @@ export const Quadrant = ({
       <QuadrantBody front={front} back={back} showFront={showFront} />
       {hasNew && (
         <QuadrantFooter
-          onNewButtonClick={handleClick}
+          onNewButtonClick={onNewClick}
           frontDisplayed={showFront}
           deleteDisabled={deleteDisabled}
           deleteSelected={deleteSelected}

@@ -191,6 +191,7 @@ export const AddressQuadrant = () => {
   return (
     <Quadrant
       showFront={showFront}
+      onNewClick={() => setShowFront(!showFront)}
       setShowFront={setShowFront}
       deleteSelected={deleteSelected}
       deleteDisabled={num_checked === 0}

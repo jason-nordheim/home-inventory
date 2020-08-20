@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core'
 
 const blank = "";
 
-const LocationForm = ({ createNewLocation }) => {
+const LocationForm = ({ createNewLocation, onSubmit }) => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext)
   const [name, setName] = useState('')
   const [locationType, setLocationType] = useState(locationTypes[0])
@@ -25,9 +25,10 @@ const LocationForm = ({ createNewLocation }) => {
     });
   }, [AuthActions.addresses]);
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault() 
     createNewLocation(name, locationType, selectedAddress)
+    if(typeof(onSubmit) === 'function') onSubmit() 
   }
 
   return (
@@ -55,7 +56,7 @@ const LocationForm = ({ createNewLocation }) => {
           />
         </div>
         <div className="locationForm__buttonContainer">
-          <Button variant="contained" onClick={onSubmit} color="primary">
+          <Button variant="contained" onClick={handleSubmit} color="primary">
             Submit
           </Button>
         </div>

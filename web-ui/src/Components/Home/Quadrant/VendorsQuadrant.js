@@ -129,6 +129,7 @@ const VendorsQuadrant = () => {
   return (
     <Quadrant
       title="Vendors"
+      onNewClick={() => setShowFront(!showFront)}
       editDisabled={num_checked !== 1}
       editSelected={editSelected}
       deleteSelected={deleteSelected}
