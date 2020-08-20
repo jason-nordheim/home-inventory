@@ -140,7 +140,7 @@ export function AccountDetailsAccordian(){
                 <div className="accountDetailsAccordian__textfield">
                   <EmailTextField
                     size="small"
-                    value={user.email}
+                    email={user["email"]}
                     error={null}
                     onChange={onEmailChanged}
                     required={false}
@@ -150,7 +150,7 @@ export function AccountDetailsAccordian(){
                 <div className="accountDetailsAccordian__textfield">
                   <PhoneTextField
                     size="small"
-                    value={user.phone}
+                    phone={user["phone"]}
                     error={null}
                     onChange={onPhoneChanged}
                     required={false}
