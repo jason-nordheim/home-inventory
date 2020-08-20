@@ -25,13 +25,18 @@ const ItemsQuadrant = () => {
       .then(data => {
         console.log('items', data)
         const mappedItems = data.map(i => {
-          return {...i, checked: setItemChecked(i) }
+          return {...i, checked: shouldBeChecked(i) }
         })
         setItems(mappedItems)
       })
   }
 
-  const setItemChecked = item => {
+  /**
+   * Determines if the items retrieved from the database should be checked 
+   * by comparing to the items that were in the previous state 
+   * @param {item} item 
+   */
+  const shouldBeChecked = item => {
     if(items !== null && items.length > 0) {
       items.forEach(i => {
         if(i.id === item.id && i.checked) {
@@ -40,6 +45,17 @@ const ItemsQuadrant = () => {
       })
     }
     return false 
+  }
+
+  const setItemChecked = (id) => {
+    const mappedItems = items.map(i => {
+      if(i.id == id) {
+        i.checked = !i.checked
+        return i 
+      }
+      else return i 
+    })
+    setItems(mappedItems)
   }
 
   /**
@@ -84,10 +100,25 @@ const ItemsQuadrant = () => {
       .then(console.log);
   };
 
+  const deleteSelected = () => {
+    const selected_items = items.reduce(
+      (acc, val) => (val.checked ? [...acc, val] : acc),
+      []
+    );
+    selected_items.forEach((item) => {
+      AuthActions.items.delete(item.id);
+    });
+    updateItems(); 
+  }
+
   return (
     <Quadrant
       setShowFront={setShowFront}
       showFront={showFront}
+      deleteSelected={deleteSelected}
+      deleteDisabled={
+        items.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0) === 0
+      }
       title="Items"
       front={<ItemsFront items={items} setItemChecked={setItemChecked} />}
       back={<ItemsBack createNewItem={createNewItem} locations={locations} />}

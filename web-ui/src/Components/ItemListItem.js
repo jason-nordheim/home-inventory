@@ -10,7 +10,7 @@ import {
 export const ItemListItem = ({
          id,
          item, 
-         handleChecked,
+         setItemChecked,
        }) => {
          return (
            <ListItem>
@@ -31,7 +31,7 @@ export const ItemListItem = ({
                  edge="end"
                  color="primary"
                  checked={item.checked}
-                 onChange={() => handleChecked(item.id)}
+                 onChange={() => setItemChecked(item.id)}
                />
              </ListItemSecondaryAction>
            </ListItem>
