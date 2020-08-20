@@ -311,7 +311,12 @@ table {
 .newLocationForm__textContainer, .addressForm__textContainer, .itemForm__fullWidthField {
   display: flex;
   padding: 0.5rem 0rem;
-  flex: 1
+  flex: 1;
+  justify-content: space-between;
+  align-content: center;
+}
+.itemForm__switch {
+  top: -0.5rem
 }
 .newLocationForm__stateZipContainer{
   display: flex;
