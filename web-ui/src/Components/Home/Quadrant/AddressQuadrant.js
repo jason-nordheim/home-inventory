@@ -2,13 +2,37 @@ import React, { useState, useContext, useEffect } from "react";
 import Quadrant from "./Quadrant";
 import AddressFront from "./AddressFront";
 import AddressBack from "./AddressBack";
+import UsStates from "../../../data/UsStates";
 import { AuthorizationContext } from "../../../App";
 
+function undefinedOrNull(str) {
+  if (str === null || str === undefined || str === "") {
+    return true;
+  } else return false;
+}
+/**
+ * Setup default values
+ *
+ * In the event that this for is being used to edit an address, the form
+ * will be prefilled with the existing information
+ */
+const default_address = {
+  id: null, 
+  name:  "",
+  street1: "",
+  street2: "",
+  city: "",
+  state: UsStates[0].abbreviation,
+  zip: "",
+};
+
 export const AddressQuadrant = () => {
-  const [showFront, setShowFront] = useState(true);
   const [_, AuthActions] = useContext(AuthorizationContext);
+  const [showFront, setShowFront] = useState(true);
   const [addresses, setAddresses] = useState([]);
-  const [edit, setEdit] = useState(null)
+  const [editAddress, setEditAddress] = useState(default_address);
+
+
 
   /**
    * Handles the action of "checking" the selected
@@ -73,8 +97,9 @@ export const AddressQuadrant = () => {
    * updates the list upon completion
    */
   const editSelected = () => {
-    const selected_address = addresses.find(addr => addr.checked)
-    setEdit(selected_address)
+    const selected_address = addresses.find((addr) => addr.checked);
+    setEditAddress(selected_address);
+    selected_address && setShowFront(!showFront);
   };
 
   /**
@@ -137,14 +162,14 @@ export const AddressQuadrant = () => {
   );
 
   /**
-   * function to be called upon the submission of the form 
+   * function to be called upon the submission of the form
    * child component
-   * 
-   * removes any address from the 'edit' state 
+   *
+   * removes any address from the 'edit' state
    */
   function onSubmit() {
-    setShowFront(!showFront)
-    setEdit(null)  
+    setShowFront(!showFront);
+    setEditAddress(null);
   }
 
   /*
@@ -156,7 +181,7 @@ export const AddressQuadrant = () => {
   const back = (
     <AddressBack
       onSubmit={onSubmit}
-      address={edit}
+      address={editAddress}
       createAddress={createAddress}
       updateAddress={updateAddress}
       submitText={"Submit"}
