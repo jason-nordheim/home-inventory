@@ -9,21 +9,15 @@ import { AuthorizationContext } from "../App";
  */
 const AccountPage = () => {
   const AuthState = useContext(AuthorizationContext)[0];
-  const [authenticated, setAuthenticated] = useState(false)
-  const [title, setTitle] = useState("Account")
-
-  useEffect(() => {
-    setAuthenticated(AuthState.token === undefined || AuthState.token === null)
-    setTitle(`${authenticated ? "My Account" : "Account"}`);
-  }, [AuthState.token])
-
+  const authenticated = AuthState.token ? true : false 
+  const title = `${authenticated ? "My Account" : "Account"}`; 
   /*
    * Component will display differently depending on if the user 
    * is authenticated 
    */
   return (
     <Layout title={title}>
-      { authenticated ? <UnAuthenticatedAccountPage /> : <AuthenticatedAccountPage /> }
+      { authenticated ? <AuthenticatedAccountPage /> : <UnAuthenticatedAccountPage />  }
     </Layout>
   );
 };
