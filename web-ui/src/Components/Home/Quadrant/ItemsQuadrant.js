@@ -42,13 +42,55 @@ const ItemsQuadrant = () => {
     return false 
   }
 
+  /**
+   * Function to create a new item 
+   * @param {string} name 
+   * @param {number} est_value 
+   * @param {number} acc_value 
+   * @param {string} category 
+   * @param {string} make 
+   * @param {string} model 
+   * @param {date} purchase_date 
+   * @param {boolean} selling 
+   * @param {number} location_id 
+   */
+  const createNewItem = (
+    name,
+    serial_number,
+    notes,
+    est_value,
+    acc_value,
+    category,
+    make,
+    model,
+    purchase_date,
+    selling,
+    location_id
+  ) => {
+    AuthActions.items
+      .create(
+        name,
+        serial_number,
+        notes,
+        est_value,
+        acc_value,
+        category,
+        make,
+        model,
+        purchase_date,
+        selling,
+        location_id
+      )
+      .then(console.log);
+  };
+
   return (
     <Quadrant
       setShowFront={setShowFront}
       showFront={showFront}
       title="Items"
-      front={<ItemsFront />}
-      back={<ItemsBack locations={locations} />}
+      front={<ItemsFront items={items} setItemChecked={setItemChecked} />}
+      back={<ItemsBack createNewItem={createNewItem} locations={locations} />}
     />
   );
 };
