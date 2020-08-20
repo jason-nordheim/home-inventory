@@ -6,13 +6,16 @@ import EmailTextField from '../Fields/EmailTextField'
 import MultilineTextField from "../Fields/MultilineTextField";
 
 
-const VendorFrom = ({title="New Vendor", createVendor, onSubmit, callFormClear}) => {
+const VendorFrom = ({title="New Vendor", createVendor, onSubmit}) => {
   const [vendorName, setVendorName] = useState('')
   const [vendorPhone, setVendorPhone] = useState('')
   const [vendorEmail, setVendorEmail] = useState('')
   const [vendorDescription, setVendorDescription] = useState('')
 
 
+  /**
+   * Helper function to clear the form fields 
+   */
   const clearForm = () => {
     setVendorName('')
     setVendorPhone('')
@@ -20,18 +23,23 @@ const VendorFrom = ({title="New Vendor", createVendor, onSubmit, callFormClear})
     setVendorDescription('')
   }
 
+  /**
+   * Handles the submit event of a the vendor form 
+   * @param {event} e 
+   */
   const handleSubmit = e => {
     e.preventDefault()
-    if(typeof(onSubmit) === "function"){
-      onSubmit(e) 
-    }
+
     createVendor(vendorName, vendorPhone, vendorEmail, vendorDescription)
-      .then(data => {
-        if (data.iid) return 
-        else {
-          clearForm() 
-        }
-      })
+      .then((data) => {
+              if (data.iid) return;
+              else clearForm(); // only clear if success
+            })
+
+    // let parent know that submit was executed 
+    if (typeof onSubmit === "function") {
+      onSubmit(e);
+    }
   }
 
 
