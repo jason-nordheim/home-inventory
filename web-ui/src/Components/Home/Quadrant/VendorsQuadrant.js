@@ -91,7 +91,11 @@ const VendorsQuadrant = () => {
   };
 
   /**
-   * deletes any vendors that are current checked 
+   * Collects the objects which have been checked and 
+   * the sends delete requests for any/all vendors that are 
+   * current checked. 
+   * 
+   * calls a refresh of the list when complete 
    */
   const deleteSelected = () => {
     const selected_ids = vendors.reduce((acc, val) => (val.checked ? [...acc, val.id] : acc), [])
@@ -112,7 +116,7 @@ const VendorsQuadrant = () => {
   const front = <VendorsFront vendors={vendors} setChecked={setChecked} />;
   const back = <VendorsBack createVendor={createVendor} />;
 
-  
+
   return (
     <Quadrant
       title="Vendors"
