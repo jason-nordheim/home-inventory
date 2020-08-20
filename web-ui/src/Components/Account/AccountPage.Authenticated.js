@@ -8,6 +8,9 @@ import AccountDetailsAccordian from './AccountDetailsAccordian'
 import { AuthorizationContext } from "../../App";
 
 
+/**
+ * Component Definition 
+ */
 const AuthenticatedAccountPage = () => {
   const [AuthState, AuthActions] = useContext(AuthorizationContext)
   const [user, setUser] = useState({})
