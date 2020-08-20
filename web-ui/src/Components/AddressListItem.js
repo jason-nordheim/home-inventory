@@ -23,6 +23,7 @@ export const AddressListItem = ({id, name, street1, street2, city, state, zip, c
       <ListItemSecondaryAction>
         <Checkbox 
           edge="end"
+          color="primary"
           checked={checked}
           onChange={() => handleChecked(id)}
         /> 

@@ -24,6 +24,7 @@ export const VendorListItem = ({
       <ListItemSecondaryAction>
         <Checkbox
           edge="end"
+          color="primary"
           checked={vendor.checked}
           onChange={() => handleChecked(vendor.id)}
         />

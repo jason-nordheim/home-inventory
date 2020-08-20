@@ -27,6 +27,7 @@ export const LocationListItem = ({
       <ListItemSecondaryAction>
         <Checkbox
           edge="end"
+          color="primary"
           checked={location.checked}
           onChange={() => handleChecked(location.id)}
         />
