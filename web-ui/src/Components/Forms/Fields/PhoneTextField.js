@@ -1,7 +1,17 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 
-const PhoneTextField = ({ id=null, label="Phone", phone, onChange, phoneError, required=true, disabled=false, size="medium", variant="outlined"}) => {
+const PhoneTextField = ({
+  id = null,
+  label = "Phone",
+  phone,
+  onChange,
+  phoneError,
+  required = true,
+  disabled = false,
+  size = "medium",
+  variant = "outlined",
+}) => {
   return (
     <TextField
       size={size}
