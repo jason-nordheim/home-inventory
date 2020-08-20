@@ -168,6 +168,25 @@ app.post('/address', authenticate, (req, res) => {
 })
 
 /**
+ * Handles the 'PATCH' request to the '/address' endpoint 
+ */
+app.patch("/address", authenticate, (req, res) => {
+  const { id, name, street1, street2, city, state, zip } = req.body;
+  database("address")
+    .where({ id, created_by: req.user_id, })
+    .update({name, street1, street2, city, state, zip})
+    .returning("*")
+    .then((addresses) => {
+      res.status(202).json(addresses);
+    })
+    .catch((err) => {
+      console.error("POST => /address", err);
+      res.status(500).json({ iid: 64, error: err });
+    });
+});
+
+
+/**
  * Handles deleting of an address 
  */
 app.delete('/address', authenticate, (req, res) => {
@@ -279,6 +298,7 @@ app.post('/items', authenticate, (req, res) => {
       res.status(500).json({iid: 31, error: err})
     })
 })
+
 
 app.delete('/items', authenticate, (req, res) => {
   database('item')
