@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import NameTextField from "../Fields/NameTextField";
 import DollarAmountInput from "../Fields/DollarAmountInput";
 import DatePicker from "../Fields/DatePicker";
-import { Switch, FormControl, FormHelperText } from '@material-ui/core'
+import SelectLocation from "../Fields/SelectLocation";
+import { Switch, FormControl, FormHelperText } from "@material-ui/core";
 
-export const ItemForm = () => {
+export const ItemForm = ({ locations }) => {
   const [itemName, setItemName] = useState("");
   const [estimatedValue, setEstimatedValue] = useState(0.0);
   const [actualValue, setActualValue] = useState(0.0);
@@ -14,7 +15,7 @@ export const ItemForm = () => {
   const [serialNumber, setSerialNumber] = useState("");
   const [purchaseDate, setPurchaseDate] = useState(new Date());
   const [selling, setSelling] = useState(false);
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState(locations[0]);
 
   return (
     <div className="itemForm__container">
@@ -97,7 +98,15 @@ export const ItemForm = () => {
             onChange={(date) => setPurchaseDate(date)}
           />
         </div>
-        <div className="itemForm__fullWidthField"></div>
+        <div className="itemForm__fullWidthField">
+          <SelectLocation
+            menuItems={locations}
+            value={location}
+            onChange={(e) =>
+              setLocation(locations.find((loc) => loc.id === e.target.value))
+            }
+          />
+        </div>
       </form>
     </div>
   );
