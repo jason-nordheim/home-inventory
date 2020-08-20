@@ -14,7 +14,6 @@ const SelectLocation = ({
   id = null,
 }) => {
 
-  console.log('menu', menuItems)
   return (
     <FormControl required={required} size="small" fullWidth>
       <InputLabel className="selectAddress__inputLabel" size="small">
