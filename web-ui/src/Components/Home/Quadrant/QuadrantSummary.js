@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import Quadrant from "./Quadrant";
+import { AuthorizationContext } from '../../../App'
 
 const SummaryQuadrant = () => {
+  const [AuthState, AuthActions] = useContext(AuthorizationContext)
+
+
   return (
     <Quadrant
       title="Summary"
+      showFront={true}
       front={<SummaryFront /> }
       back={null}
       hasNew={false}
@@ -16,7 +21,6 @@ const SummaryQuadrant = () => {
 const SummaryFront = () => {
   return (
     <div>
-   
       <List>
         <div>
           <ListItem>
