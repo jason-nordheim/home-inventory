@@ -20,12 +20,12 @@ export const AddressForm = ({
   /*
    * State Variables
    */
-  const [name, setName] = useState(address.name);
-  const [street1, setStreet1] = useState(address.street1);
-  const [street2, setStreet2] = useState(address.street2);
-  const [city, setCity] = useState(address.city);
-  const [state, setState] = useState(address.state);
-  const [zip, setZip] = useState(address.zip);
+  const [name, setName] = useState(address ? address['name']: '');
+  const [street1, setStreet1] = useState(address ? address['street1'] : '');
+  const [street2, setStreet2] = useState(address ? address['street2'] : '');
+  const [city, setCity] = useState(address ? address['city'] : '');
+  const [state, setState] = useState(address ? address['state'] : '');
+  const [zip, setZip] = useState(address ? address['zip'] : '');
 
   console.log({address, name, street1, street2, city, state, zip, })
 
@@ -42,9 +42,9 @@ export const AddressForm = ({
   function handleSubmit(e) {
     e.preventDefault();
     if (address.id) {
-      createAddress(name, street1, street2, city, state, zip);
-    } else {
       updateAddress(name, street1, street2, city, state, zip);
+    } else {
+      createAddress(name, street1, street2, city, state, zip);
     }
     if (typeof onSubmit === "function") onSubmit();
   }
