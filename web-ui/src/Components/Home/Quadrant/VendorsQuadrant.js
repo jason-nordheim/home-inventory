@@ -106,6 +106,15 @@ const VendorsQuadrant = () => {
   }
 
   /**
+   * Function called by child form component 
+   * that grabs the selected vendor and flips 
+   * to the form with that data 
+   */
+  function editSelected(){
+    // todo 
+  }
+
+  /**
    * frequently need to reference 
    */
   const num_checked = vendors.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0)
@@ -120,6 +129,8 @@ const VendorsQuadrant = () => {
   return (
     <Quadrant
       title="Vendors"
+      editDisabled={num_checked !== 1}
+      editSelected={editSelected}
       deleteSelected={deleteSelected}
       deleteDisabled={num_checked == 0}
       front={front}
