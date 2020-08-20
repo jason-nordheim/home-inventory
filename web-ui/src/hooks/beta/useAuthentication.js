@@ -232,7 +232,7 @@ export const useAuthentication = () => {
   function deleteAddress(id) {
     if (!state.token) throw new Error("No token available");
     else {
-      return fetcher(state.token, `${baseUrl}/addresses`, "DELETE", {
+      return fetcher(state.token, `${baseUrl}/address`, "DELETE", {
         id,
       }).then((res) => res.json);
     }
