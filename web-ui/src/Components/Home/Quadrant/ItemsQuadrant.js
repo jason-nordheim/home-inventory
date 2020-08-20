@@ -140,7 +140,7 @@ const ItemsQuadrant = () => {
    * list item 
    */
   function editSelected(){
-
+    // todo 
   }
 
   /**
@@ -149,6 +149,7 @@ const ItemsQuadrant = () => {
   function onSubmit(){
     console.log('submit')
     setShowFront(!showFront)
+    updateItems()
   }
 
   /**
