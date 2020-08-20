@@ -18,23 +18,42 @@ export const AddressQuadrant = () => {
   };
 
   /**
-    * Setup all the address objects to be mapped onto
-    * AddressListItem components
-    */
+   * Setup all the address objects to be mapped onto
+   * AddressListItem components
+   */
   useEffect(() => {
+    updateAddresses() 
+  }, [showFront]);
+
+  const updateAddresses = () => {
     AuthActions.addresses.getAll().then((data) => {
       setAddresses(
         data.addresses.map((a) => {
-          return { ...a, checked: false };
+          return { ...a, checked: shouldBeCheced(a) };
         })
       );
     });
-  }, [AuthActions.addresses]);
+  }
+
+  const shouldBeCheced = (address) => {
+     if (addresses !== null && addresses !== []) {
+       addresses.forEach((addr) => {
+         if (addr.id === addr.id && addr.checked) {
+           return true;
+         }
+       });
+     }
+     return false; 
+  }
 
 
   const deleteSelected = () => {
-
-  }
+    const selected_addresses = addresses.reduce((acc, val) => (val.checked ? [...acc, val]: acc), [])
+    selected_addresses.forEach(addr => {
+      AuthActions.addresses.delete(addr.id)
+    })
+    updateAddresses()
+  };
 
   return (
     <Quadrant
