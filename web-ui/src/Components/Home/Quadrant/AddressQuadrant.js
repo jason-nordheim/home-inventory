@@ -8,6 +8,7 @@ export const AddressQuadrant = () => {
   const [showFront, setShowFront] = useState(true);
   const [_, AuthActions] = useContext(AuthorizationContext);
   const [addresses, setAddresses] = useState([]);
+  const [edit, setEdit] = useState(null)
 
   /**
    * Handles the action of "checking" the selected
@@ -39,7 +40,10 @@ export const AddressQuadrant = () => {
     AuthActions.addresses.getAll().then((data) => {
       setAddresses(
         data.addresses.map((a) => {
-          return { ...a, checked: shouldBeCheced(a) };
+          return {
+            ...a,
+            checked: shouldBeCheced(a),
+          };
         })
       );
     });
@@ -63,13 +67,14 @@ export const AddressQuadrant = () => {
   }
 
   /**
-   * Function to handle the request to edit
+   * Function to handle the user-request to edit
    * the selected address display in the list
    *
    * updates the list upon completion
    */
   const editSelected = () => {
-    // TODO
+    const selected_address = addresses.find(addr => addr.checked)
+    setEdit(selected_address)
   };
 
   /**
@@ -108,20 +113,19 @@ export const AddressQuadrant = () => {
 
   /**
    * Makes update/patch request to API to update the values of the
-   * edited addresss 
-   * 
-   * requests updated address list when complete 
-   * @param {string} name 
-   * @param {string} street1 
-   * @param {string} street2 
-   * @param {string} city 
-   * @param {string} state 
-   * @param {string} zip 
+   * edited addresss
+   *
+   * requests updated address list when complete
+   * @param {string} name
+   * @param {string} street1
+   * @param {string} street2
+   * @param {string} city
+   * @param {string} state
+   * @param {string} zip
    */
-  function updateAddress(name, street1, street2, city, state, zip){
-    // todo 
+  function updateAddress(name, street1, street2, city, state, zip) {
+    // todo
   }
-
 
   /*
    * Need to frequently reference the number checked to determine
@@ -132,6 +136,17 @@ export const AddressQuadrant = () => {
     0
   );
 
+  /**
+   * function to be called upon the submission of the form 
+   * child component
+   * 
+   * removes any address from the 'edit' state 
+   */
+  function onSubmit() {
+    setShowFront(!showFront)
+    setEdit(null)  
+  }
+
   /*
    * Child Components with props
    */
@@ -140,8 +155,8 @@ export const AddressQuadrant = () => {
   );
   const back = (
     <AddressBack
-      onSubmit={() => setShowFront(!showFront)}
-      address={null}
+      onSubmit={onSubmit}
+      address={edit}
       createAddress={createAddress}
       updateAddress={updateAddress}
       submitText={"Submit"}
