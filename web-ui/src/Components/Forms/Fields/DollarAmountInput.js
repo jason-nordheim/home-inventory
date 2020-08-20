@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl, InputLabel, OutlinedInput, InputAdornment } from "@material-ui/core";
 
 const DollarAmountInput = ({
-  value,
+  value=0,
   setValue,
   error,
   onChange,
