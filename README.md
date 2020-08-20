@@ -119,11 +119,11 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
                         "type": "text", 
                         "required": false, 
                         "description": "user-defined biographical information"
-                    },
+                    }
 
-                ], 
+                ]
                 
-        }
+            }
     },
     {
         "endpoint": "/address", 
@@ -359,7 +359,7 @@ For full details of the API endpoints, see the API `README`. For sake of simplic
                         "type": "integer", 
                         "required": true,
                         "description": "the current location of the item" 
-                    }}
+                    }
                 ] 
             }
         }
