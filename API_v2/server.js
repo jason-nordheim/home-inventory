@@ -12,8 +12,6 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const database = require('./database')
-const { json } = require( 'express' )
-
 
 const authenticate = (req, res, next) => {
   console.log(req.headers)
@@ -169,6 +167,20 @@ app.post('/address', authenticate, (req, res) => {
   })
 })
 
+/**
+ * Handles deleting of an address 
+ */
+app.delete('/address', authenticate, (req, res) => {
+  database("address")
+    .where({ created_by: req.user_id, id: req.body.id })
+    .delete()
+    .then(() => res.status(204).send())
+    .catch((err) => {
+      console.error("DELETE => /address", err);
+      res.status(500).json({ iid: 32, error: err });
+    });
+})
+
 
 app.get('/locations', authenticate, (req, res) => {
   database('location').select('*').where({ user_id: req.user_id})
@@ -197,6 +209,17 @@ app.post("/locations", authenticate, (req, res) => {
     })
 });
 
+app.delete('/locations', authenticate, (req, res) => {
+  database("location")
+    .where({ user_id: req.user_id, id: req.body.id })
+    .delete()
+    .then(() => res.status(204).send())
+    .catch((err) => {
+      console.error("DELETE => /locations", err);
+      res.status(500).json({ iid: 32, error: err });
+    });
+})
+
 app.get('/vendors', authenticate, (req, res) => {
   database('vendor')
     .select('*').where({ user_id: req.user_id})
@@ -221,6 +244,17 @@ app.post('/vendors', authenticate, (req, res) => {
       console.error('POST => /vendors', err)
       res.status(500).json({ iid: 25, error: err})
     })
+})
+
+app.delete('/vendors', authenticate, (req, res) => {
+  database("vendor")
+    .where({ user_id: req.user_id, id: req.body.id })
+    .delete()
+    .then(() => res.status(204).send())
+    .catch((err) => {
+      console.error("DELETE => /vendors", err);
+      res.status(500).json({ iid: 32, error: err });
+    });
 })
 
 
