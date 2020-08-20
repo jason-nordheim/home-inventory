@@ -51,6 +51,12 @@ const LocationsQuadrant = () => {
     setLocations(updatedLocations)
   }
 
+  const deleteSelected = () => {
+    console.log(
+      locations.reduce((acc, val) => (val.checked ? acc + 1 : acc), 0)
+    );
+  }
+
   return (
     <Quadrant
       showFront={showFront}
@@ -58,6 +64,8 @@ const LocationsQuadrant = () => {
       title="Locations"
       front={<LocationsFront locations={locations} setChecked={onChecked} />}
       back={<LocationsBack createNew={createNewLocation}/> }
+      deleteSelected={deleteSelected}
+      deleteDisabled={ (locations.reduce((acc, val) => val.checked ? acc + 1 : acc , 0) == 0) }
     />
   );
 };
