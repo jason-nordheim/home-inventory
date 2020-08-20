@@ -229,6 +229,15 @@ export const useAuthentication = () => {
     }
   }
 
+  function deleteAddress(id) {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/addresses`, "DELETE", {
+        id,
+      }).then((res) => res.json);
+    }
+  }
+
   /**
    * Function to retrieve all the addresses pertaining to the current user
    */
@@ -275,6 +284,15 @@ export const useAuthentication = () => {
     }
   }
 
+  function deleteLocation(id) {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/locations`, "DELETE", {
+        id,
+      }).then((res) => res.json);
+    }
+  }
+
   /**
    * Function to get all the vendors created by the
    * current user
@@ -292,10 +310,10 @@ export const useAuthentication = () => {
 
   /**
    * Function to create a new vendor (for currently authenticated user)
-   * @param {string} name 
-   * @param {string} phone 
-   * @param {string} email 
-   * @param {string} notes 
+   * @param {string} name
+   * @param {string} phone
+   * @param {string} email
+   * @param {string} notes
    */
   function createVendor(name, phone, email, notes) {
     if (!state.token) throw new Error("No token available");
@@ -305,26 +323,46 @@ export const useAuthentication = () => {
         phone,
         email,
         notes,
-      })
-        .then((res) => res.json())
+      }).then((res) => res.json());
+    }
+  }
+
+  function deleteVendor(id) {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/vendors`, "DELETE", { id }).then(
+        (res) => res.json
+      );
     }
   }
 
   /**
-   * Creates a new item for the currently logged in user 
-   * @param {string} name 
-   * @param {number} est_value 
-   * @param {number} acc_value 
-   * @param {string} category 
-   * @param {string} make 
-   * @param {string} model 
-   * @param {date} purchase_date 
-   * @param {boolean} selling 
-   * @param {number} location_id 
-   * @param {string} notes 
-   * @param {string} serial_number 
+   * Creates a new item for the currently logged in user
+   * @param {string} name
+   * @param {number} est_value
+   * @param {number} acc_value
+   * @param {string} category
+   * @param {string} make
+   * @param {string} model
+   * @param {date} purchase_date
+   * @param {boolean} selling
+   * @param {number} location_id
+   * @param {string} notes
+   * @param {string} serial_number
    */
-  function createItem(name, serial_number, notes,  est_value, acc_value, category, make, model, purchase_date, selling, location_id ){
+  function createItem(
+    name,
+    serial_number,
+    notes,
+    est_value,
+    acc_value,
+    category,
+    make,
+    model,
+    purchase_date,
+    selling,
+    location_id
+  ) {
     if (!state.token) throw new Error("No token available");
     else {
       return fetcher(state.token, `${baseUrl}/items`, "POST", {
@@ -346,12 +384,20 @@ export const useAuthentication = () => {
   function getItems() {
     if (!state.token) throw new Error("No token available");
     else {
-      return fetcher(state.token, `${baseUrl}/items`,'GET')
-        .then(res => res.json())
+      return fetcher(state.token, `${baseUrl}/items`, "GET").then((res) =>
+        res.json()
+      );
     }
   }
 
-
+  function deleteItem(id) {
+    if (!state.token) throw new Error("No token available");
+    else {
+      return fetcher(state.token, `${baseUrl}/items`, "DELETE", { id }).then(
+        (res) => res.json
+      );
+    }
+  }
 
   const actions = {
     users: {
@@ -366,19 +412,23 @@ export const useAuthentication = () => {
     addresses: {
       create: createAddress,
       getAll: getAddresses,
+      delete: deleteAddress,
     },
     locations: {
       create: createLocation,
       getAll: getLocations,
+      delete: deleteLocation,
     },
     vendors: {
       create: createVendor,
       getAll: getVendors,
+      delete: deleteVendor,
     },
     items: {
       create: createItem,
-      getAll: getItems
-    }
+      getAll: getItems,
+      delete: deleteItem,
+    },
   };
 
   return [state, actions];
