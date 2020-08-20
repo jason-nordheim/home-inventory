@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { List } from "@material-ui/core";
 import Quadrant from "./Quadrant";
 import VendorsFront from "./VendorsFront";
 import { AuthorizationContext } from "../../../App";
