@@ -87,17 +87,23 @@ const LocationsQuadrant = () => {
     setLocations(updatedLocations)
   }
 
+  const num_checked = locations.reduce((acc, val) => val.checked ? acc + 1 : acc , 0)
+
   /**
    * Handles the request to delete the selected location(s)
    * 
    * calls the list to update when complete 
    */
-  const deleteSelected = () => {
+  function deleteSelected(){
     const selected_locations = locations.reduce((acc, val) => (val.checked ? [...acc, val]: acc),[])
     selected_locations.forEach(loc => {
       AuthActions.locations.delete(loc.id)
     })
     updateLocationList() 
+  }
+
+  function editSelected() {
+    //todo 
   }
 
   return (
@@ -108,7 +114,9 @@ const LocationsQuadrant = () => {
       front={<LocationsFront locations={locations} setChecked={onChecked} />}
       back={<LocationsBack createNew={createNewLocation}/> }
       deleteSelected={deleteSelected}
-      deleteDisabled={ (locations.reduce((acc, val) => val.checked ? acc + 1 : acc , 0) == 0) }
+      deleteDisabled={ num_checked === 0}
+      editDisabled={num_checked !== 1}
+      editSelected={editSelected}
     />
   );
 };
