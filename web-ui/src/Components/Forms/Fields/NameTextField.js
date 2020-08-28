@@ -9,13 +9,14 @@ const NameTextField = ({
   required = true,
   disabled = false,
   variant = "outlined",
+  size="small",
   label="Name", 
   id=null
 }) => {
   return (
     <TextField
       variant={variant}
-      size="small"
+      size={size}
       fullWidth
       error={error !== null}
       id={id}
