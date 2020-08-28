@@ -22,7 +22,7 @@ const default_address = {
 };
 
 export const AddressQuadrant = () => {
-  const [_, AuthActions] = useContext(AuthorizationContext);
+  const AuthActions = useContext(AuthorizationContext)[1];
   const [showFront, setShowFront] = useState(true);
   const [addresses, setAddresses] = useState([]);
   const [editAddress, setEditAddress] = useState(default_address);
@@ -94,8 +94,8 @@ export const AddressQuadrant = () => {
   const editSelected = () => {
     const selected_address = addresses.find((addr) => addr.checked);
     console.log(selected_address)
-    // setEditAddress(selected_address);
-    // selected_address && setShowFront(!showFront);
+    setEditAddress(selected_address);
+    selected_address && setShowFront(!showFront);
   };
 
   /**
