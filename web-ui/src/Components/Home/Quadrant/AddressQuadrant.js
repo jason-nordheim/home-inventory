@@ -5,11 +5,6 @@ import AddressBack from "./AddressBack";
 import UsStates from "../../../data/UsStates";
 import { AuthorizationContext } from "../../../App";
 
-function undefinedOrNull(str) {
-  if (str === null || str === undefined || str === "") {
-    return true;
-  } else return false;
-}
 /**
  * Setup default values
  *
@@ -98,8 +93,9 @@ export const AddressQuadrant = () => {
    */
   const editSelected = () => {
     const selected_address = addresses.find((addr) => addr.checked);
-    setEditAddress(selected_address);
-    selected_address && setShowFront(!showFront);
+    console.log(selected_address)
+    // setEditAddress(selected_address);
+    // selected_address && setShowFront(!showFront);
   };
 
   /**
@@ -168,8 +164,8 @@ export const AddressQuadrant = () => {
    * removes any address from the 'edit' state
    */
   function onSubmit() {
-    setShowFront(!showFront);
-    setEditAddress(null);
+    setShowFront(!showFront); // flip the quardrant card 
+    setEditAddress(null); // clear out any address that's there (if any)
   }
 
   /*
