@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext } from "react";
 import Layout from "../Components/Layout";
 import AuthenticatedAccountPage from "../Components/Account/AccountPage.Authenticated";
 import UnAuthenticatedAccountPage from "../Components/Account/AccountPage.UnAuthenticated";
