@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
-import { AuthorizationContext } from '../../../App'
 
 const SelectLocation = ({
   value="",
