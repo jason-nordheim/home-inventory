@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React from "react";
 import { List } from "@material-ui/core";
 import LocationListItem from "../../../Components/LocationListItem";
 /**
