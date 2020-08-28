@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { AuthorizationContext } from "../../../App";
+import React, { useState } from "react";
 import NameTextField from "../Fields/NameTextField";
 import StreetTextField from "../Fields/StreetTextField";
 import CityTextField from "../Fields/CityTextField";
