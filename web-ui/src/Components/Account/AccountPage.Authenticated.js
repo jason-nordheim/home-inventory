@@ -19,20 +19,18 @@ const AuthenticatedAccountPage = () => {
    * Should retrieve the current user at render 
    */
   useEffect(() => {
-    getLoggedInUser()
-  }, [])
-
-  /**
-   * Retrieves the currently displayed user to 
-   * render a welcome message 
-   */
-  function getLoggedInUser() {
+    /**
+     * Retrieves the currently displayed user to
+     * render a welcome message
+     */
     if (AuthState.token) {
       AuthActions.users.MyInfo().then((data) => {
-        setUser(data)
+        setUser(data);
       });
     }
-  }
+  }, [AuthState.token, AuthActions.users])
+
+  
 
   return (
     <div className="authenticatedAccountPage_container">
