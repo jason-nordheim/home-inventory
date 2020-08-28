@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useCallback } from "react";
 import { fetcher, baseUrl } from "./apiHelpers";
 import { useState } from "react";
 
@@ -113,8 +113,6 @@ export const useAuthentication = () => {
       else dispatch({ type: "RESET", initialState });
     } else localStorage.setItem("sorted", JSON.stringify(state));
 
-    // anytime state changes, update any observers
-    notifyObservers();
   }, [state]);
 
   /**
@@ -196,12 +194,17 @@ export const useAuthentication = () => {
 
   /**
    * function to notify any observers
+   * should update all observers when state changes 
+   * or an observer is added or removed 
    */
-  function notifyObservers() {
-    observers.forEach((obj) => {
-      obj.update(state);
-    });
-  }
+  useCallback(() => {
+    function notifyObservers() {
+      observers.forEach((obj) => {
+        obj.update(state);
+      });
+    }
+    notifyObservers()
+  }, [state, observers]);
 
   /**
    * Creates an address for the current user
