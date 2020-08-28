@@ -13,8 +13,14 @@ app.use(bodyParser.json())
 
 const database = require('./database')
 
+/**
+ * Function to handle user authentication requests 
+ * @param {HttpRequest} req requet 
+ * @param {HttpResponse} res response 
+ * @param {any} next functiont to execute next
+ */
 const authenticate = (req, res, next) => {
-  console.log(req.headers)
+  // console.log(req.headers)
   if (!req.headers.authorization) {
     res.status(400).send();
   } else {
