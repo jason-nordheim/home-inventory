@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Paper } from "@material-ui/core";
 import QuadrantFooter from "./QuadrantFooter";
 import QuadrantHeader from "./QuadrantHeader";
 import QuadrantBody from "./QuadrantBody";
 
 export const Quadrant = ({
-  title,
-  front,
-  back,
-  hasNew = true,
-  onNewClick,
-  showFront,
-  setShowFront,
-  deleteSelected, 
+  title, 
+  front, 
+  back, 
+  showFront, 
+  onNewClick, 
   deleteDisabled, 
-  editSelected,
+  deleteSelected, 
   editDisabled, 
+  editSelected,
+  hasNew=true, 
 }) => {
 
 
